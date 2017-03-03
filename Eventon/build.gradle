@@ -1,0 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+
+def srcJava = new File("src/main/java")
+def srcWebapp = new File("src/main/webapp")
+def srcResource = new File("src/main/resources")
+def testJava = new File("src/test/java")
+def testResources = new File("src/test/resources")
+
+eclipse {
+    wtp {
+        facet {
+            facet name: "java", version: "1.8"          
+            facet name: "jst.web", version: "3.0"       
+            facet name: "jst.jsf", version: "2.2"       
+        }
+    }
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	providedCompile 'com.sun.faces:jsf-api:2.2.10'
+	compile 'org.hibernate:hibernate-core:3.6.7.Final'
+	//TODO: copy bootstrap-folder to resources?
+	//compile 'org.webjars:jquery:2.1.1'
+	compile 'org.webjars:bootstrap:3.2.0'
+}

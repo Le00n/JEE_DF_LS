@@ -2,17 +2,18 @@ package de.eventon.core;
 
 public class User {
 
-	private String firstname;
-	private String lastname;
 	private String email;
 	private String hashedPassword;
-	private String plz;
-	private String city;
-	private String street;
-	private int streetnumber;
+	private String firstname;
+	private String lastname;
+	private Address address;
 	
-	public User() {
-		// TODO Auto-generated constructor stub
+	public User(String email, String hashedPassword, String firstname, String lastname, Address address) {
+		this.email = email;
+		this.hashedPassword = hashedPassword;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.address = address;
 	}
 
 	public String getFirstname() {
@@ -47,35 +48,11 @@ public class User {
 		this.hashedPassword = hashedPassword;
 	}
 
-	public String getPlz() {
-		return plz;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setPlz(String plz) {
-		this.plz = plz;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getStreet() {
-		return street;
-	}
-
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	public int getStreetnumber() {
-		return streetnumber;
-	}
-
-	public void setStreetnumber(int streetnumber) {
-		this.streetnumber = streetnumber;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 }

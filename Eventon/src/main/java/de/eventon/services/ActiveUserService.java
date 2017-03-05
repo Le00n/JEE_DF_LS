@@ -26,6 +26,10 @@ public class ActiveUserService {
 		}
 		return false;
 	}
+	
+	public void logout(){
+		activeUser = null;
+	}
 
 	public User getActiveUser() {
 		return activeUser;

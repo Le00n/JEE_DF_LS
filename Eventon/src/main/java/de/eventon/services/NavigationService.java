@@ -19,6 +19,18 @@ public class NavigationService {
 		return Pages.LOGIN.toString();
 	}
 	
+	public String loginSuccessful() {
+		return Pages.HOME.toString();
+	}
+	
+	public String loginFailed() {
+		return Pages.LOGIN.toString();
+	}
+	
+	public String cancelLogin() {
+		return Pages.HOME.toString();
+	}
+	
 	public String register(){
 		return Pages.REGISTER.toString();
 	}

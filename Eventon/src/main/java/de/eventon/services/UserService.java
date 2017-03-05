@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
+import de.eventon.core.Address;
 import de.eventon.core.User;
 
 @ApplicationScoped
@@ -17,6 +18,7 @@ public class UserService {
 
 	public UserService() {
 		users = new ArrayList<User>();
+		addUser(new User("leonstapper@gmx.de", "1234", "Leon", "Stapper", new Address("48429", "Rheine", "Buchdahlstraﬂe", 6)));
 	}
 
 	public Optional<User> getUserByEmail(String email) {

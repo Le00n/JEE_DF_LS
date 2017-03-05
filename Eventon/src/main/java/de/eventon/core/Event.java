@@ -9,10 +9,7 @@ public class Event {
 	private String description;
 	private int amountTicketsPremium;
 	private int amountTicketsNormal;
-	private String city;
-	private String plz;
-	private String street;
-	private int streetnumber;
+	private Address address;
 	
 	//TODO Gegebenenfalls EventFactory einrichten?
 	public Event() {
@@ -59,35 +56,11 @@ public class Event {
 		this.amountTicketsNormal = amountTicketsNormal;
 	}
 
-	public String getCity() {
-		return city;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getPlz() {
-		return plz;
-	}
-
-	public void setPlz(String plz) {
-		this.plz = plz;
-	}
-
-	public String getStreet() {
-		return street;
-	}
-
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	public int getStreetnumber() {
-		return streetnumber;
-	}
-
-	public void setStreetnumber(int streetnumber) {
-		this.streetnumber = streetnumber;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 }

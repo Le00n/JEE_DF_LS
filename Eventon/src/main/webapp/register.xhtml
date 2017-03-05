@@ -5,16 +5,15 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css"></h:outputStylesheet>
-<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<h:outputScript name="bootstrap/3.2.0/js/bootstrap.js"></h:outputScript>
 </h:head>
 
 <body>
-	<div id="header">
-		<ui:insert name="header">
-			<ui:include src="/header.xhtml" />
-		</ui:insert>
-	</div>
+	<ui:insert name="header">
+		<ui:include src="/header.xhtml" />
+	</ui:insert>
 	<h1>Registrieren</h1>
 </body>
 </html>

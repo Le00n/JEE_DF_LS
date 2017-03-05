@@ -5,16 +5,31 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css"></h:outputStylesheet>
-<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<h:outputScript name="bootstrap/3.2.0/js/bootstrap.js"></h:outputScript>
 </h:head>
 
 <body>
-	<div id="header">
-		<ui:insert name="header">
-			<ui:include src="/header.xhtml" />
-		</ui:insert>
+	<ui:insert name="header">
+		<ui:include src="/header.xhtml" />
+	</ui:insert>
+
+	<div id="login" class="panel panel-default col-md-4 col-md-offset-4">
+		<h1>Login</h1>
+		<h:form>
+			<div>
+				<h:inputText id="email" class="form-control" value="#{loginForm.email}" placeholder="E-Mail-Adresse"></h:inputText>
+			</div>
+			<div>
+				<h:inputSecret id="password" class="form-control" value="#{loginForm.password}" placeholder="Passwort"></h:inputSecret>
+			</div>
+			<div class="btn-toolbar pull-right">
+				<h:commandButton class="btn btn-danger" action="#{loginForm.cancel}" value="Abbrechen"></h:commandButton>
+				<h:commandButton class="btn btn-success" action="#{loginForm.login}" value="Login"></h:commandButton>
+			</div>
+		</h:form>
 	</div>
-	<h1>Login</h1>
+
 </body>
 </html>

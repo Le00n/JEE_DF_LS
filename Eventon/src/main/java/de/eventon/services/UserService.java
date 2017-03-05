@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+
 import de.eventon.core.User;
 
+@ApplicationScoped
+@ManagedBean
 public class UserService {
 
 	private List<User> users;

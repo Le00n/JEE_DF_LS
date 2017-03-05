@@ -26,6 +26,6 @@ dependencies {
 	providedCompile 'com.sun.faces:jsf-api:2.2.10'
 	compile 'org.hibernate:hibernate-core:3.6.7.Final'
 	//TODO: copy bootstrap-folder to resources?
-	//compile 'org.webjars:jquery:2.1.1'
+	compile 'org.webjars:jquery:2.1.1'
 	compile 'org.webjars:bootstrap:3.2.0'
 }

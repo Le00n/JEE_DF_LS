@@ -5,9 +5,14 @@
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="src/test/resources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry sourcepath="C:/Users/anwender/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-core/3.6.7.Final/5effa941e2581669e52249e87cc3fedc043779b6/hibernate-core-3.6.7.Final-sources.jar" kind="lib" path="C:/Users/anwender/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-core/3.6.7.Final/152a97fc12d8d288763e19ae5b672c0b4943ba26/hibernate-core-3.6.7.Final.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/anwender/.gradle/caches/modules-2/files-2.1/org.webjars/jquery/2.1.1/cdc90d9e03982a07dcf608e61bf04cb48bcb7e4/jquery-2.1.1-sources.jar" kind="lib" path="C:/Users/anwender/.gradle/caches/modules-2/files-2.1/org.webjars/jquery/2.1.1/dd89e356066869550b5509c4370f995ad6698d9a/jquery-2.1.1.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
@@ -53,11 +58,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="C:/Users/anwender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.6.1/46a386136c901748e6a3af67ebde6c22bc6b4524/slf4j-api-1.6.1-sources.jar" kind="lib" path="C:/Users/anwender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.6.1/6f3b8a24bf970f17289b234284c94f43eb42f0e4/slf4j-api-1.6.1.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="C:/Users/anwender/.gradle/caches/modules-2/files-2.1/org.webjars/jquery/1.11.1/7ec1bd12b61dc58ee599ff925ac4141f19b94cbc/jquery-1.11.1-sources.jar" kind="lib" path="C:/Users/anwender/.gradle/caches/modules-2/files-2.1/org.webjars/jquery/1.11.1/195eda53ac8beba7bff08f9919b48c954c858590/jquery-1.11.1.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>

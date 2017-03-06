@@ -19,14 +19,16 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<h1>Login</h1>
 		<h:form>
 			<div>
-				<h:inputText id="email" class="form-control" value="#{loginForm.email}" placeholder="E-Mail-Adresse"></h:inputText>
+				<h:inputText id="email" class="form-control"
+					value="#{loginForm.email}" placeholder="E-Mail-Adresse"></h:inputText>
 			</div>
 			<div>
-				<h:inputSecret id="password" class="form-control" value="#{loginForm.password}" placeholder="Passwort"></h:inputSecret>
+				<h:inputSecret id="password" class="form-control"
+					value="#{loginForm.password}" placeholder="Passwort"></h:inputSecret>
 			</div>
 			<div class="btn-toolbar pull-right">
-				<h:commandButton class="btn btn-danger" action="#{loginForm.cancel}" value="Abbrechen"></h:commandButton>
 				<h:commandButton class="btn btn-success" action="#{loginForm.login}" value="Login"></h:commandButton>
+				<h:commandButton class="btn btn-danger" action="#{loginForm.cancel}" value="Abbrechen"></h:commandButton>
 			</div>
 		</h:form>
 	</div>

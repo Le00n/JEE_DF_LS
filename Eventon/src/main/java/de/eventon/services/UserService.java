@@ -18,6 +18,10 @@ public class UserService {
 
 	public UserService() {
 		users = new ArrayList<User>();
+		init();
+	}
+
+	private void init() {
 		addUser(new User("leonstapper@gmx.de", "1234", "Leon", "Stapper", new Address("48429", "Rheine", "Buchdahlstraﬂe", 6)));
 	}
 

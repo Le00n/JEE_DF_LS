@@ -2,10 +2,13 @@
 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:f = "http://java.sun.com/jsf/core"
+	xmlns:ldc="localdateconverter">
 <h:head>
-	<h:outputStylesheet name="css/index.css"/>
-	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css"/>
+	<h:outputStylesheet name="css/index.css" />
+	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css" />
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<h:outputScript name="bootstrap/3.2.0/js/bootstrap.js"></h:outputScript>
@@ -15,10 +18,59 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	<ui:insert name="header">
 		<ui:include src="/header.xhtml" />
 	</ui:insert>
-	
-	<div class="jumbotron">
-		<h1>eventon</h1>
-		<h3>Events. Einfach. Schnell. Eskalativ.</h3>
-	</div>
+
+	<section class="jumbotron jumbotron-board">
+		<div class="img"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1>eventon</h1>
+					<p>Events. Einfach. Schnell. Eskalativ.</p>
+				</div>
+				<div class="col-lg-6">
+					<h:form>
+						<div class="input-group">
+							<h:inputText value="#{eventSearchService.searchTerm}" id="searchTerm" class="form-control" placeholder="Suchen Sie Ihre Wunschveranstaltung..." /> 
+							<span class="input-group-btn">
+								<h:commandButton value="Suche" action="#{eventSearchService.searchEvents}" class="btn btn-default"/>
+							</span>
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<h:dataTable value = "#{eventSearchService.searchedEvents}" var = "event" class="table">
+			<h:column>
+				<c:facet name="header">Veranstaltung</c:facet>
+				#{event.name}
+			</h:column>
+			<h:column>
+				<c:facet name="header">Datum/Uhrzeit</c:facet>
+				<h:outputText pattern="dd.MM.YY hh:mm:ss" value="#{event.datetime}">
+					<ldc:convertLocalDate pattern="dd.MM.YY hh:mm:ss" />
+                </h:outputText>
+			</h:column>
+			<h:column>
+				<c:facet name="header">Freie Plätze: Parkett</c:facet>
+				#{event.amountTicketsNormal}
+			</h:column>
+			<h:column>
+				<c:facet name="header">Freie Plätze: Loge</c:facet>
+				#{event.amountTicketsPremium}
+			</h:column>
+			<h:column>
+				<c:facet name="header">Location</c:facet>
+				#{event.address.locationName}
+			</h:column>
+			<h:column>
+				<c:facet name="header">Ort</c:facet>
+				#{event.address.city}
+			</h:column>
+		</h:dataTable>
+		<div></div>
+	</section>
 </body>
 </html>

@@ -15,6 +15,10 @@ public class NavigationService {
 		return Pages.HOME.toString();
 	}
 	
+	public String searchEvents() {
+		return Pages.STAY.toString();
+	}
+	
 	public String login(){
 		return Pages.LOGIN.toString();
 	}
@@ -40,7 +44,7 @@ public class NavigationService {
 	}
 	
 	public enum Pages {
-		LOGIN("login.jsp"), REGISTER("register.jsp"), HOME("index.jsp"), USERPROFILE("user.jsp");
+		STAY("#"), LOGIN("login.jsp"), REGISTER("register.jsp"), HOME("index.jsp"), USERPROFILE("user.jsp");
 
 		private String value;
 

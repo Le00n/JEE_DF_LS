@@ -1,11 +1,11 @@
 package de.eventon.core;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Event {
 
 	private String name;
-	private Date datetime;
+	private LocalDateTime datetime;
 	private String description;
 	private int amountTicketsPremium;
 	private int amountTicketsNormal;
@@ -24,11 +24,11 @@ public class Event {
 		this.name = name;
 	}
 
-	public Date getDatetime() {
+	public LocalDateTime getDatetime() {
 		return datetime;
 	}
 
-	public void setDatetime(Date datetime) {
+	public void setDatetime(LocalDateTime datetime) {
 		this.datetime = datetime;
 	}
 

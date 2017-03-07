@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 
+Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css" />
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<h:outputScript name="bootstrap/3.2.0/js/bootstrap.js"></h:outputScript>
+</h:head>
+
+<body>
+	<ui:insert name="header">
+		<ui:include src="/header.xhtml" />
+	</ui:insert>
+
+	<section class="jumbotron jumbotron-board">
+		<h:form>
+			<h1>Seite nicht gefunden 
+				<small><font color="red">Error 404</font></small>
+			</h1>
+			<h4>Die angefragte Seite konnte leider nicht gefunden werden.
+				Klicke auf den "Zurück-Button" des Browsers, um zur vorherigen Seite zu
+				gelangen.
+			</h4>
+			<h4>
+				<b>Oder klicke auf diesen Button:</b>
+			</h4>
+			<h:commandButton action="#{navigationService.home}" value="Startseite von eventon" class="btn btn-large btn-info"/> 
+		</h:form>
+	</section>
+</body>
+</html>

@@ -8,4 +8,19 @@
 		<param-value>/META-INF/LocalDateConverter-taglib.xml</param-value>
 	</context-param>
 
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.xhtml</location>
+	</error-page>
+	<error-page>
+		<!-- Uncaught exception -->
+		<error-code>500</error-code>
+		<location>/error.xhtml</location>
+	</error-page>
+	<error-page>
+		<!-- Unsupported servlet method -->
+		<error-code>503</error-code>
+		<location>/error.xhtml</location>
+	</error-page>
+
 </web-app>

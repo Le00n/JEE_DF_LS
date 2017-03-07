@@ -45,32 +45,36 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<h:dataTable value = "#{eventSearchService.searchedEvents}" var = "event" class="table">
 			<h:column>
 				<c:facet name="header">Veranstaltung</c:facet>
-				#{event.name}
+				<h:link outcome="event" value="#{event.name}" >
+     				<f:param name="id" value="#{event.id}" />
+   				</h:link>
 			</h:column>
 			<h:column>
 				<c:facet name="header">Datum/Uhrzeit</c:facet>
-				<h:outputText pattern="dd.MM.YY hh:mm:ss" value="#{event.datetime}">
-					<ldc:convertLocalDate pattern="dd.MM.YY hh:mm:ss" />
+				<h:outputText pattern="dd.MM.YYYY hh:mm" value="#{event.datetime}">
+					<ldc:convertLocalDate/>
                 </h:outputText>
 			</h:column>
 			<h:column>
 				<c:facet name="header">Freie Plätze: Parkett</c:facet>
-				#{event.amountTicketsNormal}
+				<h:outputText value="#{event.amountTicketsNormal}"/> 
 			</h:column>
 			<h:column>
 				<c:facet name="header">Freie Plätze: Loge</c:facet>
-				#{event.amountTicketsPremium}
+				<h:outputText value="#{event.amountTicketsPremium}"/>
 			</h:column>
 			<h:column>
 				<c:facet name="header">Location</c:facet>
-				#{event.address.locationName}
+				<h:outputText value="#{event.address.locationName}"/>
 			</h:column>
 			<h:column>
 				<c:facet name="header">Ort</c:facet>
-				#{event.address.city}
+				<h:outputText value="#{event.address.city}"/>
 			</h:column>
 		</h:dataTable>
-		<div></div>
+		<h:panelGroup class="event-result alert alert-danger" rendered="#{empty eventSearchService.searchedEvents}">
+			<h:outputText value="Keine Events gefunden"></h:outputText>
+		</h:panelGroup>
 	</section>
 </body>
 </html>

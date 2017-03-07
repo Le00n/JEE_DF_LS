@@ -1,14 +1,18 @@
 package de.eventon.services;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import java.util.Stack;
 
-@ApplicationScoped
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+@SessionScoped
 @ManagedBean
 public class NavigationService {
 	
+	private Stack<Pages> pageStack;
+	
 	public NavigationService() {
-		// TODO Auto-generated constructor stub
+		pageStack = new Stack<Pages>();
 	}
 	
 	public String home(){
@@ -35,6 +39,10 @@ public class NavigationService {
 		return Pages.HOME.toString();
 	}
 	
+	public String logout() {
+		return Pages.STAY.toString();
+	}
+	
 	public String register(){
 		return Pages.REGISTER.toString();
 	}
@@ -43,6 +51,14 @@ public class NavigationService {
 		return Pages.USERPROFILE.toString();
 	}
 	
+	public Stack<Pages> getPageStack() {
+		return pageStack;
+	}
+
+	public void setPageStack(Stack<Pages> pageStack) {
+		this.pageStack = pageStack;
+	}
+
 	public enum Pages {
 		STAY("#"), LOGIN("login.jsp"), REGISTER("register.jsp"), HOME("index.jsp"), USERPROFILE("user.jsp");
 

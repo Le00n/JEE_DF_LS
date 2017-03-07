@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class Event {
 
+	private int id;
 	private String name;
 	private LocalDateTime datetime;
 	private String description;
@@ -62,5 +63,13 @@ public class Event {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

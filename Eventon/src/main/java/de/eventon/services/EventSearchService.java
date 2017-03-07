@@ -6,12 +6,19 @@ import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import de.eventon.core.Event;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped //damit die Suche nicht nach Seitenwechsel verfällt
+/**
+ * Die Klasse EventSearchService ist verantwortlich für die Suche eines Events.
+ * Sie nimmt die Suchbegriffe entgegen, verwertet sie und stellt eine Liste der
+ * zutreffenenden Events bereit.
+ * 
+ * @author Leon Stapper
+ */
 public class EventSearchService {
 
 	private String searchTerm;
@@ -23,13 +30,13 @@ public class EventSearchService {
 	private NavigationService navigationService;
 
 	public EventSearchService() {
-
+		searchedEvents = new ArrayList<Event>();
 	}
 
 	public String searchEvents() {
-		if (searchTerm != null) {
+		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
 			searchedEvents = eventService.getEvents().stream()
-					.filter(event -> event.getName().toLowerCase().contains(searchTerm.toLowerCase()))
+					.filter(event -> event.getName().toLowerCase().contains(searchTerm.trim().toLowerCase()))
 					.collect(Collectors.toList());
 		} else {
 			searchedEvents = new ArrayList<Event>();

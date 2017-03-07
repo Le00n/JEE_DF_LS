@@ -22,3 +22,8 @@
 	z-index:2;
  	position:relative;
 }
+
+.event-result{
+	text-align: center;
+	display: block;
+}

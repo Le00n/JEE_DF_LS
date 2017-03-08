@@ -4,8 +4,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsf/core"
-	xmlns:f = "http://java.sun.com/jsf/core"
-	xmlns:ldc="localdateconverter">
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<h:outputStylesheet name="css/index.css" />
 	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css" />
@@ -19,7 +18,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<ui:include src="/header.xhtml" />
 	</ui:insert>
 
-	<section class="jumbotron jumbotron-board">
+	<div class="jumbotron jumbotron-board">
 		<div class="img"></div>
 		<div class="container">
 			<div class="row">
@@ -30,51 +29,80 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				<div class="col-lg-6">
 					<h:form>
 						<div class="input-group">
-							<h:inputText value="#{eventSearchService.searchTerm}" id="searchTerm" class="form-control" placeholder="Suchen Sie Ihre Wunschveranstaltung..." /> 
-							<span class="input-group-btn">
-								<h:commandButton value="Suche" action="#{eventSearchService.searchEvents}" class="btn btn-default"/>
+							<h:inputText value="#{eventSearchForm.searchTerm}"
+								id="searchTerm" class="form-control"
+								placeholder="Suchen Sie Ihre Wunschveranstaltung..." />
+							<span class="input-group-btn"> <h:commandButton
+									value="Suche" action="#{eventSearchForm.searchEvents}"
+									class="btn btn-default" />
 							</span>
 						</div>
 					</h:form>
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
 
-	<section>
-		<h:dataTable value = "#{eventSearchService.searchedEvents}" var = "event" class="table">
-			<h:column>
-				<c:facet name="header">Veranstaltung</c:facet>
-				<h:link outcome="event" value="#{event.name}" >
-     				<f:param name="id" value="#{event.id}" />
-   				</h:link>
-			</h:column>
-			<h:column>
-				<c:facet name="header">Datum/Uhrzeit</c:facet>
-				<h:outputText pattern="dd.MM.YYYY hh:mm" value="#{event.datetime}">
-					<ldc:convertLocalDate/>
-                </h:outputText>
-			</h:column>
-			<h:column>
-				<c:facet name="header">Freie Plätze: Parkett</c:facet>
-				<h:outputText value="#{event.amountTicketsNormal}"/> 
-			</h:column>
-			<h:column>
-				<c:facet name="header">Freie Plätze: Loge</c:facet>
-				<h:outputText value="#{event.amountTicketsPremium}"/>
-			</h:column>
-			<h:column>
-				<c:facet name="header">Location</c:facet>
-				<h:outputText value="#{event.address.locationName}"/>
-			</h:column>
-			<h:column>
-				<c:facet name="header">Ort</c:facet>
-				<h:outputText value="#{event.address.city}"/>
-			</h:column>
-		</h:dataTable>
-		<h:panelGroup class="event-result alert alert-danger" rendered="#{empty eventSearchService.searchedEvents}">
-			<h:outputText value="Keine Events gefunden"></h:outputText>
-		</h:panelGroup>
-	</section>
+	<div class="container-fluid searchresult">
+		<div class="row">
+			<div class="col-md-12">
+				<h:panelGroup class="panel panel-danger"
+					rendered="#{empty eventSearchForm.searchedEvents}"
+					layout="block">
+					<div class="panel-heading">
+						<h3 class="panel-title">Keine Suchergebnisse</h3>
+					</div>
+					<div class="panel-body"></div>
+				</h:panelGroup>
+				<!-- Suchergebnisse gefunden -->
+				<h:panelGroup class="panel panel-primary"
+					rendered="#{not empty eventSearchForm.searchedEvents}"
+					layout="block">
+					<div class="panel-heading">
+						<h3 class="panel-title">Suchergebnis</h3>
+					</div>
+					<div class="panel-body">
+						<h:dataTable value="#{eventSearchForm.searchedEvents}"
+							var="event" class="table table-hover table-bordered">
+							<h:column>
+								<c:facet name="header">Veranstaltung</c:facet>
+								<h:link outcome="event" value="#{event.name}">
+									<f:param name="id" value="#{event.id}" />
+								</h:link>
+							</h:column>
+							<h:column>
+								<c:facet name="header">Datum</c:facet>
+								<h:outputText pattern="dd.MM.YYYY" value="#{event.datetime}">
+									<f:converter converterId="LocalDateConverterID" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<c:facet name="header">Uhrzeit</c:facet>
+								<h:outputText pattern="HH:mm" value="#{event.datetime}">
+									<f:converter converterId="LocalDateConverterID" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<c:facet name="header">Location</c:facet>
+								<h:outputText value="#{event.address.locationName}" />
+							</h:column>
+							<h:column>
+								<c:facet name="header">Ort</c:facet>
+								<h:outputText value="#{event.address.city}" />
+							</h:column>
+							<h:column>
+								<c:facet name="header">Freie Plätze: Parkett</c:facet>
+								<h:outputText value="#{event.amountTicketsNormal}" />
+							</h:column>
+							<h:column>
+								<c:facet name="header">Freie Plätze: Loge</c:facet>
+								<h:outputText value="#{event.amountTicketsPremium}" />
+							</h:column>
+						</h:dataTable>
+					</div>
+				</h:panelGroup>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

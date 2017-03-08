@@ -8,6 +8,8 @@ public class Event {
 	private String name;
 	private LocalDateTime datetime;
 	private String description;
+	private double priceTicketsPremium;
+	private double priceTicketsNormal;
 	private int amountTicketsPremium;
 	private int amountTicketsNormal;
 	private Address address;
@@ -71,5 +73,21 @@ public class Event {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public double getPriceTicketsPremium() {
+		return priceTicketsPremium;
+	}
+
+	public void setPriceTicketsPremium(double priceTicketsPremium) {
+		this.priceTicketsPremium = priceTicketsPremium;
+	}
+
+	public double getPriceTicketsNormal() {
+		return priceTicketsNormal;
+	}
+
+	public void setPriceTicketsNormal(double priceTicketsNormal) {
+		this.priceTicketsNormal = priceTicketsNormal;
 	}
 }

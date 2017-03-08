@@ -27,3 +27,11 @@
 	text-align: center;
 	display: block;
 }
+
+.searchresult .table{
+	margin-bottom: 0px;
+}
+
+.searchresult .panel-body{
+	padding: 0px;
+}

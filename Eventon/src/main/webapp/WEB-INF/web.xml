@@ -3,11 +3,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
-	<context-param>
-		<param-name>facelets.LIBRARIES</param-name>
-		<param-value>/META-INF/LocalDateConverter-taglib.xml</param-value>
-	</context-param>
-
 	<error-page>
 		<error-code>404</error-code>
 		<location>/404.xhtml</location>

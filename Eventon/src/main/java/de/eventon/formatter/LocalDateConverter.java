@@ -16,7 +16,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-@FacesConverter(value = LocalDateConverter.ID, forClass=LocalDateTime.class)
+@FacesConverter(value = "LocalDateConverterID", forClass=LocalDateTime.class)
 public class LocalDateConverter implements Converter {
 	public static final String ID = "de.eventon.formatter.LocalDateConverter";
 	

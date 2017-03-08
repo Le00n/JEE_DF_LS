@@ -1,6 +1,5 @@
-package de.eventon.services;
+package de.eventon.ui;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 
@@ -8,22 +7,21 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import de.eventon.core.Event;
+import de.eventon.services.ActiveUserService;
+import de.eventon.services.EventService;
 
 @ManagedBean
 @RequestScoped
-public class EventViewService {
+public class EventViewForm {
 
-	private int id;
 	private Event event;
 	@ManagedProperty("#{eventService}")
 	private EventService eventService;
-
-	public EventViewService() {
+	
+	public EventViewForm() {
 		
 	}
 
@@ -31,7 +29,7 @@ public class EventViewService {
 	private void init(){
 		Map<String, String> rqParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String id = rqParameter.get("id");
-		
+
 		if (id != null) {
 			try {
 				int idAsInteger = Integer.parseInt(id);
@@ -62,13 +60,5 @@ public class EventViewService {
 
 	public void setEvent(Event event) {
 		this.event = event;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 }

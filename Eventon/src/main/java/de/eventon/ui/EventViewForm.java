@@ -7,19 +7,27 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import de.eventon.core.Event;
-import de.eventon.services.ActiveUserService;
+import de.eventon.services.BookingEventService;
 import de.eventon.services.EventService;
+import de.eventon.services.NavigationService;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class EventViewForm {
 
+	private int bookNormalTickets;
+	private int bookPremiumTickets;
 	private Event event;
 	@ManagedProperty("#{eventService}")
 	private EventService eventService;
+	@ManagedProperty("#{bookingEventService}")
+	private BookingEventService bookingEventService;
+	@ManagedProperty("#{navigationService}")
+	private NavigationService navigationService;
 	
 	public EventViewForm() {
 		
@@ -46,6 +54,15 @@ public class EventViewForm {
 		}
 	}
 	
+	public String book(){
+		System.out.println("booooook");
+		return navigationService.book();
+	}
+	
+	public String cancel(){
+		return navigationService.cancelBooking();
+	}
+	
 	public EventService getEventService() {
 		return eventService;
 	}
@@ -60,5 +77,38 @@ public class EventViewForm {
 
 	public void setEvent(Event event) {
 		this.event = event;
+	}
+	
+
+	public NavigationService getNavigationService() {
+		return navigationService;
+	}
+
+	public void setNavigationService(NavigationService navigationService) {
+		this.navigationService = navigationService;
+	}
+
+	public BookingEventService getBookingEventService() {
+		return bookingEventService;
+	}
+
+	public void setBookingEventService(BookingEventService bookingEventService) {
+		this.bookingEventService = bookingEventService;
+	}
+
+	public int getBookNormalTickets() {
+		return bookNormalTickets;
+	}
+
+	public void setBookNormalTickets(int bookNormalTickets) {
+		this.bookNormalTickets = bookNormalTickets;
+	}
+
+	public int getBookPremiumTickets() {
+		return bookPremiumTickets;
+	}
+
+	public void setBookPremiumTickets(int bookPremiumTickets) {
+		this.bookPremiumTickets = bookPremiumTickets;
 	}
 }

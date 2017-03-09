@@ -20,7 +20,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 									class="icon-bar"></span>
 							</button>
 							<h:commandLink class="navbar-brand"
-								action="#{navigationService.home}" value="eventon"></h:commandLink>
+								action="#{headerForm.home}" value="eventon"></h:commandLink>
 						</div>
 						
 						<!-- Elemente der Nav-Bar definieren -->
@@ -29,8 +29,8 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 								<!--Rendering, falls der Nutzer nicht eingelogged ist-->
 								<h:panelGroup rendered="#{activeUserService.activeUser == null}">
 									<li class="active"><h:commandLink
-											action="#{navigationService.login}" value="Anmelden"></h:commandLink></li>
-									<li><h:commandLink action="#{navigationService.register}"
+											action="#{headerForm.login}" value="Anmelden"></h:commandLink></li>
+									<li><h:commandLink action="#{headerForm.register}"
 											value="Registrieren"></h:commandLink></li>
 								</h:panelGroup>
 								<!-- Rendering, falls der Nutzer eingelogged ist -->
@@ -44,7 +44,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 							<ul class="nav navbar-nav navbar-right">
 								<!-- Rendering, falls der Nutzer eingelogged ist -->
 								<h:panelGroup rendered="#{activeUserService.activeUser != null}">
-									<li><h:commandLink action="#{activeUserService.logout}"
+									<li><h:commandLink action="#{activeUserForm.logout}"
 											value="Logout" /></li>
 								</h:panelGroup>
 							</ul>

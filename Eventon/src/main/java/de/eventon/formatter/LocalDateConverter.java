@@ -18,7 +18,6 @@ import javax.faces.convert.FacesConverter;
 
 @FacesConverter(value = "LocalDateConverterID", forClass=LocalDateTime.class)
 public class LocalDateConverter implements Converter {
-	public static final String ID = "de.eventon.formatter.LocalDateConverter";
 	
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object modelValue) {
@@ -54,8 +53,6 @@ public class LocalDateConverter implements Converter {
 
     private String getPattern(UIComponent component) {
         String pattern = (String) component.getAttributes().get("pattern");
-        System.out.println("SIZE: " + component.getAttributes().size());
-        component.getAttributes().keySet().forEach(System.out::println);
         if (pattern == null) {
             throw new IllegalArgumentException("pattern attribute is required");
         }

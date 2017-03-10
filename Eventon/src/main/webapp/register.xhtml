@@ -14,6 +14,73 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	<ui:insert name="header">
 		<ui:include src="/header.xhtml" />
 	</ui:insert>
-	<h1>Registrieren</h1>
+
+	<div id="register" class="panel panel-default col-md-4 col-md-offset-4">
+		<h1>Registrieren</h1>
+		<h:form class="form-horizontal">
+			<div class="form-group">
+	  			<h:outputLabel class="col-sm-2 control-label">Anrede</h:outputLabel>
+	    		<div class="col-sm-10">
+	    			<h:outputLabel class="col-sm-3 control-label">
+						<input type="radio" name="optionTitle" id="optionTitleMr" value="optionTitleMr" checked="true"></input>
+						Herr
+					</h:outputLabel>
+					<h:outputLabel class="col-sm-3 control-label">
+						<input type="radio" name="optionTitle" id="optionTitleMs" value="optionTitleMs"></input>
+						Frau
+					</h:outputLabel>
+	    		</div>
+	  		</div>
+	  		<div class="form-group">
+	  			<h:outputLabel for="inputEmail" class="col-sm-2 control-label">Email</h:outputLabel>
+	    		<div class="col-sm-10">
+	    			<h:inputText class="form-control" id="inputEmail" value="#{registerForm.email}"></h:inputText>
+	    		</div>
+	  		</div>
+	  		<div class="form-group">
+	  			<h:outputLabel for="inputFirstname" class="col-sm-2 control-label">Vorname</h:outputLabel>
+	    		<div class="col-sm-10">
+	    			<h:inputText class="form-control" id="inputFirstname" value="#{registerForm.firstname}"></h:inputText>
+	    		</div>
+	  		</div>
+	  		<div class="form-group">
+	  			<h:outputLabel for="inputLastname" class="col-sm-2 control-label">Nachname</h:outputLabel>
+	    		<div class="col-sm-10">
+	    			<h:inputText class="form-control" id="inputLastname" value="#{registerForm.lastname}"></h:inputText>
+	    		</div>
+	  		</div>
+	  		<div class="form-group">
+	  			<h:outputLabel for="inputStreet" class="col-sm-2 control-label">Straße</h:outputLabel>
+	    		<div class="col-sm-5">
+	    			<h:inputText class="form-control" id="inputStreet" value="#{registerForm.street}"></h:inputText>
+	    		</div>
+	    		<h:outputLabel for="inputStreetnumber" class="col-sm-2 control-label">Hausnummer</h:outputLabel>
+	    		<div class="col-sm-3">
+	    			<h:inputText class="form-control" id="inputStreetnumber" value="#{registerForm.streetnumber}"></h:inputText>
+	    		</div>
+	  		</div>
+	  		<div class="form-group">
+	  			<h:outputLabel for="inputZIP" class="col-sm-2 control-label">PLZ</h:outputLabel>
+	    		<div class="col-sm-3">
+	    			<h:inputText class="form-control" id="inputZIP" value="#{registerForm.zip}"></h:inputText>
+	    		</div>
+	    		<h:outputLabel for="inputCity" class="col-sm-1 control-label">Ort</h:outputLabel>
+	    		<div class="col-sm-6">
+	    			<h:inputText class="form-control" id="inputCity" value="#{registerForm.city}"></h:inputText>
+	    		</div>
+	  		</div>
+	  		<div class="form-group">
+	  			<h:outputLabel for="inputPassword3" class="col-sm-2 control-label">Passwort</h:outputLabel>
+	    		<div class="col-sm-10">
+	    			<h:inputSecret type="password" class="form-control" id="inputPassword3" placeholder="Password" value="#{registerForm.password}"></h:inputSecret>
+	    		</div>
+	  		</div>
+	  		<div class="form-group">
+	   			<div class="col-sm-offset-2 col-sm-10">
+	   				<h:commandButton class="btn btn-primary btn-lg" action="#{registerForm.register}" value="Registrieren"></h:commandButton>
+	    		</div>
+	  		</div>
+		</h:form>
+	</div>
 </body>
 </html>

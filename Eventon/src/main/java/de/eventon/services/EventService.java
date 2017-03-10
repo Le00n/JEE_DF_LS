@@ -103,7 +103,6 @@ public class EventService {
 	}
 	
 	public Optional<Event> getEventById(int id){
-		System.out.println("getEventById");
 		return events.stream().filter(event -> event.getId() == id).findFirst();
 	}
 	

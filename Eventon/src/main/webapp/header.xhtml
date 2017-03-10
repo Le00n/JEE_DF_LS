@@ -2,7 +2,8 @@
 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
 
 <body>
 	<ui:composition>
@@ -20,7 +21,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 									class="icon-bar"></span>
 							</button>
 							<h:commandLink class="navbar-brand"
-								action="#{navigationService.home}" value="eventon"></h:commandLink>
+								action="#{headerForm.home}" value="eventon"></h:commandLink>
 						</div>
 						
 						<!-- Elemente der Nav-Bar definieren -->
@@ -29,22 +30,24 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 								<!--Rendering, falls der Nutzer nicht eingelogged ist-->
 								<h:panelGroup rendered="#{activeUserService.activeUser == null}">
 									<li class="active"><h:commandLink
-											action="#{navigationService.login}" value="Anmelden"></h:commandLink></li>
-									<li><h:commandLink action="#{navigationService.register}"
+											action="#{headerForm.login}" value="Anmelden"></h:commandLink></li>
+									<li><h:commandLink action="#{headerForm.register}"
 											value="Registrieren"></h:commandLink></li>
 								</h:panelGroup>
 								<!-- Rendering, falls der Nutzer eingelogged ist -->
 								<h:panelGroup rendered="#{activeUserService.activeUser != null}">
-									<li class="active"><h:commandLink
-											action="#{navigationService.userProfile}"
-											value="#{activeUserService.activeUser.firstname} #{activeUserService.activeUser.lastname}" /></li>
+									<li class="active">
+										<h:link outcome="user" value="#{activeUserService.activeUser.firstname} #{activeUserService.activeUser.lastname}">
+											<f:param name="id" value="#{activeUserService.activeUser.id}" />
+										</h:link>
+									</li>
 								</h:panelGroup>
 							</ul>
 							
 							<ul class="nav navbar-nav navbar-right">
 								<!-- Rendering, falls der Nutzer eingelogged ist -->
 								<h:panelGroup rendered="#{activeUserService.activeUser != null}">
-									<li><h:commandLink action="#{activeUserService.logout}"
+									<li><h:commandLink action="#{headerForm.logout}"
 											value="Logout" /></li>
 								</h:panelGroup>
 							</ul>

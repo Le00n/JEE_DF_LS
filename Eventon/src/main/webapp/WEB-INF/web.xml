@@ -3,15 +3,19 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
+	<welcome-file-list>
+		<welcome-file>index.xhtml</welcome-file>
+	</welcome-file-list>
+
 	<error-page>
 		<error-code>404</error-code>
 		<location>/404.xhtml</location>
 	</error-page>
-	<!-- <error-page> -->
+	<error-page>
 		<!-- Uncaught exception -->
-		<!-- <error-code>500</error-code>
+		<error-code>500</error-code>
 		<location>/error.xhtml</location>
-	</error-page> -->
+	</error-page>
 	<error-page>
 		<!-- Unsupported servlet method -->
 		<error-code>503</error-code>

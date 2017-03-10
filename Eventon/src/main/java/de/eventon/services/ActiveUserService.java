@@ -15,8 +15,6 @@ public class ActiveUserService {
 	private User activeUser;
 	@ManagedProperty("#{userService}")
 	private UserService userService;
-	@ManagedProperty("#{navigationService}")
-	private NavigationService navigationService;
 
 	public boolean login(String email, String hashedPassword) {
 		Optional<User> userToLogin = userService.getUserByEmail(email);
@@ -29,9 +27,8 @@ public class ActiveUserService {
 		return false;
 	}
 	
-	public String logout(){
+	public void logout(){
 		activeUser = null;
-		return navigationService.logout();
 	}
 
 	public User getActiveUser() {
@@ -48,13 +45,5 @@ public class ActiveUserService {
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
-	}
-
-	public NavigationService getNavigationService() {
-		return navigationService;
-	}
-
-	public void setNavigationService(NavigationService navigationService) {
-		this.navigationService = navigationService;
 	}
 }

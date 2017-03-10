@@ -1,14 +1,20 @@
 package de.eventon.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
+	private int id;
 	private String email;
 	private String hashedPassword;
 	private String firstname;
 	private String lastname;
 	private Address address;
+	private List<Booking> bookings;
 	
 	public User(String email, String hashedPassword, String firstname, String lastname, Address address) {
+		bookings = new ArrayList<Booking>();
 		this.email = email;
 		this.hashedPassword = hashedPassword;
 		this.firstname = firstname;
@@ -16,6 +22,18 @@ public class User {
 		this.address = address;
 	}
 
+	public boolean addBooking(Booking booking){
+		return bookings.add(booking);
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getFirstname() {
 		return firstname;
 	}
@@ -54,5 +72,13 @@ public class User {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
 	}
 }

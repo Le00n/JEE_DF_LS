@@ -45,6 +45,10 @@ public class NavigationService {
 	public String register() {
 		return Pages.REGISTER.toString();
 	}
+	
+	public String registerSuccessful(){
+		return Pages.LOGIN.toString();
+	}
 
 	public String userProfile() {
 		return Pages.USERPROFILE.toString();

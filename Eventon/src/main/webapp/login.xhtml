@@ -2,7 +2,8 @@
 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css"></h:outputStylesheet>
 	<script
@@ -26,9 +27,12 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				<h:inputSecret id="password" class="form-control"
 					value="#{loginForm.password}" placeholder="Passwort"></h:inputSecret>
 			</div>
-			<div class="form-group btn-toolbar pull-right">
-				<h:commandButton class="btn btn-success" action="#{loginForm.login}" value="Login"></h:commandButton>
-				<h:commandButton class="btn btn-danger" action="#{loginForm.cancel}" value="Abbrechen"></h:commandButton>
+			<div class="form-group">
+				<h:link outcome="register" value="Jetzt registrieren"/>
+				<div class="btn-toolbar pull-right">
+					<h:commandButton class="btn btn-success" action="#{loginForm.login}" value="Login"></h:commandButton>
+					<h:commandButton class="btn btn-danger" action="#{loginForm.cancel}" value="Abbrechen"></h:commandButton>
+				</div>
 			</div>
 		</h:form>
 	</div>

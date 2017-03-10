@@ -54,7 +54,7 @@ public class NavigationService {
 		if (activeUserService.getActiveUser() == null) {
 			return login();
 		} else {
-			return Pages.BOOK.toString();
+			return Pages.STAY.toString();
 		}
 	}
 

@@ -2,34 +2,39 @@ package de.eventon.ui;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import de.eventon.core.Event;
-import de.eventon.services.BookingEventService;
+import de.eventon.services.EventBookingService;
 import de.eventon.services.EventService;
 import de.eventon.services.NavigationService;
 
 @ManagedBean
 @SessionScoped
-public class EventViewForm {
+public class EventBookingForm {
 
-	private int bookNormalTickets;
-	private int bookPremiumTickets;
+	private int amountTicketsNormal;
+	private int amountTicketsPremium;
 	private Event event;
+	private UUID bookingUUID;
+	private boolean bookingWanted;
+	
 	@ManagedProperty("#{eventService}")
 	private EventService eventService;
-	@ManagedProperty("#{bookingEventService}")
-	private BookingEventService bookingEventService;
+	
+	@ManagedProperty("#{eventBookingService}")
+	private EventBookingService eventBookingService;
+	
 	@ManagedProperty("#{navigationService}")
 	private NavigationService navigationService;
 	
-	public EventViewForm() {
+	public EventBookingForm() {
 		
 	}
 
@@ -55,7 +60,12 @@ public class EventViewForm {
 	}
 	
 	public String book(){
-		System.out.println("booooook");
+		setBookingWanted(true);
+		
+		Optional<UUID> optBookingUUID = eventBookingService.bookEvent(event, amountTicketsNormal, amountTicketsPremium);
+		if(optBookingUUID.isPresent()){
+			bookingUUID = optBookingUUID.get();
+		}
 		return navigationService.book();
 	}
 	
@@ -88,27 +98,43 @@ public class EventViewForm {
 		this.navigationService = navigationService;
 	}
 
-	public BookingEventService getBookingEventService() {
-		return bookingEventService;
+	public EventBookingService getEventBookingService() {
+		return eventBookingService;
 	}
 
-	public void setBookingEventService(BookingEventService bookingEventService) {
-		this.bookingEventService = bookingEventService;
+	public void setEventBookingService(EventBookingService eventBookingService) {
+		this.eventBookingService = eventBookingService;
 	}
 
-	public int getBookNormalTickets() {
-		return bookNormalTickets;
+	public UUID getBookingUUID() {
+		return bookingUUID;
 	}
 
-	public void setBookNormalTickets(int bookNormalTickets) {
-		this.bookNormalTickets = bookNormalTickets;
+	public void setBookingUUID(UUID bookingUUID) {
+		this.bookingUUID = bookingUUID;
 	}
 
-	public int getBookPremiumTickets() {
-		return bookPremiumTickets;
+	public int getAmountTicketsNormal() {
+		return amountTicketsNormal;
 	}
 
-	public void setBookPremiumTickets(int bookPremiumTickets) {
-		this.bookPremiumTickets = bookPremiumTickets;
+	public void setAmountTicketsNormal(int amountTicketsNormal) {
+		this.amountTicketsNormal = amountTicketsNormal;
+	}
+
+	public int getAmountTicketsPremium() {
+		return amountTicketsPremium;
+	}
+
+	public void setAmountTicketsPremium(int amountTicketsPremium) {
+		this.amountTicketsPremium = amountTicketsPremium;
+	}
+
+	public boolean isBookingWanted() {
+		return bookingWanted;
+	}
+
+	public void setBookingWanted(boolean bookingWanted) {
+		this.bookingWanted = bookingWanted;
 	}
 }

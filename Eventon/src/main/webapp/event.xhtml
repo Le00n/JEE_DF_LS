@@ -20,7 +20,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 	<!-- Event-Informationen -->
 	<h:panelGroup layout="block"
-		rendered="#{eventViewForm.event != null}">
+		rendered="#{eventBookingForm.event != null}">
 		<div class="container-fluid">
 			<div class="row">
 				<div id="event-picture" class="col-md-4">
@@ -31,21 +31,21 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				</div>
 				<div id="event-information" class="col-md-8">
 					<h1>
-						<h:outputText value="#{eventViewForm.event.name}" />
+						<h:outputText value="#{eventBookingForm.event.name}" />
 					</h1>
 					<div class="row">
 						<div id="event-datetime" class="col-md-6">
 							<div class="row">
 								<span class="col-md-6">Datum: </span>
 								<h:outputText class="col-md-6" pattern="dd.MM.YYYY"
-									value="#{eventViewForm.event.datetime}">
+									value="#{eventBookingForm.event.datetime}">
 									<f:converter converterId="LocalDateConverterID" />
 								</h:outputText>
 							</div>
 							<div class="row">
 								<span class="col-md-6">Uhrzeit: </span>
 								<h:outputText class="col-md-6" pattern="HH:mm"
-									value="#{eventViewForm.event.datetime}">
+									value="#{eventBookingForm.event.datetime}">
 									<f:converter converterId="LocalDateConverterID" />
 								</h:outputText>
 							</div>
@@ -54,27 +54,27 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 							<div class="row">
 								<span class="col-md-6">Ort: </span>
 								<h:outputText class="col-md-6"
-									value="#{eventViewForm.event.address.locationName}" />
+									value="#{eventBookingForm.event.address.locationName}" />
 							</div>
 							<div class="row">
 								<span class="col-md-6"></span>
 								<h:outputText class="col-md-6"
-									value="#{eventViewForm.event.address.street} #{eventViewForm.event.address.streetnumber}" />
+									value="#{eventBookingForm.event.address.street} #{eventBookingForm.event.address.streetnumber}" />
 							</div>
 							<div class="row">
 								<span class="col-md-6"></span>
 								<h:outputText class="col-md-6"
-									value="#{eventViewForm.event.address.plz} #{eventViewForm.event.address.city}" />
+									value="#{eventBookingForm.event.address.plz} #{eventBookingForm.event.address.city}" />
 							</div>
 						</div>
 					</div>
-					<p class="event-description text-justify">#{eventViewForm.event.description}</p>
+					<p class="event-description text-justify">#{eventBookingForm.event.description}</p>
 				</div>
 			</div>
 		</div>
 
-		<!-- Warenkorb -->
-		<div class="container-fluid">
+		<!-- Bestellung aufgeben (noch nicht getätigt) -->
+		<h:panelGroup layout="block" class="container-fluid" rendered="#{!eventBookingForm.bookingWanted}">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-primary">
@@ -87,26 +87,26 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 									<div class="form-group row">
 										<span class="col-md-4">Parkett:</span>
 										<h:outputText
-											value="#{eventViewForm.event.priceTicketsNormal}"
+											value="#{eventBookingForm.event.priceTicketsNormal}"
 											class="col-md-4">
 											<f:convertNumber pattern="á #,###,##0.00 €" />
 										</h:outputText>
-										<h:inputText class="col-md-4" value="#{eventViewForm.bookNormalTickets}"/>
+										<h:inputText class="col-md-4" value="#{eventBookingForm.amountTicketsNormal}"/>
 									</div>
 									<div class="form-group row">
 										<span class="col-md-4">Loge:</span>
 										<h:outputText
-											value="#{eventViewForm.event.priceTicketsPremium}"
+											value="#{eventBookingForm.event.priceTicketsPremium}"
 											class="col-md-4">
 											<f:convertNumber pattern="á #,###,##0.00 €" />
 										</h:outputText>
-										<h:inputText class="col-md-4" value="#{eventViewForm.bookPremiumTickets}"/>
+										<h:inputText class="col-md-4" value="#{eventBookingForm.amountTicketsPremium}"/>
 									</div>
 									<div class="form-group row">
 										<div class="btn-toolbar pull-right">
 											<h:commandButton class="btn btn-success"
-												value="Buchen" action="#{eventViewForm.book}"/>
-											<h:commandButton class="btn btn-danger" value="Abbrechen" action="#{eventViewForm.cancel}"/>
+												value="Buchen" action="#{eventBookingForm.book}"/>
+											<h:commandButton class="btn btn-danger" value="Abbrechen" action="#{eventBookingForm.cancel}"/>
 										</div>
 									</div>
 								</div>
@@ -115,7 +115,43 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 					</div>
 				</div>
 			</div>
-		</div>
+		</h:panelGroup>
+		
+		<!-- Bestellung erfolgreich -->
+		<h:panelGroup layout="block" class="container-fluid" rendered="#{eventBookingForm.bookingWanted and (eventBookingForm.bookingUUID != null)}">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h3 class="panel-title">Bestellung erfolgreich</h3>
+						</div>
+						<div class="panel-body">
+							<h:form>
+								<h:outputText value="Bestätigungscode: #{eventBookingForm.bookingUUID}"/>
+							</h:form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:panelGroup>
+		
+		<!-- Bestellung gescheitert -->
+		<h:panelGroup layout="block" class="container-fluid" rendered="#{eventBookingForm.bookingWanted and (eventBookingForm.bookingUUID == null)}">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-danger">
+						<div class="panel-heading">
+							<h3 class="panel-title">Bestellung nicht erfolgreich</h3>
+						</div>
+						<div class="panel-body">
+							<h:form>
+								<h:outputText value="Bestätigungscode konnte nicht erstellt werden"/>
+							</h:form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:panelGroup>
 	</h:panelGroup>
 </body>
 </html>

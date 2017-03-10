@@ -44,7 +44,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 							<ul class="nav navbar-nav navbar-right">
 								<!-- Rendering, falls der Nutzer eingelogged ist -->
 								<h:panelGroup rendered="#{activeUserService.activeUser != null}">
-									<li><h:commandLink action="#{activeUserForm.logout}"
+									<li><h:commandLink action="#{headerForm.logout}"
 											value="Logout" /></li>
 								</h:panelGroup>
 							</ul>

@@ -64,7 +64,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 							<div class="row">
 								<span class="col-md-6"></span>
 								<h:outputText class="col-md-6"
-									value="#{eventBookingForm.event.address.plz} #{eventBookingForm.event.address.city}" />
+									value="#{eventBookingForm.event.address.zip} #{eventBookingForm.event.address.city}" />
 							</div>
 						</div>
 					</div>
@@ -91,7 +91,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 											class="col-md-4">
 											<f:convertNumber pattern="á #,###,##0.00 €" />
 										</h:outputText>
-										<h:inputText class="col-md-4" value="#{eventBookingForm.amountTicketsNormal}"/>
+										<h:inputText id="normalInput" class="ticketInput col-md-4" value="#{eventBookingForm.amountTicketsNormal}"/>
 									</div>
 									<div class="form-group row">
 										<span class="col-md-4">Loge:</span>
@@ -100,7 +100,10 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 											class="col-md-4">
 											<f:convertNumber pattern="á #,###,##0.00 €" />
 										</h:outputText>
-										<h:inputText class="col-md-4" value="#{eventBookingForm.amountTicketsPremium}"/>
+										<h:inputText id="premiumInput" class="ticketInput col-md-4" value="#{eventBookingForm.amountTicketsPremium}"/>
+									</div>
+									<div class="form-group row">
+										<span id="sumPrice">0</span>
 									</div>
 									<div class="form-group row">
 										<div class="btn-toolbar pull-right">
@@ -153,5 +156,8 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 			</div>
 		</h:panelGroup>
 	</h:panelGroup>
+	
+	<!-- Einbindung von Script zur Live-Preisberechnung -->
+	<h:outputScript name="js/calculateTicketCosts.js"/>
 </body>
 </html>

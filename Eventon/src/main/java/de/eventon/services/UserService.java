@@ -22,7 +22,7 @@ public class UserService {
 	}
 
 	private void init() {
-		User user = new User("leonstapper@gmx.de", "1234", "Leon", "Stapper", new Address("48429", "Rheine", "Buchdahlstraße", 6));
+		User user = new User("leonstapper@gmx.de", "1234", "Leon", "Stapper", new Address("48429", "Rheine", "Buchdahlstraße", "6"));
 		user.setId(1);
 		addUser(user);
 	}
@@ -37,6 +37,13 @@ public class UserService {
 
 	public boolean addUser(User user) {
 		if (getUserByEmail(user.getEmail()).isPresent() == false) {
+			int neueUserId = 1;
+			if(users.size() != 0)
+				neueUserId = users.stream().max((User u1, User u2) -> Integer.compare(u1.getId(), u2.getId())).get().getId() +1;
+			 
+			
+			user.setId(neueUserId);
+			
 			return users.add(user);
 		}
 		return false;

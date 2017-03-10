@@ -21,7 +21,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	<!-- Event-Informationen -->
 	<h:panelGroup layout="block"
 		rendered="#{userProfileForm.user != null}">
-		<h:outputText value="#{userProfileForm.user.firstname} #{userProfileForm.user.lastname}"/>
+		<h1><h:outputText value="Angemeldet als #{userProfileForm.user.firstname} #{userProfileForm.user.lastname}"/></h1>
 	</h:panelGroup>
 </body>
 </html>

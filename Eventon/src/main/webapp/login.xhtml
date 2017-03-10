@@ -3,7 +3,8 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
 	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css"></h:outputStylesheet>
 	<script
@@ -21,11 +22,11 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<h:form>
 			<div class="form-group">
 				<h:inputText id="email" class="form-control"
-					value="#{loginForm.email}" placeholder="E-Mail-Adresse"></h:inputText>
+					value="#{loginForm.email}" a:placeholder="E-Mail-Adresse"></h:inputText>
 			</div>
 			<div class="form-group">
 				<h:inputSecret id="password" class="form-control"
-					value="#{loginForm.password}" placeholder="Passwort"></h:inputSecret>
+					value="#{loginForm.password}" a:placeholder="Passwort"></h:inputSecret>
 			</div>
 			<div class="form-group">
 				<h:link outcome="register" value="Jetzt registrieren"/>

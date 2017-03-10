@@ -1,6 +1,8 @@
 package de.eventon.core;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Event {
 
@@ -13,10 +15,11 @@ public class Event {
 	private int amountTicketsPremium;
 	private int amountTicketsNormal;
 	private Address address;
+	private List<Booking> bookings;
 	
 	//TODO Gegebenenfalls EventFactory einrichten?
 	public Event() {
-		
+		bookings = new ArrayList<Booking>();
 	}
 
 	public String getName() {
@@ -89,5 +92,35 @@ public class Event {
 
 	public void setPriceTicketsNormal(double priceTicketsNormal) {
 		this.priceTicketsNormal = priceTicketsNormal;
+	}
+
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
+	}
+	
+	public boolean addBooking(Booking booking) {
+		return this.bookings.add(booking);
+	}
+	
+	public int getAmountFreeNormalTickets(){
+		int amountFreeNormalTickets = amountTicketsNormal;
+		for(Booking b : bookings){
+			amountFreeNormalTickets -= b.getAmountNormalTickets();
+		}
+		
+		return amountFreeNormalTickets;
+	}
+	
+	public int getAmountFreePremiumTickets(){
+		int amountFreePremiumTickets = amountTicketsPremium;
+		for(Booking b : bookings){
+			amountFreePremiumTickets -= b.getAmountPremiumTickets();
+		}
+		
+		return amountFreePremiumTickets;	
 	}
 }

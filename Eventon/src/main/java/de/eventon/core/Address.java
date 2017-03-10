@@ -23,12 +23,12 @@ public class Address {
 		this.streetnumber = streetnumber;
 	}
 	
-	public String getZIP() {
+	public String getZip() {
 		return zip;
 	}
 
-	public void setZIP(String plz) {
-		this.zip = plz;
+	public void setZip(String zip) {
+		this.zip = zip;
 	}
 
 	public String getCity() {

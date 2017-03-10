@@ -23,9 +23,11 @@ public class EventBookingService {
 
 	/**
 	 * Diese Methode bucht ein Event und gibt die ID der Buchung zurück. Die
-	 * Voraussetzung hierfür ist, dass der Nutzer bereits eingeloggt ist. Ist
-	 * der Nutzer nicht eingeloggt, wird das Event nicht gebucht. In diesem Fall
-	 * wird demnach keine UUID zurückgegeben.
+	 * Voraussetzung hierfür ist, dass der Nutzer bereits eingeloggt ist und die
+	 * angegebenene Bestellmenge die Anzahl der freien Plätze nicht
+	 * überschreitet. Sind die angegebenen Voraussetzungen nicht erfüllt, wird
+	 * das Event nicht gebucht. In diesem Fall wird demnach keine UUID
+	 * zurückgegeben.
 	 * 
 	 * @param event
 	 *            Zu buchendes Event
@@ -37,9 +39,11 @@ public class EventBookingService {
 	 */
 	public Optional<UUID> bookEvent(Event event, int amountTicketsNormal, int amountTicketsPremium) {
 		User user = activeUserService.getActiveUser();
-		if (user != null) {
+		if (user != null && amountTicketsNormal <= event.getAmountFreeNormalTickets()
+				&& amountTicketsPremium <= event.getAmountFreePremiumTickets()) {
 			Booking booking = new Booking(event, amountTicketsNormal, amountTicketsPremium);
 			user.addBooking(booking);
+			event.addBooking(booking);
 			return Optional.of(booking.getBookingUUID());
 		}
 		return Optional.empty();

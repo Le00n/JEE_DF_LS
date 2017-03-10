@@ -22,11 +22,17 @@ public class UserService {
 	}
 
 	private void init() {
-		addUser(new User("leonstapper@gmx.de", "1234", "Leon", "Stapper", new Address("48429", "Rheine", "Buchdahlstraﬂe", 6)));
+		User user = new User("leonstapper@gmx.de", "1234", "Leon", "Stapper", new Address("48429", "Rheine", "Buchdahlstraﬂe", 6));
+		user.setId(1);
+		addUser(user);
 	}
 
 	public Optional<User> getUserByEmail(String email) {
 		return users.stream().filter(user -> user.getEmail().equals(email)).findFirst();
+	}
+	
+	public Optional<User> getUserById(int id) {
+		return users.stream().filter(user -> user.getId() == id).findFirst();
 	}
 
 	public boolean addUser(User user) {

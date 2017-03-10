@@ -54,6 +54,10 @@ public class NavigationService {
 		return Pages.USERPROFILE.toString();
 	}
 
+	public String userDoesNotExist() {
+		return Pages.ERROR_404.toString();
+	}
+	
 	public String eventDoesNotExist() {
 		return Pages.ERROR_404.toString();
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class User {
 
+	private int id;
 	private String email;
 	private String hashedPassword;
 	private String firstname;
@@ -23,6 +24,14 @@ public class User {
 
 	public boolean addBooking(Booking booking){
 		return bookings.add(booking);
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public String getFirstname() {

@@ -50,6 +50,10 @@ public class NavigationService {
 		return Pages.USERPROFILE.toString();
 	}
 
+	public String eventDoesNotExist() {
+		return Pages.ERROR_404.toString();
+	}
+	
 	public String book() {
 		if (activeUserService.getActiveUser() == null) {
 			return login();
@@ -72,7 +76,7 @@ public class NavigationService {
 
 	public enum Pages {
 		STAY("#"), LOGIN("login.jsp"), REGISTER("register.jsp"), HOME("index.jsp"), USERPROFILE("user.jsp"), BOOK(
-				"book.jsp");
+				"book.jsp"), ERROR_404("404.jsp");
 
 		private String value;
 

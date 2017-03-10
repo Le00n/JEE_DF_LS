@@ -1,5 +1,6 @@
 package de.eventon.ui;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -46,6 +47,8 @@ public class EventBookingForm {
 				.getRequestParameterMap();
 		String id = rqParameter.get("id");
 
+		// Wurde eine gültige ID im Query-Parameter mitgegeben?
+		// Dann Event anzeigen
 		if (id != null) {
 			try {
 				int idAsInteger = Integer.parseInt(id);
@@ -58,6 +61,16 @@ public class EventBookingForm {
 			}
 		} else {
 			event = null;
+		}
+
+		// Ansonsten (wenn keine gültige ID mitgegeben wurde): Redirect auf
+		// ErrorPage, da das Event nicht gefunden werden kann
+		if (event == null) {
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect(navigationService.eventDoesNotExist());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

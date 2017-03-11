@@ -78,6 +78,10 @@ public class NavigationService {
 		return Pages.HOME.toString();
 	}
 	
+	public String bookingCodeSeen() {
+		return Pages.HOME.toString();
+	}
+	
 	public ActiveUserService getActiveUserService() {
 		return activeUserService;
 	}

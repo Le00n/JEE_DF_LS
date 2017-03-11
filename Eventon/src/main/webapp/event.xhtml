@@ -74,7 +74,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		</div>
 
 		<!-- Bestellung aufgeben (noch nicht getätigt) -->
-		<h:panelGroup layout="block" class="container-fluid" rendered="#{!eventBookingForm.bookingWanted}">
+		<h:panelGroup layout="block" class="container-fluid" rendered="#{!eventBookingForm.bookingConfirmed}">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-primary">
@@ -121,7 +121,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		</h:panelGroup>
 		
 		<!-- Bestellung erfolgreich -->
-		<h:panelGroup layout="block" class="container-fluid" rendered="#{eventBookingForm.bookingWanted and (eventBookingForm.bookingUUID != null)}">
+		<h:panelGroup layout="block" class="container-fluid" rendered="#{eventBookingForm.bookingConfirmed and (eventBookingForm.bookingUUID != null)}">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-success">
@@ -129,8 +129,11 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 							<h3 class="panel-title">Bestellung erfolgreich</h3>
 						</div>
 						<div class="panel-body">
+							<h:outputText value="Ihr Reservierungscode lautet: #{eventBookingForm.bookingUUID}"/>
 							<h:form>
-								<h:outputText value="Bestätigungscode: #{eventBookingForm.bookingUUID}"/>
+								<div class="btn-toolbar pull-right">
+									<h:commandButton action="#{eventBookingForm.bookingCodeSeen}" value="Weitere Events suchen" class="btn btn-default"/>
+								</div>
 							</h:form>
 						</div>
 					</div>
@@ -139,7 +142,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		</h:panelGroup>
 		
 		<!-- Bestellung gescheitert -->
-		<h:panelGroup layout="block" class="container-fluid" rendered="#{eventBookingForm.bookingWanted and (eventBookingForm.bookingUUID == null)}">
+		<h:panelGroup layout="block" class="container-fluid" rendered="#{eventBookingForm.bookingConfirmed and (eventBookingForm.bookingUUID == null)}">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-danger">

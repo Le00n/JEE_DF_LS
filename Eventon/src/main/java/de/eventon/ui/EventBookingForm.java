@@ -26,7 +26,7 @@ public class EventBookingForm {
 	private int amountTicketsPremium;
 	private Event event;
 	private UUID bookingUUID;
-	private boolean bookingWanted;
+	private boolean bookingConfirmed;
 
 	@ManagedProperty("#{eventService}")
 	private EventService eventService;
@@ -75,13 +75,17 @@ public class EventBookingForm {
 	}
 
 	public String book() {
-		setBookingWanted(true);
+		setBookingConfirmed(true);
 
 		Optional<UUID> optBookingUUID = eventBookingService.bookEvent(event, amountTicketsNormal, amountTicketsPremium);
 		if (optBookingUUID.isPresent()) {
 			bookingUUID = optBookingUUID.get();
 		}
 		return navigationService.book();
+	}
+	
+	public String bookingCodeSeen(){
+		return navigationService.bookingCodeSeen();
 	}
 
 	public String cancel() {
@@ -144,11 +148,11 @@ public class EventBookingForm {
 		this.amountTicketsPremium = amountTicketsPremium;
 	}
 
-	public boolean isBookingWanted() {
-		return bookingWanted;
+	public boolean isBookingConfirmed() {
+		return bookingConfirmed;
 	}
 
-	public void setBookingWanted(boolean bookingWanted) {
-		this.bookingWanted = bookingWanted;
+	public void setBookingConfirmed(boolean bookingConfirmed) {
+		this.bookingConfirmed = bookingConfirmed;
 	}
 }

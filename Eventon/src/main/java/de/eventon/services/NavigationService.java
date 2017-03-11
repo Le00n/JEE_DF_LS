@@ -46,10 +46,14 @@ public class NavigationService {
 		return Pages.REGISTER.toString();
 	}
 	
-	public String registerSuccessful(){
+	public String registrationSuccessful(){
 		return Pages.LOGIN.toString();
 	}
 
+	public String registrationFailed(){
+		return Pages.LOGIN.toString();
+	}
+	
 	public String userProfile() {
 		return Pages.USERPROFILE.toString();
 	}

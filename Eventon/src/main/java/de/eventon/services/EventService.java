@@ -31,7 +31,7 @@ public class EventService {
 		e.setDatetime(LocalDateTime.now());
 		e.setAmountTicketsNormal(5);
 		e.setAmountTicketsPremium(10);
-		e.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraﬂe", 2));
+		e.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraﬂe", "2"));
 		events.add(e);
 		
 		Event e1 = new Event();
@@ -42,7 +42,7 @@ public class EventService {
 		e1.setDatetime(LocalDateTime.now());
 		e1.setAmountTicketsNormal(5);
 		e1.setAmountTicketsPremium(10);
-		e1.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraﬂe", 2));
+		e1.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraﬂe", "2"));
 		events.add(e1);
 		
 		Event e2 = new Event();
@@ -53,7 +53,7 @@ public class EventService {
 		e2.setDatetime(LocalDateTime.now());
 		e2.setAmountTicketsNormal(5);
 		e2.setAmountTicketsPremium(10);
-		e2.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraﬂe", 2));
+		e2.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraﬂe", "2"));
 		events.add(e2);
 		
 		Event e3 = new Event();
@@ -65,7 +65,7 @@ public class EventService {
 		e3.setDatetime(LocalDateTime.now());
 		e3.setAmountTicketsNormal(5);
 		e3.setAmountTicketsPremium(10);
-		e3.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraﬂe", 2));
+		e3.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraﬂe", "2"));
 		events.add(e3);
 		
 		Event e4 = new Event();
@@ -76,7 +76,7 @@ public class EventService {
 		e4.setDatetime(LocalDateTime.now());
 		e4.setAmountTicketsNormal(5);
 		e4.setAmountTicketsPremium(10);
-		e4.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraﬂe", 2));
+		e4.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraﬂe", "2"));
 		events.add(e4);
 		
 		Event e5 = new Event();
@@ -87,7 +87,7 @@ public class EventService {
 		e5.setDatetime(LocalDateTime.now());
 		e5.setAmountTicketsNormal(5);
 		e5.setAmountTicketsPremium(10);
-		e5.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraﬂe", 2));
+		e5.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraﬂe", "2"));
 		events.add(e5);
 		
 		Event e6 = new Event();
@@ -98,7 +98,7 @@ public class EventService {
 		e6.setDatetime(LocalDateTime.now());
 		e6.setAmountTicketsNormal(5);
 		e6.setAmountTicketsPremium(10);
-		e6.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraﬂe", 2));
+		e6.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraﬂe", "2"));
 		events.add(e6);
 	}
 	

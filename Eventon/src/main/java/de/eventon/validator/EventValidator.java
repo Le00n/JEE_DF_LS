@@ -34,7 +34,6 @@ public class EventValidator {
 	}
 
 	public static boolean validatePrices(Double priceTicketsNormal, Double priceTicketsPremium) {
-		System.out.println((priceTicketsPremium != null) + " " + priceTicketsNormal.doubleValue() + " " + priceTicketsPremium.doubleValue());
 		return priceTicketsNormal != null && priceTicketsPremium != null && priceTicketsNormal >= 0.00
 				&& priceTicketsPremium >= 0.00 && (priceTicketsNormal <= priceTicketsPremium);
 	}

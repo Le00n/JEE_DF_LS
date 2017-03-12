@@ -4,6 +4,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
 	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css"></h:outputStylesheet>
@@ -25,6 +26,19 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 					<h:inputText class="form-control" id="eventName"
 						value="#{createEventForm.eventName}" a:placeholder="Event-Name">
 					</h:inputText>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-6">
+					<input type="date" class="form-control" id="eventDate"
+						jsf:value="#{createEventForm.eventDate}" placeholder="Datum">
+					</input>
+				</div>
+				<div class="col-md-6">
+					<input type="time" class="form-control" id="eventDate"
+						jsf:value="#{createEventForm.eventTime}" placeholder="Start-Zeit">
+							
+					</input>
 				</div>
 			</div>
 			<div class="form-group">

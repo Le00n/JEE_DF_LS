@@ -17,7 +17,10 @@ public class Event {
 	private Address address;
 	private List<Booking> bookings;
 
-	// TODO Gegebenenfalls EventFactory einrichten?
+	public Event(){
+		bookings = new ArrayList<Booking>();
+	}
+	
 	public Event(String name, LocalDateTime datetime, String description, int amountTicketsNormal,
 			double priceTicketsNormal, int amountTicketsPremium, double priceTicketsPremium, Address address) {
 
@@ -122,7 +125,7 @@ public class Event {
 		for (Booking b : bookings) {
 			amountFreeNormalTickets -= b.getAmountNormalTickets();
 		}
-
+		
 		return amountFreeNormalTickets;
 	}
 

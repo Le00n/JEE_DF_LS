@@ -23,5 +23,90 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		rendered="#{userProfileForm.user != null}">
 		<h1><h:outputText value="Angemeldet als #{userProfileForm.user.firstname} #{userProfileForm.user.lastname}"/></h1>
 	</h:panelGroup>
+	<div id="register" class="panel panel-default col-md-8 col-md-offset-2">
+		<h1><h:outputText value="Benutzerdaten"/></h1>
+		<h:form class="form-horizontal">
+			<div class="col-md-6 form-group">
+				<div class="form-group">
+					<div class="col-md-4 col-md-offset-2">
+						<h:outputLabel>Vorname</h:outputLabel>
+					</div>
+					<div class="col-md-6">
+						<h:inputText class="form-control" value="#{userProfileForm.user.firstname}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4 col-md-offset-2">
+						<h:outputLabel>Nachname</h:outputLabel>
+					</div>
+					<div class="col-md-6">
+						<h:inputText class="form-control" value="#{userProfileForm.user.lastname}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4 col-md-offset-2">
+						<h:outputLabel>Straße / Hausnummer</h:outputLabel>
+					</div>
+					<div class="col-md-4">
+						<h:inputText class="form-control" value="#{userProfileForm.user.address.street}"></h:inputText>
+					</div>
+					<div class="col-md-2">
+						<h:inputText class="form-control" value="#{userProfileForm.user.address.streetnumber}"></h:inputText>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4 col-md-offset-2">
+						<h:outputLabel>PLZ / Ort</h:outputLabel>
+					</div>
+					<div class="col-md-4">
+						<h:inputText class="form-control" value="#{userProfileForm.user.address.zip}"/>
+					</div>
+					<div class="col-md-2">
+						<h:inputText class="form-control" value="#{userProfileForm.user.address.city}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4 col-md-offset-2">
+						<h:outputLabel class="control-label">E-Mail</h:outputLabel>
+					</div>
+					<div class="col-md-6">
+						<h:inputText class="form-control" value="#{userProfileForm.user.email}"/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<div class="col-md-4 col-md-offset-2">
+						<h:outputLabel>Kontoinhaber</h:outputLabel>
+					</div>
+					<div class="col-md-6">
+						<h:inputText class="form-control" value="#{userProfileForm.user.bankAccount.accountHolder}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4 col-md-offset-2">
+						<h:outputLabel>IBAN</h:outputLabel>
+					</div>
+					<div class="col-md-6">
+						<h:inputText class="form-control" value="#{userProfileForm.user.bankAccount.iban}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-4 col-md-offset-2">
+						<h:outputLabel>BIC</h:outputLabel>
+					</div>
+					<div class="col-md-6">
+						<h:inputText class="form-control" value="#{userProfileForm.user.bankAccount.bic}"/>
+					</div>
+				</div>
+				
+				<div class="form-group" style=" margin-top:50px;">
+	   			<div class="col-md-6 col-md-offset-6">
+	   				<h:commandButton class="btn btn-primary btn-lg" action="#{userProfileForm.save}" value="Speichern"></h:commandButton>
+	    		</div>
+	  		</div>
+			</div>
+		</h:form>
+	</div>
 </body>
 </html>

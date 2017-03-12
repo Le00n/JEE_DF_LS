@@ -8,15 +8,19 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import de.eventon.core.Address;
+import de.eventon.core.BankAccount;
 import de.eventon.core.User;
 import de.eventon.services.ActiveUserService;
 import de.eventon.services.NavigationService;
 import de.eventon.services.UserService;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class UserProfileForm {
 
 	private User user;
@@ -71,6 +75,12 @@ public class UserProfileForm {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public String save()
+	{
+		System.out.println(user.getFirstname());
+		return "index.jsp";
 	}
 
 	public User getUser() {

@@ -9,6 +9,7 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
 import de.eventon.core.Address;
+import de.eventon.core.BankAccount;
 import de.eventon.core.User;
 
 @ApplicationScoped
@@ -23,9 +24,13 @@ public class UserService {
 	}
 
 	private void init() {
-		User user = new User("leonstapper@gmx.de", "1234", "Leon", "Stapper", new Address("48429", "Rheine", "Buchdahlstraﬂe", "6"));
+		User user = new User("leonstapper@gmx.de", "1234", "Leon", "Stapper", new Address("Buchdahlstraﬂe", "6", "48429", "Rheine"), new BankAccount("Leon Stapper", "DE83403500050000123456", "WELADED1RHN"));
 		user.setId(1);
 		addUser(user);
+		
+		User user2 = new User("david.feldhoff@web.de", "1234", "David", "Feldhoff", new Address("Moorstraﬂe", "88a", "48432", "Rheine"), new BankAccount("David Feldhoff", "DE83403500050000123456", "WELADED1RHN"));
+		user2.setId(2);
+		addUser(user2);
 	}
 
 	public Optional<User> getUserByEmail(String email) {

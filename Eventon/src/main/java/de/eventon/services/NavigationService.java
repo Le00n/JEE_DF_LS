@@ -90,6 +90,10 @@ public class NavigationService {
 		return Pages.HOME.toString();
 	}
 
+	public String createEventFailed() {
+		return Pages.STAY.toString();
+	}
+	
 	public String cancelCreateEvent() {
 		return Pages.HOME.toString();
 	}

@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 
 import de.eventon.core.Event;
 import de.eventon.services.EventBookingService;
@@ -22,8 +23,8 @@ import de.eventon.services.NavigationService;
 			// die erste noch hinterlegt)
 public class EventBookingForm {
 
-	private int amountTicketsNormal;
-	private int amountTicketsPremium;
+	private Integer amountTicketsNormal;
+	private Integer amountTicketsPremium;
 	private Event event;
 	private UUID bookingUUID;
 	private boolean bookingConfirmed;
@@ -73,7 +74,7 @@ public class EventBookingForm {
 			}
 		}
 	}
-
+	
 	public String book() {
 		setBookingConfirmed(true);
 
@@ -132,19 +133,19 @@ public class EventBookingForm {
 		this.bookingUUID = bookingUUID;
 	}
 
-	public int getAmountTicketsNormal() {
+	public Integer getAmountTicketsNormal() {
 		return amountTicketsNormal;
 	}
 
-	public void setAmountTicketsNormal(int amountTicketsNormal) {
+	public void setAmountTicketsNormal(Integer amountTicketsNormal) {
 		this.amountTicketsNormal = amountTicketsNormal;
 	}
 
-	public int getAmountTicketsPremium() {
+	public Integer getAmountTicketsPremium() {
 		return amountTicketsPremium;
 	}
 
-	public void setAmountTicketsPremium(int amountTicketsPremium) {
+	public void setAmountTicketsPremium(Integer amountTicketsPremium) {
 		this.amountTicketsPremium = amountTicketsPremium;
 	}
 

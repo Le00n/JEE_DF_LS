@@ -1,17 +1,26 @@
 package de.eventon.ui;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
+import de.eventon.core.Address;
+import de.eventon.core.Event;
 import de.eventon.services.EventService;
 import de.eventon.services.NavigationService;
+import de.eventon.validator.AddressValidator;
+import de.eventon.validator.EventValidator;
 
 @ManagedBean
 @RequestScoped
 public class CreateEventForm {
 
 	private String eventName;
+	private String eventDate;
+	private String eventTime;
 	private String eventDescription;
 
 	private int eventStartHour;
@@ -38,9 +47,21 @@ public class CreateEventForm {
 	}
 
 	public String create() {
-		eventService.createEvent(eventName, eventDescription, amountTicketsNormal, priceTicketsNormal,
-				amountTicketsPremium, priceTicketsPremium, location, street, streetnumber, zip, city);
-		return navigationService.createEventSuccessful();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm");
+		LocalDateTime dateTime = LocalDateTime.parse(eventDate + eventTime, formatter);
+		
+		if(EventValidator.validateEvent(eventName, eventDescription, amountTicketsNormal, amountTicketsPremium, priceTicketsNormal, priceTicketsPremium))
+		{
+			if(AddressValidator.validateAddress(location, street, streetnumber, zip, city)){
+				Address eventAddress = new Address(location, street, streetnumber, zip, city);
+				Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal, priceTicketsNormal, amountTicketsPremium, priceTicketsPremium, eventAddress);
+				
+				eventService.createEvent(event);
+				return navigationService.createEventSuccessful();
+			}
+		}
+		
+		return navigationService.createEventFailed();
 	}
 
 	public String cancel() {
@@ -165,5 +186,21 @@ public class CreateEventForm {
 
 	public void setEventService(EventService eventService) {
 		this.eventService = eventService;
+	}
+
+	public String getEventDate() {
+		return eventDate;
+	}
+
+	public void setEventDate(String eventDate) {
+		this.eventDate = eventDate;
+	}
+
+	public String getEventTime() {
+		return eventTime;
+	}
+
+	public void setEventTime(String eventTime) {
+		this.eventTime = eventTime;
 	}
 }

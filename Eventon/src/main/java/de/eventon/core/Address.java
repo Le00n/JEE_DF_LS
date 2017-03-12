@@ -8,19 +8,19 @@ public class Address {
 	private String street;
 	private String streetnumber;
 	
-	public Address(String zip, String city, String street, String streetnumber) {
-		this.zip = zip;
-		this.city = city;
+	public Address(String street, String streetnumber, String zip, String city) {
 		this.street = street;
 		this.streetnumber = streetnumber;
+		this.zip = zip;
+		this.city = city;
 	}
 	
-	public Address(String locationName, String zip, String city, String street, String streetnumber) {
+	public Address(String locationName, String street, String streetnumber, String zip, String city) {
 		this.locationName = locationName;
-		this.zip = zip;
-		this.city = city;
 		this.street = street;
 		this.streetnumber = streetnumber;
+		this.zip = zip;
+		this.city = city;
 	}
 	
 	public String getZip() {

@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 
+Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css"></h:outputStylesheet>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<h:outputScript name="bootstrap/3.2.0/js/bootstrap.js"></h:outputScript>
+</h:head>
+
+<body>
+	<ui:insert name="header">
+		<ui:include src="/header.xhtml" />
+	</ui:insert>
+
+	<div id="register" class="panel panel-default col-md-5 col-md-offset-3">
+		<h1>Event anlegen</h1>
+		<h:form class="form-horizontal">
+			<div class="form-group">
+				<div class="col-md-12">
+					<h:inputText class="form-control" id="eventName"
+						value="#{createEventForm.eventName}" a:placeholder="Event-Name">
+					</h:inputText>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-12">
+					<h:inputTextarea rows="5" class="form-control" id="eventDescription"
+						value="#{createEventForm.eventDescription}" a:placeholder="Event-Beschreibung" style="resize: none"></h:inputTextarea>
+				</div>
+			</div>
+
+			<div class="form-group">
+	    		<div class="col-md-8">
+	    			<h:inputText class="form-control" id="eventStreet" value="#{createEventForm.street}" a:placeholder="Straße"></h:inputText>
+	    		</div>
+	    		<div class="col-md-4">
+	    			<h:inputText class="form-control" id="eventStreetnumber" value="#{createEventForm.streetnumber}" a:placeholder="Hausnummer"></h:inputText>
+	    		</div>
+			</div>
+			<div class="form-group">
+	    		<div class="col-md-4">
+	    			<h:inputText class="form-control" id="eventZip" value="#{createEventForm.zip}" a:placeholder="PLZ"></h:inputText>
+	    		</div>
+	    		<div class="col-md-8">
+	    			<h:inputText class="form-control" id="eventCity" value="#{createEventForm.city}" a:placeholder="Stadt"></h:inputText>
+	    		</div>
+	  		</div>
+			<div class="form-group">
+				<div class="col-md-12">
+					<h:inputText class="form-control" id="eventLocation" value="#{createEventForm.location}" a:placeholder="Adresszusatz"></h:inputText>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-6">
+					<h:inputText class="form-control" id="eventTicketsNormal" value="#{createEventForm.amountTicketsNormal}" a:placeholder="Anzahl Parkett-Plätze"></h:inputText>
+				</div>
+				<div class="col-md-6">
+					<h:inputText class="form-control" id="eventPriceNormal" value="#{createEventForm.priceTicketsNormal}" a:placeholder="Preis Parkett"></h:inputText>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-6">
+					<h:inputText class="form-control" id="eventTicketsPremium" value="#{createEventForm.amountTicketsPremium}" a:placeholder="Anzahl Loge-Plätze"></h:inputText>
+				</div>
+				<div class="col-md-6">
+					<h:inputText class="form-control" id="eventPricePremium" value="#{createEventForm.priceTicketsPremium}" a:placeholder="Preis Loge"></h:inputText>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="btn-toolbar pull-right">
+					<h:commandButton class="btn btn-success" action="#{createEventForm.create}" value="Veranstaltung erstellen"></h:commandButton>
+					<h:commandButton class="btn btn-danger" action="#{createEventForm.cancel}" value="Abbrechen"></h:commandButton>
+				</div>
+			</div>
+		</h:form>
+	</div>
+</body>
+</html>

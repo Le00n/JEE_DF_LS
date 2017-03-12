@@ -82,6 +82,18 @@ public class NavigationService {
 		return Pages.HOME.toString();
 	}
 	
+	public String createEvent(){
+		return Pages.CREATE_EVENT.toString();
+	}
+	
+	public String createEventSuccessful() {
+		return Pages.HOME.toString();
+	}
+
+	public String cancelCreateEvent() {
+		return Pages.HOME.toString();
+	}
+	
 	public ActiveUserService getActiveUserService() {
 		return activeUserService;
 	}
@@ -92,7 +104,7 @@ public class NavigationService {
 
 	public enum Pages {
 		STAY("#"), LOGIN("login.jsp"), REGISTER("register.jsp"), HOME("index.jsp"), USERPROFILE("user.jsp"), BOOK(
-				"book.jsp"), ERROR_404("404.jsp");
+				"book.jsp"), CREATE_EVENT("createEvent.jsp"), ERROR_404("404.jsp");
 
 		private String value;
 

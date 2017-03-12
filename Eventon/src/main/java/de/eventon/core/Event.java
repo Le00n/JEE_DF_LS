@@ -16,9 +16,20 @@ public class Event {
 	private int amountTicketsNormal;
 	private Address address;
 	private List<Booking> bookings;
-	
-	//TODO Gegebenenfalls EventFactory einrichten?
-	public Event() {
+
+	// TODO Gegebenenfalls EventFactory einrichten?
+	public Event(String name, LocalDateTime datetime, String description, int amountTicketsNormal,
+			double priceTicketsNormal, int amountTicketsPremium, double priceTicketsPremium, Address address) {
+
+		this.name = name;
+		this.datetime = datetime;
+		this.description = description;
+		this.priceTicketsNormal = priceTicketsNormal;
+		this.priceTicketsPremium = priceTicketsPremium;
+		this.amountTicketsNormal = amountTicketsNormal;
+		this.amountTicketsPremium = amountTicketsPremium;
+		this.address = address;
+
 		bookings = new ArrayList<Booking>();
 	}
 
@@ -101,26 +112,26 @@ public class Event {
 	public void setBookings(List<Booking> bookings) {
 		this.bookings = bookings;
 	}
-	
+
 	public boolean addBooking(Booking booking) {
 		return this.bookings.add(booking);
 	}
-	
-	public int getAmountFreeNormalTickets(){
+
+	public int getAmountFreeNormalTickets() {
 		int amountFreeNormalTickets = amountTicketsNormal;
-		for(Booking b : bookings){
+		for (Booking b : bookings) {
 			amountFreeNormalTickets -= b.getAmountNormalTickets();
 		}
-		
+
 		return amountFreeNormalTickets;
 	}
-	
-	public int getAmountFreePremiumTickets(){
+
+	public int getAmountFreePremiumTickets() {
 		int amountFreePremiumTickets = amountTicketsPremium;
-		for(Booking b : bookings){
+		for (Booking b : bookings) {
 			amountFreePremiumTickets -= b.getAmountPremiumTickets();
 		}
-		
-		return amountFreePremiumTickets;	
+
+		return amountFreePremiumTickets;
 	}
 }

@@ -58,4 +58,14 @@ public class Booking {
 	public void setBookingDatetime(LocalDateTime bookingDatetime) {
 		this.bookingDatetime = bookingDatetime;
 	}
+	
+	public double getPrice(){
+		if(event == null)
+		{
+			return 0;
+		} else 
+		{
+			return event.getPriceTicketsNormal() * getAmountNormalTickets() + event.getPriceTicketsPremium() * getAmountPremiumTickets();
+		}
+	}
 }

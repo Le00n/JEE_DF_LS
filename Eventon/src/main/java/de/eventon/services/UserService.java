@@ -54,7 +54,16 @@ public class UserService {
 		}
 		return false;
 	}
-
+	
+	public boolean updateUser(User user, String firstname, String lastname, Address address, String email, BankAccount bankAccount) {
+		user.setFirstname(firstname);
+		user.setLastname(lastname);
+		user.setEmail(email);
+		user.setAddress(address);
+		user.setBankAccount(bankAccount);
+		return true;
+	}
+	
 	public List<User> getUsers() {
 		return users;
 	}

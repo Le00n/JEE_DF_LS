@@ -24,7 +24,7 @@ import de.eventon.services.UserService;
 public class UserProfileForm {
 
 	private User user;
-
+	private String firstname, lastname, street, housenumber, zip, city, email, accountHolder, iban, bic;
 	@ManagedProperty("#{userService}")
 	private UserService userService;
 
@@ -35,6 +35,7 @@ public class UserProfileForm {
 	private NavigationService navigationService;
 
 	public UserProfileForm() {
+		
 	}
 
 	@PostConstruct
@@ -57,6 +58,20 @@ public class UserProfileForm {
 					if(activeUser != null && queryUser.equals(activeUser))
 					{
 						user = queryUser;
+						firstname = user.getFirstname();
+						lastname = user.getLastname();
+						email = user.getEmail();
+						
+						Address address = user.getAddress();
+						street = address.getStreet();
+						housenumber = address.getStreetnumber();
+						zip = address.getZip();
+						city = address.getCity();
+						
+						BankAccount bankAccount = user.getBankAccount();
+						accountHolder = bankAccount.getAccountHolder();
+						iban = bankAccount.getIban();
+						bic = bankAccount.getBic();
 					}
 				}
 			} catch (NumberFormatException e) {
@@ -79,8 +94,16 @@ public class UserProfileForm {
 	
 	public String save()
 	{
-		System.out.println(user.getFirstname());
-		return "index.jsp";
+		if(firstname != "" && lastname != "" && street != "" && housenumber != "" && zip != "" && city != "" && email != "" && accountHolder != "" && iban != "" && bic != "")
+		{
+			if(email.contains("@"))
+			{
+				Address address = new Address(street, housenumber, zip, city);
+				BankAccount bankAccount = new BankAccount(accountHolder, iban, bic);
+				userService.updateUser(user, firstname, lastname, address, email, bankAccount);
+			}
+		}
+		return navigationService.home();
 	}
 
 	public User getUser() {
@@ -89,6 +112,86 @@ public class UserProfileForm {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getHousenumber() {
+		return housenumber;
+	}
+
+	public void setHousenumber(String housenumber) {
+		this.housenumber = housenumber;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAccountHolder() {
+		return accountHolder;
+	}
+
+	public void setAccountHolder(String accountHolder) {
+		this.accountHolder = accountHolder;
+	}
+
+	public String getIban() {
+		return iban;
+	}
+
+	public void setIban(String iban) {
+		this.iban = iban;
+	}
+
+	public String getBic() {
+		return bic;
+	}
+
+	public void setBic(String bic) {
+		this.bic = bic;
 	}
 
 	public UserService getUserService() {

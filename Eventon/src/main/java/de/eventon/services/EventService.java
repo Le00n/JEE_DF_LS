@@ -10,8 +10,6 @@ import javax.faces.bean.ManagedBean;
 
 import de.eventon.core.Address;
 import de.eventon.core.Event;
-import de.eventon.validator.address.AddressValidator;
-import de.eventon.validator.event.EventValidator;
 
 @ApplicationScoped
 @ManagedBean
@@ -62,8 +60,8 @@ public class EventService {
 		Event e3 = new Event();
 		e3.setId(3);
 		e3.setName("Kraftklub Konzert");
-		e3.setPriceTicketsNormal(40.00);
-		e3.setPriceTicketsPremium(60.00);
+		e3.setPriceTicketsNormal(40.33);
+		e3.setPriceTicketsPremium(60.55);
 		e3.setDescription(
 				"Es war eine der ganz großen Erfolgsgeschichten der letzten Jahre: Als das Kraftklub-Debüt \"Mit K\" 2012 von null auf eins in die Charts einstieg, war der vorläufige Höhepunkt einer sehr jungen und besonderen Karriere erreicht. Im Anschluss füllte die Band immer größere Hallen. Schließlich wurde \"Mit K\" mit Platin ausgezeichnet. Kein Wunder: Mit ihrem einmaligen Stilmix aus zackigen Indie-Beats, Up-Tempo-Riffs und witzig-nachdenklichen Texten, in denen sich eine ganze Generation wiederfindet, sprechen Kraftklub genre- und generationspbergreifend Hörer an.");
 		e3.setDatetime(LocalDateTime.now());

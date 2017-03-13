@@ -105,7 +105,7 @@ public class RegisterForm {
 		{
 			if(password.equals(passwordConfirm) && email.contains("@"))
 			{
-				User user = new User(email, password, firstname, lastname, new Address(zip, city, street, streetnumber), new BankAccount(accountHolder, iban, bic));
+				User user = new User(email, password, firstname, lastname, new Address(zip, city, street, streetnumber), new BankAccount(accountHolder, iban, bic), false);
 				if(userService.addUser(user))
 				{
 					return navigationService.registrationSuccessful();

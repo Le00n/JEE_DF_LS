@@ -8,6 +8,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
 	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css"></h:outputStylesheet>
+	<h:outputStylesheet name="css/validatorError.css"></h:outputStylesheet>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<h:outputScript name="bootstrap/3.2.0/js/bootstrap.js"></h:outputScript>
@@ -25,29 +26,40 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				<div class="col-md-12">
 					<h:inputText class="form-control" id="eventName"
 						value="#{createEventForm.eventName}" a:placeholder="Event-Name">
+						<f:validator validatorId="eventNameValidator"/>
 					</h:inputText>
-					<h:message for="eventName"></h:message>
+					<div class="error">
+						<h:message for="eventName" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-md-6">
-					<input type="date" class="form-control" id="eventDate"
+					<input type="date" class="form-control" id="eventDate" jsf:binding="#{createEventForm.component}"
 						jsf:value="#{createEventForm.eventDate}" placeholder="Datum">
 					</input>
-					<h:message for="eventDate"></h:message>
+					<div class="error">
+						<h:message for="eventDate" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 				</div>
 				<div class="col-md-6">
 					<input type="time" class="form-control" id="eventTime"
 						jsf:value="#{createEventForm.eventTime}" placeholder="Start-Zeit">
 					</input>
-					<h:message for="eventTime"></h:message>
+					<div class="error">
+						<h:message for="eventTime" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-md-12">
 					<h:inputTextarea rows="5" class="form-control" id="eventDescription"
-						value="#{createEventForm.eventDescription}" a:placeholder="Event-Beschreibung" style="resize: none"></h:inputTextarea>
-					<h:message for="eventDescription"></h:message>
+						value="#{createEventForm.eventDescription}" a:placeholder="Event-Beschreibung" style="resize: none">
+						<f:validator validatorId="eventDescriptionValidator"/>
+					</h:inputTextarea>
+					<div class="error">
+						<h:message for="eventDescription" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
@@ -55,13 +67,17 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	    			<h:inputText class="form-control" id="eventStreet" value="#{createEventForm.street}" a:placeholder="Straße">
 	    				<f:validator validatorId="streetValidator"/>
 	    			</h:inputText>
-	    			<h:message for="eventStreet"/>
+	    			<div class="error">
+						<h:message for="eventStreet" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 	    		</div>
 	    		<div class="col-md-4">
 	    			<h:inputText class="form-control" id="eventHousenumber" value="#{createEventForm.housenumber}" a:placeholder="Hausnummer">
 	    				<f:validator validatorId="housenumberValidator"/>
 	    			</h:inputText>
-	    			<h:message for="eventHousenumber"></h:message>
+	    			<div class="error">
+						<h:message for="eventHousenumber" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 	    		</div>
 			</div>
 			<div class="form-group">
@@ -69,39 +85,65 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	    			<h:inputText class="form-control" id="eventZip" value="#{createEventForm.zip}" a:placeholder="PLZ">
 	    				<f:validator validatorId="zipValidator"/>
 	    			</h:inputText>
-	    			<h:message for="eventZip"></h:message>
+	    			<div class="error">
+						<h:message for="eventZip" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 	    		</div>
 	    		<div class="col-md-8">
 	    			<h:inputText class="form-control" id="eventCity" value="#{createEventForm.city}" a:placeholder="Stadt">
 	    				<f:validator validatorId="cityValidator"/>
 	    			</h:inputText>
-	    			<h:message for="eventCity"></h:message>
+	    			<div class="error">
+						<h:message for="eventCity" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 	    		</div>
 	  		</div>
 			<div class="form-group">
 				<div class="col-md-12">
-					<h:inputText class="form-control" id="eventLocation" value="#{createEventForm.location}" a:placeholder="Adresszusatz"></h:inputText>
+					<h:inputText class="form-control" id="eventLocation" value="#{createEventForm.location}" a:placeholder="Adresszusatz">
+						<f:validator validatorId="locationValidator"/>
+					</h:inputText>
 				</div>
-				<h:message for="eventLocation"></h:message>
+				<div class="error">
+						<h:message for="eventLocation" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-md-6">
-					<h:inputText class="form-control" id="eventTicketsNormal" value="#{createEventForm.amountTicketsNormal}" a:placeholder="Anzahl Parkett-Plätze"></h:inputText>
+					<h:inputText class="form-control" id="eventTicketsNormal" value="#{createEventForm.amountTicketsNormal}" a:placeholder="Anzahl Parkett-Plätze">
+						<f:validator validatorId="amountTicketsValidator"/>
+					</h:inputText>
+					<div class="error">
+						<h:message for="eventTicketsNormal" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 				</div>
 				<div class="col-md-6">
 					<h:inputText class="form-control" id="eventPriceNormal" value="#{createEventForm.priceTicketsNormal}" a:placeholder="Preis Parkett">
 						<f:converter converterId="moneyConverter"/>
+						<f:validator validatorId="priceTicketsValidator"/>
 					</h:inputText>
+					<div class="error">
+						<h:message for="eventPriceNormal" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-md-6">
-					<h:inputText class="form-control" id="eventTicketsPremium" value="#{createEventForm.amountTicketsPremium}" a:placeholder="Anzahl Loge-Plätze"></h:inputText>
+					<h:inputText class="form-control" id="eventTicketsPremium" value="#{createEventForm.amountTicketsPremium}" a:placeholder="Anzahl Loge-Plätze">
+						<f:validator validatorId="amountTicketsValidator"/>
+					</h:inputText>
+					<div class="error">
+						<h:message for="eventTicketsPremium" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 				</div>
 				<div class="col-md-6">
 					<h:inputText class="form-control" id="eventPricePremium" value="#{createEventForm.priceTicketsPremium}" a:placeholder="Preis Loge">
 						<f:converter converterId="moneyConverter"/>
+						<f:validator validatorId="priceTicketsValidator"/>
 					</h:inputText>
+					<div class="error">
+						<h:message for="eventPricePremium" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">

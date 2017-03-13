@@ -1,20 +1,27 @@
 package de.eventon.validator.event;
 
+import java.time.LocalDateTime;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 public class EventValidator {
 
-	public static boolean validateEvent(String eventname, String description, Integer amountTicketsNormal,
-			Integer amountTicketsPremium, Double priceTicketsNormal, Double priceTicketsPremium) {
-		return validateEventname(eventname) && validateDescription(description)
-				&& validateAmountTickets(amountTicketsNormal, amountTicketsPremium)
-				&& validatePrices(priceTicketsNormal, priceTicketsPremium);
-	}
-
-	public static boolean validateEventname(String eventname) {
-		return eventname != null && !"".equals(eventname);
-	}
-
-	public static boolean validateDescription(String description) {
-		return description != null && !"".equals(description);
+	public static boolean validateDatetime(LocalDateTime dateTime, String ...id){
+		LocalDateTime now = LocalDateTime.now();
+		boolean datetime = now.compareTo(dateTime) < 0;
+		
+		if(!datetime && id.length > 0)
+		{
+			System.out.println("HI");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Starttermin liegt in der Vergangenheit", "Der Starttermin des Events muss in der Zukunft liegen.");
+			for(String clientId : id)
+			{
+				FacesContext.getCurrentInstance().addMessage(clientId, msg);	
+			}
+		}
+		
+		return datetime;
 	}
 
 	/**

@@ -66,6 +66,10 @@ public class NavigationService {
 		return Pages.ERROR_404.toString();
 	}
 	
+	public String eventManagerOverview() {
+		return Pages.EVENT_MANAGER_OVERVIEW.toString();
+	}
+	
 	public String eventDoesNotExist() {
 		return Pages.ERROR_404.toString();
 	}
@@ -111,7 +115,7 @@ public class NavigationService {
 	}
 
 	public enum Pages {
-		STAY("#"), LOGIN("login.jsp"), REGISTER("register.jsp"), HOME("index.jsp"), USERPROFILE("user.jsp"), BOOK(
+		STAY("#"), LOGIN("login.jsp"), REGISTER("register.jsp"), HOME("index.jsp"), USERPROFILE("user.jsp"), EVENT_MANAGER_OVERVIEW("eventManagerOverview.jsp"), BOOK(
 				"book.jsp"), CREATE_EVENT("createEvent.jsp"), ERROR_404("404.jsp");
 
 		private String value;

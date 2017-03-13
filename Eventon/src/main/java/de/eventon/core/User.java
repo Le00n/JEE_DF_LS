@@ -13,8 +13,9 @@ public class User {
 	private Address address;
 	private BankAccount	bankAccount;
 	private List<Booking> bookings;
+	private boolean manager;
 	
-	public User(String email, String hashedPassword, String firstname, String lastname, Address address, BankAccount bankAccount) {
+	public User(String email, String hashedPassword, String firstname, String lastname, Address address, BankAccount bankAccount, boolean manager) {
 		bookings = new ArrayList<Booking>();
 		this.email = email;
 		this.hashedPassword = hashedPassword;
@@ -22,6 +23,7 @@ public class User {
 		this.lastname = lastname;
 		this.address = address;
 		this.bankAccount = bankAccount;
+		this.manager = manager;
 	}
 
 	public boolean addBooking(Booking booking){
@@ -90,5 +92,13 @@ public class User {
 
 	public void setBookings(List<Booking> bookings) {
 		this.bookings = bookings;
+	}
+
+	public boolean isManager() {
+		return manager;
+	}
+
+	public void setManager(boolean manager) {
+		this.manager = manager;
 	}
 }

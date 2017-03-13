@@ -26,34 +26,36 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 					<h:inputText class="form-control" id="eventName"
 						value="#{createEventForm.eventName}" a:placeholder="Event-Name">
 					</h:inputText>
+					<h:message for="eventName"></h:message>
 				</div>
-				<h:message for="eventName"></h:message>
 			</div>
 			<div class="form-group">
 				<div class="col-md-6">
 					<input type="date" class="form-control" id="eventDate"
 						jsf:value="#{createEventForm.eventDate}" placeholder="Datum">
 					</input>
+					<h:message for="eventDate"></h:message>
 				</div>
-				<h:message for="eventDate"></h:message>
 				<div class="col-md-6">
 					<input type="time" class="form-control" id="eventTime"
 						jsf:value="#{createEventForm.eventTime}" placeholder="Start-Zeit">
 					</input>
+					<h:message for="eventTime"></h:message>
 				</div>
-				<h:message for="eventTime"></h:message>
 			</div>
 			<div class="form-group">
 				<div class="col-md-12">
 					<h:inputTextarea rows="5" class="form-control" id="eventDescription"
 						value="#{createEventForm.eventDescription}" a:placeholder="Event-Beschreibung" style="resize: none"></h:inputTextarea>
+					<h:message for="eventDescription"></h:message>
 				</div>
-				<h:message for="eventDescription"></h:message>
 			</div>
-
 			<div class="form-group">
 	    		<div class="col-md-8">
-	    			<h:inputText class="form-control" id="eventStreet" value="#{createEventForm.street}" a:placeholder="Straße"></h:inputText>
+	    			<h:inputText class="form-control" id="eventStreet" value="#{createEventForm.street}" a:placeholder="Straße">
+	    				<f:validator validatorId="streetValidator"/>
+	    			</h:inputText>
+	    			<h:message for="eventStreet"/>
 	    		</div>
 	    		<div class="col-md-4">
 	    			<h:inputText class="form-control" id="eventHousenumber" value="#{createEventForm.housenumber}" a:placeholder="Hausnummer">
@@ -67,14 +69,14 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	    			<h:inputText class="form-control" id="eventZip" value="#{createEventForm.zip}" a:placeholder="PLZ">
 	    				<f:validator validatorId="zipValidator"/>
 	    			</h:inputText>
+	    			<h:message for="eventZip"></h:message>
 	    		</div>
-	    		<h:message for="eventZip"></h:message>
 	    		<div class="col-md-8">
 	    			<h:inputText class="form-control" id="eventCity" value="#{createEventForm.city}" a:placeholder="Stadt">
 	    				<f:validator validatorId="cityValidator"/>
 	    			</h:inputText>
+	    			<h:message for="eventCity"></h:message>
 	    		</div>
-	    		<h:message for="eventCity"></h:message>
 	  		</div>
 			<div class="form-group">
 				<div class="col-md-12">

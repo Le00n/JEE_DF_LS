@@ -10,8 +10,6 @@ import javax.faces.bean.ManagedBean;
 
 import de.eventon.core.Address;
 import de.eventon.core.Event;
-import de.eventon.validator.address.AddressValidator;
-import de.eventon.validator.event.EventValidator;
 
 @ApplicationScoped
 @ManagedBean

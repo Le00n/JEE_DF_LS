@@ -3,18 +3,15 @@ package de.eventon.ui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 
 import de.eventon.core.Address;
 import de.eventon.core.Event;
 import de.eventon.services.EventService;
 import de.eventon.services.NavigationService;
-import de.eventon.validator.address.AddressValidator;
 import de.eventon.validator.event.EventValidator;
 
 @ManagedBean
@@ -22,7 +19,7 @@ import de.eventon.validator.event.EventValidator;
 public class CreateEventForm {
 
 	private UIComponent component;
-	
+
 	private String eventName;
 	private String eventDate;
 	private String eventTime;
@@ -58,15 +55,13 @@ public class CreateEventForm {
 		if (EventValidator.validateDatetime(dateTime, component.getClientId(), "eventTime")
 				&& EventValidator.validateAmountTickets(amountTicketsNormal, amountTicketsPremium)
 				&& EventValidator.validatePrices(priceTicketsNormal, priceTicketsPremium)) {
-			
-			if (AddressValidator.validateAddress(location, street, housenumber, zip, city)) {
-				Address eventAddress = new Address(location, street, housenumber, zip, city);
-				Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal, priceTicketsNormal,
-						amountTicketsPremium, priceTicketsPremium, eventAddress);
 
-				eventService.createEvent(event);
-				return navigationService.createEventSuccessful();
-			}
+			Address eventAddress = new Address(location, street, housenumber, zip, city);
+			Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal, priceTicketsNormal,
+					amountTicketsPremium, priceTicketsPremium, eventAddress);
+
+			eventService.createEvent(event);
+			return navigationService.createEventSuccessful();
 		}
 
 		return navigationService.createEventFailed();

@@ -110,22 +110,40 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 			</div>
 			<div class="form-group">
 				<div class="col-md-6">
-					<h:inputText class="form-control" id="eventTicketsNormal" value="#{createEventForm.amountTicketsNormal}" a:placeholder="Anzahl Parkett-Plätze"></h:inputText>
+					<h:inputText class="form-control" id="eventTicketsNormal" value="#{createEventForm.amountTicketsNormal}" a:placeholder="Anzahl Parkett-Plätze">
+						<f:validator validatorId="amountTicketsValidator"/>
+					</h:inputText>
+					<div class="error">
+						<h:message for="eventTicketsNormal" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 				</div>
 				<div class="col-md-6">
 					<h:inputText class="form-control" id="eventPriceNormal" value="#{createEventForm.priceTicketsNormal}" a:placeholder="Preis Parkett">
 						<f:converter converterId="moneyConverter"/>
+						<f:validator validatorId="priceTicketsValidator"/>
 					</h:inputText>
+					<div class="error">
+						<h:message for="eventPriceNormal" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-md-6">
-					<h:inputText class="form-control" id="eventTicketsPremium" value="#{createEventForm.amountTicketsPremium}" a:placeholder="Anzahl Loge-Plätze"></h:inputText>
+					<h:inputText class="form-control" id="eventTicketsPremium" value="#{createEventForm.amountTicketsPremium}" a:placeholder="Anzahl Loge-Plätze">
+						<f:validator validatorId="amountTicketsValidator"/>
+					</h:inputText>
+					<div class="error">
+						<h:message for="eventTicketsPremium" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 				</div>
 				<div class="col-md-6">
 					<h:inputText class="form-control" id="eventPricePremium" value="#{createEventForm.priceTicketsPremium}" a:placeholder="Preis Loge">
 						<f:converter converterId="moneyConverter"/>
+						<f:validator validatorId="priceTicketsValidator"/>
 					</h:inputText>
+					<div class="error">
+						<h:message for="eventPricePremium" showSummary="true" showDetail="false" class="alert alert-danger error"></h:message>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">

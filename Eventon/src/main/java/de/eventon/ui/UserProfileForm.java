@@ -44,7 +44,7 @@ public class UserProfileForm {
 				.getRequestParameterMap();
 		String id = rqParameter.get("id");
 
-		// Wurde eine gültige ID im Query-Parameter mitgegeben?
+		// Wurde eine gÃ¼ltige ID im Query-Parameter mitgegeben?
 		// Ist der gesuchte Nutzer auch der eigene/der eingeloggte Nutzer?
 		// Dann User anzeigen
 		if (id != null) {
@@ -81,7 +81,7 @@ public class UserProfileForm {
 			user = null;
 		}
 
-		// Ansonsten (wenn keine gültige ID mitgegeben wurde): Redirect auf
+		// Ansonsten (wenn keine gÃ¼ltige ID mitgegeben wurde): Redirect auf
 		// ErrorPage, da der User nicht gefunden werden kann
 		if (user == null) {
 			try {

@@ -12,7 +12,7 @@ public class BicValidator implements Validator {
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		if(value == null || value.equals(""))
+		if(value == null || value.toString().equals(""))
 		{
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "BIC nicht gefüllt.", "Die BIC ist nicht gefüllt.");
 			throw new ValidatorException(msg);

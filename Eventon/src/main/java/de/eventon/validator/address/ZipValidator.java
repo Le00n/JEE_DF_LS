@@ -16,7 +16,7 @@ public class ZipValidator implements Validator{
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		if(value instanceof String){
 			if(!((String) value).matches(ZIP_PATTERN)){
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ungültige Postleitzahl", "Dies ist keine gültige Postleitzahl");
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ungültige PLZ", "Dies ist keine gültige Postleitzahl");
 				throw new ValidatorException(msg);
 			}
 		} else {

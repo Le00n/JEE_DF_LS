@@ -22,12 +22,12 @@ public class EventBookingService {
 	}
 
 	/**
-	 * Diese Methode bucht ein Event und gibt die ID der Buchung zurück. Die
-	 * Voraussetzung hierfür ist, dass der Nutzer bereits eingeloggt ist und die
-	 * angegebenene Bestellmenge die Anzahl der freien Plätze nicht
-	 * überschreitet. Sind die angegebenen Voraussetzungen nicht erfüllt, wird
+	 * Diese Methode bucht ein Event und gibt die ID der Buchung zurÃ¼ck. Die
+	 * Voraussetzung hierfÃ¼r ist, dass der Nutzer bereits eingeloggt ist und die
+	 * angegebenene Bestellmenge die Anzahl der freien PlÃ¤tze nicht
+	 * Ã¼berschreitet. Sind die angegebenen Voraussetzungen nicht erfÃ¼llt, wird
 	 * das Event nicht gebucht. In diesem Fall wird demnach keine UUID
-	 * zurückgegeben.
+	 * zurÃ¼ckgegeben.
 	 * 
 	 * @param event
 	 *            Zu buchendes Event

@@ -41,6 +41,15 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 											<f:param name="id" value="#{activeUserService.activeUser.id}" />
 										</h:link>
 									</li>
+									<!-- Rendering, falls der Nutzer eingelogged und Manager ist -->
+									<h:panelGroup rendered="#{activeUserService.activeUser.manager}">
+										<li>
+											<h:commandLink action="#{headerForm.eventManagerOverview}"
+												value="Meine Events">
+											</h:commandLink>
+										</li>
+									</h:panelGroup>
+									
 								</h:panelGroup>
 							</ul>
 							

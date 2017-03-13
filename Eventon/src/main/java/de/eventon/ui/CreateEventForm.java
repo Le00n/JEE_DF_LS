@@ -3,9 +3,12 @@ package de.eventon.ui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 import de.eventon.core.Address;
 import de.eventon.core.Event;
@@ -18,6 +21,8 @@ import de.eventon.validator.event.EventValidator;
 @RequestScoped
 public class CreateEventForm {
 
+	private UIComponent component;
+	
 	private String eventName;
 	private String eventDate;
 	private String eventTime;
@@ -50,17 +55,20 @@ public class CreateEventForm {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm");
 		LocalDateTime dateTime = LocalDateTime.parse(eventDate + eventTime, formatter);
 
-		if(EventValidator.validateEvent(eventName, eventDescription, amountTicketsNormal, amountTicketsPremium, priceTicketsNormal, priceTicketsPremium))
-		{
-			if(AddressValidator.validateAddress(location, street, housenumber, zip, city)){
+		if (EventValidator.validateDatetime(dateTime, component.getClientId(), "eventTime")
+				&& EventValidator.validateAmountTickets(amountTicketsNormal, amountTicketsPremium)
+				&& EventValidator.validatePrices(priceTicketsNormal, priceTicketsPremium)) {
+			
+			if (AddressValidator.validateAddress(location, street, housenumber, zip, city)) {
 				Address eventAddress = new Address(location, street, housenumber, zip, city);
-				Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal, priceTicketsNormal, amountTicketsPremium, priceTicketsPremium, eventAddress);
-				
+				Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal, priceTicketsNormal,
+						amountTicketsPremium, priceTicketsPremium, eventAddress);
+
 				eventService.createEvent(event);
 				return navigationService.createEventSuccessful();
 			}
 		}
-		
+
 		return navigationService.createEventFailed();
 	}
 
@@ -202,5 +210,13 @@ public class CreateEventForm {
 
 	public void setEventTime(String eventTime) {
 		this.eventTime = eventTime;
+	}
+
+	public UIComponent getComponent() {
+		return component;
+	}
+
+	public void setComponent(UIComponent component) {
+		this.component = component;
 	}
 }

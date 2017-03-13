@@ -69,7 +69,7 @@ public class EventService {
 		e3.setDatetime(LocalDateTime.now());
 		e3.setAmountTicketsNormal(5);
 		e3.setAmountTicketsPremium(10);
-		e3.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraﬂe", "2"));
+		e3.setAddress(new Address("Stadthalle", "Teststraﬂe", "2", "48429", "Rheine"));
 		createEvent(e3);
 
 		Event e4 = new Event();

@@ -74,7 +74,9 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 					<h:inputText class="form-control" id="eventTicketsNormal" value="#{createEventForm.amountTicketsNormal}" a:placeholder="Anzahl Parkett-Plätze"></h:inputText>
 				</div>
 				<div class="col-md-6">
-					<h:inputText class="form-control" id="eventPriceNormal" value="#{createEventForm.priceTicketsNormal}" a:placeholder="Preis Parkett"></h:inputText>
+					<h:inputText class="form-control" id="eventPriceNormal" value="#{createEventForm.priceTicketsNormal}" a:placeholder="Preis Parkett">
+						<f:converter converterId="moneyConverter"/>
+					</h:inputText>
 				</div>
 			</div>
 			<div class="form-group">
@@ -82,7 +84,9 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 					<h:inputText class="form-control" id="eventTicketsPremium" value="#{createEventForm.amountTicketsPremium}" a:placeholder="Anzahl Loge-Plätze"></h:inputText>
 				</div>
 				<div class="col-md-6">
-					<h:inputText class="form-control" id="eventPricePremium" value="#{createEventForm.priceTicketsPremium}" a:placeholder="Preis Loge"></h:inputText>
+					<h:inputText class="form-control" id="eventPricePremium" value="#{createEventForm.priceTicketsPremium}" a:placeholder="Preis Loge">
+						<f:converter converterId="moneyConverter"/>
+					</h:inputText>
 				</div>
 			</div>
 			<div class="form-group">
@@ -94,4 +98,4 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		</h:form>
 	</div>
 </body>
-</html>
+</html>	

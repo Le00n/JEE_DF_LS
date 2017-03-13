@@ -1,4 +1,4 @@
-package de.eventon.validator;
+package de.eventon.validator.bankAccount;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;

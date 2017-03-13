@@ -10,7 +10,7 @@ import javax.faces.validator.ValidatorException;
 @FacesValidator("streetValidator")
 public class StreetValidator implements Validator {
 
-	private static final String STREET_PATTERN = "^[a-zäöüßA-ZÄÖÜ]+(?:[\\s-][a-zäöüßA-ZÄÖÜ]+)*$";
+	private static final String STREET_PATTERN = "^[A-ZÄÖÜ][a-zäöüß]+(\\.|([\\-\\ ][A-ZÄÖÜ][a-zäöüß]+)*)";
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {

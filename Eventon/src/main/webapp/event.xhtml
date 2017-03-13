@@ -90,7 +90,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 										<h:outputText
 											value="#{eventBookingForm.event.priceTicketsNormal}"
 											class="col-md-4">
-											<f:convertNumber pattern="á #,###,##0.00 €" />
+											<f:converter converterId="moneyConverter"/>
 										</h:outputText>
 										<h:inputText id="normalInput" class="ticketInput col-md-4" value="#{eventBookingForm.amountTicketsNormal}" a:placeholder="Anzahl Parkett-Tickets"/>
 									</div>
@@ -99,7 +99,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 										<h:outputText
 											value="#{eventBookingForm.event.priceTicketsPremium}"
 											class="col-md-4">
-											<f:convertNumber pattern="á #,###,##0.00 €" />
+											<f:converter converterId="moneyConverter"/>
 										</h:outputText>
 										<h:inputText id="premiumInput" class="ticketInput col-md-4" value="#{eventBookingForm.amountTicketsPremium}" a:placeholder="Anzahl Logen-Tickets"/>
 									</div>

@@ -3,6 +3,7 @@ package de.eventon.ui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -49,7 +50,7 @@ public class CreateEventForm {
 	public String create() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm");
 		LocalDateTime dateTime = LocalDateTime.parse(eventDate + eventTime, formatter);
-		
+
 		if(EventValidator.validateEvent(eventName, eventDescription, amountTicketsNormal, amountTicketsPremium, priceTicketsNormal, priceTicketsPremium))
 		{
 			if(AddressValidator.validateAddress(location, street, streetnumber, zip, city)){

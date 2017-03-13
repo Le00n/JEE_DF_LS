@@ -1,7 +1,5 @@
 package de.eventon.services;
 
-import java.util.Optional;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -16,18 +14,17 @@ public class ActiveUserService {
 	@ManagedProperty("#{userService}")
 	private UserService userService;
 
-	public boolean login(String email, String hashedPassword) {
-		Optional<User> userToLogin = userService.getUserByEmail(email);
-		if (userToLogin.isPresent()) {
-			if (hashedPassword.equals(userToLogin.get().getHashedPassword())) {
-				activeUser = userToLogin.get();
+	public boolean login(User user, String hashedPassword) {
+		if (user != null) {
+			if (hashedPassword.equals(user.getHashedPassword())) {
+				activeUser = user;
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	public void logout(){
+
+	public void logout() {
 		activeUser = null;
 	}
 

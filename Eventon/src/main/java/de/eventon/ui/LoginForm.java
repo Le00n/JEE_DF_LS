@@ -4,6 +4,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
+import de.eventon.core.User;
 import de.eventon.services.ActiveUserService;
 import de.eventon.services.NavigationService;
 
@@ -11,7 +12,7 @@ import de.eventon.services.NavigationService;
 @RequestScoped
 public class LoginForm {
 
-	private String email;
+	private User user;
 	private String password;
 
 	@ManagedProperty("#{activeUserService}")
@@ -21,7 +22,7 @@ public class LoginForm {
 	private NavigationService navigationService;
 
 	public String login() {
-		if (activeUserService.login(email, password)) {
+		if (activeUserService.login(user, password)) {
 			return navigationService.loginSuccessful();
 		} else {
 			return navigationService.loginFailed();
@@ -32,12 +33,12 @@ public class LoginForm {
 		return navigationService.cancelLogin();
 	}
 	
-	public String getEmail() {
-		return email;
+	public User getUser() {
+		return user;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getPassword() {

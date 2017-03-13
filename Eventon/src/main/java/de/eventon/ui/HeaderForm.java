@@ -2,13 +2,13 @@ package de.eventon.ui;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 import de.eventon.services.ActiveUserService;
 import de.eventon.services.NavigationService;
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class HeaderForm {
 
 	@ManagedProperty("#{activeUserService}")

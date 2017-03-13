@@ -1,7 +1,9 @@
-package de.eventon.validator;
+package de.eventon.validator.address;
 
-public class AddressValidator {
+public class AddressValidator{
 
+	private static final String HOUSENUMBER_PATTERN = "^\\d+[a-zA-Z]?\\-?(\\d+([a-zA-Z])?)?";
+	
 	public static boolean validateAddress(String locationname, String street, String housenumber, String zip,
 			String city) {
 		return validateLocationname(locationname) && validateStreet(street) && validateHousenumber(housenumber)
@@ -17,7 +19,7 @@ public class AddressValidator {
 	}
 
 	public static boolean validateHousenumber(String housenumber) {
-		return housenumber.matches("^\\d+[a-zA-Z]?\\-?(\\d+([a-zA-Z])?)?");
+		return housenumber.matches(HOUSENUMBER_PATTERN);
 	}
 
 	public static boolean validateZip(String zip) {

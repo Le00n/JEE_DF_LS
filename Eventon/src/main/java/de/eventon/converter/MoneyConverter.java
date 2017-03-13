@@ -12,15 +12,21 @@ public class MoneyConverter implements Converter{
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		Double d = null;
-		
-		try {
-			d = new Double(value);
-		} catch (NumberFormatException e) {
+		if(value != null){
+			value = value.replace("€", "");
+			value = value.replace(",", ".");
+			value = value.trim();
 			
+			Double d = null;
+			try {
+				d = new Double(value);
+				return d;
+			} catch (NumberFormatException e) {
+				
+			}
 		}
 		
-		return d;
+		return null;
 	}
 
 	@Override

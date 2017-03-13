@@ -54,6 +54,10 @@ public class NavigationService {
 		return Pages.LOGIN.toString();
 	}
 	
+	public String registrationCancelled(){
+		return Pages.HOME.toString();
+	}
+	
 	public String userProfile() {
 		return Pages.USERPROFILE.toString();
 	}

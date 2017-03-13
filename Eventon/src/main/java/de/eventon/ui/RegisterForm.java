@@ -96,6 +96,10 @@ public class RegisterForm {
 		this.bic = bic;
 	}
 	
+	public String cancel(){
+		return navigationService.registrationCancelled();
+	}
+	
 	public String register(){
 		if(email != "" && password != "" && passwordConfirm != "" && firstname != "" && lastname != "" && zip != "" && city != "" && street != "" && streetnumber != "" && accountHolder != "" && iban != "" && bic != "")
 		{

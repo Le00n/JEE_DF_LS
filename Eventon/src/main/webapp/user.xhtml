@@ -7,6 +7,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<h:outputStylesheet name="css/index.css" />
+	<h:outputStylesheet name="css/validatorError.css"></h:outputStylesheet>
 	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css" />
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -89,7 +90,12 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 										<h:outputLabel>Kontoinhaber</h:outputLabel>
 									</div>
 									<div class="col-md-9">
-										<h:inputText class="form-control" value="#{userProfileForm.accountHolder}"/>
+										<h:inputText class="form-control" id="accountHolder" value="#{userProfileForm.accountHolder}">
+											<f:validator validatorId="accountHolderValidator" />
+										</h:inputText>
+										<div class="error">
+											<h:message for="accountHolder" class="alert alert-danger error" />
+										</div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -97,7 +103,12 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 										<h:outputLabel>IBAN</h:outputLabel>
 									</div>
 									<div class="col-md-9">
-										<h:inputText class="form-control" value="#{userProfileForm.iban}"/>
+										<h:inputText class="form-control" id="iban" value="#{userProfileForm.iban}">
+											<f:validator validatorId="ibanValidator"/>
+										</h:inputText>
+										<div class="error">
+											<h:message for="iban" class="alert alert-danger error" />
+										</div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -105,7 +116,12 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 										<h:outputLabel>BIC</h:outputLabel>
 									</div>
 									<div class="col-md-9">
-										<h:inputText class="form-control" value="#{userProfileForm.bic}"/>
+										<h:inputText class="form-control" id="bic" value="#{userProfileForm.bic}">
+											<f:validator validatorId="bicValidator" />
+										</h:inputText>
+										<div class="error">
+											<h:message for="bic" class="alert alert-danger error" />
+										</div>
 									</div>
 								</div>
 								

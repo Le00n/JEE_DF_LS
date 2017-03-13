@@ -1,4 +1,4 @@
-package de.eventon.validator;
+package de.eventon.validator.event;
 
 public class EventValidator {
 

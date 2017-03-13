@@ -3,7 +3,6 @@ package de.eventon.ui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -12,8 +11,8 @@ import de.eventon.core.Address;
 import de.eventon.core.Event;
 import de.eventon.services.EventService;
 import de.eventon.services.NavigationService;
-import de.eventon.validator.AddressValidator;
-import de.eventon.validator.EventValidator;
+import de.eventon.validator.address.AddressValidator;
+import de.eventon.validator.event.EventValidator;
 
 @ManagedBean
 @RequestScoped
@@ -28,7 +27,7 @@ public class CreateEventForm {
 	private int eventStartMinute;
 
 	private String street;
-	private String streetnumber;
+	private String housenumber;
 	private String zip;
 	private String city;
 	private String location;
@@ -53,8 +52,8 @@ public class CreateEventForm {
 
 		if(EventValidator.validateEvent(eventName, eventDescription, amountTicketsNormal, amountTicketsPremium, priceTicketsNormal, priceTicketsPremium))
 		{
-			if(AddressValidator.validateAddress(location, street, streetnumber, zip, city)){
-				Address eventAddress = new Address(location, street, streetnumber, zip, city);
+			if(AddressValidator.validateAddress(location, street, housenumber, zip, city)){
+				Address eventAddress = new Address(location, street, housenumber, zip, city);
 				Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal, priceTicketsNormal, amountTicketsPremium, priceTicketsPremium, eventAddress);
 				
 				eventService.createEvent(event);
@@ -109,12 +108,12 @@ public class CreateEventForm {
 		this.street = street;
 	}
 
-	public String getStreetnumber() {
-		return streetnumber;
+	public String getHousenumber() {
+		return housenumber;
 	}
 
-	public void setStreetnumber(String streetnumber) {
-		this.streetnumber = streetnumber;
+	public void setHousenumber(String housenumber) {
+		this.housenumber = housenumber;
 	}
 
 	public String getZip() {

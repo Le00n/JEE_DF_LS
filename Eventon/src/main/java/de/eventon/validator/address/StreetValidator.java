@@ -10,13 +10,13 @@ import javax.faces.validator.ValidatorException;
 @FacesValidator("streetValidator")
 public class StreetValidator implements Validator {
 
-	private static final String STREET_PATTERN = "^[A-ZÄÖÜ][a-zäöüß]+(\\.|([\\-\\ ][A-ZÄÖÜ][a-zäöüß]+)*)";
+	private static final String STREET_PATTERN = "^[A-ZÃ„Ã–Ãœ][a-zÃ¤Ã¶Ã¼ÃŸ]+(\\.|([\\-\\ ][A-ZÃ„Ã–Ãœ][a-zÃ¤Ã¶Ã¼ÃŸ]+)*)";
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		if(value instanceof String){
 			if(!((String) value).matches(STREET_PATTERN)){
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ungültiger Straßenname", "Dies ist kein gültiger Straßenname");
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "UngÃ¼ltiger StraÃŸenname", "Dies ist kein gÃ¼ltiger StraÃŸenname");
 				throw new ValidatorException(msg);
 			}
 		} else {

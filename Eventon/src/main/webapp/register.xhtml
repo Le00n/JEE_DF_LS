@@ -35,9 +35,11 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	  		</div>
 	  		<div class="form-group">
 	    		<div class="col-md-12">
-	    			<h:inputText class="form-control" id="inputEmail" value="#{registerForm.email}" a:placeholder="Email">
-	    				<!-- <f:validateRegex pattern="^[^@]+@[^@]+[^\.]+\.[^\.]+" ></f:validateRegex> -->
-	    			</h:inputText>
+	    			<div class="input-group">
+	    				<span class="input-group-addon" id="basic-addon1">@</span>
+	    				<h:inputText class="form-control" id="inputEmail" value="#{registerForm.email}"  aria-describedby="basic-addon1" a:placeholder="Email">
+	    				</h:inputText>
+	    			</div>
 	    			<h:message for="inputEmail" value="Test" />
 	    		</div>
 	  		</div>

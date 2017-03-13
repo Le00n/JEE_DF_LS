@@ -17,8 +17,8 @@ import de.eventon.services.EventService;
 import de.eventon.services.NavigationService;
 
 @ManagedBean
-@ViewScoped // Muss für die Ansicht sichtbar sein (Request reicht nicht: ist bei
-			// Buchung schon ungültig; Session zu viel: bei zweiter Buchung ist
+@ViewScoped // Muss fÃ¼r die Ansicht sichtbar sein (Request reicht nicht: ist bei
+			// Buchung schon ungÃ¼ltig; Session zu viel: bei zweiter Buchung ist
 			// die erste noch hinterlegt)
 public class EventBookingForm {
 
@@ -47,7 +47,7 @@ public class EventBookingForm {
 				.getRequestParameterMap();
 		String id = rqParameter.get("id");
 
-		// Wurde eine gültige ID im Query-Parameter mitgegeben?
+		// Wurde eine gÃ¼ltige ID im Query-Parameter mitgegeben?
 		// Dann Event anzeigen
 		if (id != null) {
 			try {
@@ -63,7 +63,7 @@ public class EventBookingForm {
 			event = null;
 		}
 
-		// Ansonsten (wenn keine gültige ID mitgegeben wurde): Redirect auf
+		// Ansonsten (wenn keine gÃ¼ltige ID mitgegeben wurde): Redirect auf
 		// ErrorPage, da das Event nicht gefunden werden kann
 		if (event == null) {
 			try {

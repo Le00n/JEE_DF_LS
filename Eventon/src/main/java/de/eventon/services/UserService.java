@@ -24,11 +24,11 @@ public class UserService {
 	}
 
 	private void init() {
-		User user = new User("leonstapper@gmx.de", "1234", "Leon", "Stapper", new Address("Buchdahlstraﬂe", "6", "48429", "Rheine"), new BankAccount("Leon Stapper", "DE83403500050000123456", "WELADED1RHN"));
+		User user = new User("leonstapper@gmx.de", "1234", "Leon", "Stapper", new Address("Buchdahlstra√üe", "6", "48429", "Rheine"), new BankAccount("Leon Stapper", "DE83403500050000123456", "WELADED1RHN"));
 		user.setId(1);
 		addUser(user);
 		
-		User user2 = new User("david.feldhoff@web.de", "1234", "David", "Feldhoff", new Address("Moorstraﬂe", "88a", "48432", "Rheine"), new BankAccount("David Feldhoff", "DE83403500050000123456", "WELADED1RHN"));
+		User user2 = new User("david.feldhoff@web.de", "1234", "David", "Feldhoff", new Address("Moorstra√üe", "88a", "48432", "Rheine"), new BankAccount("David Feldhoff", "DE83403500050000123456", "WELADED1RHN"));
 		user2.setId(2);
 		addUser(user2);
 	}

@@ -14,7 +14,7 @@ public class BicValidator implements Validator {
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		if(value == null || value.equals(""))
 		{
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "BIC nicht gefüllt.", "Die BIC ist nicht gefüllt.");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "BIC nicht gefÃ¼llt.", "Die BIC ist nicht gefÃ¼llt.");
 			throw new ValidatorException(msg);
 		}
 		else
@@ -22,7 +22,7 @@ public class BicValidator implements Validator {
 			String regex = "^[A-Z]{7}\\d[A-Z]{3}";
 			if(!value.toString().matches(regex))
 			{
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "BIC ungültig.", "Die angegebene BIC ist ungültig.");
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "BIC ungÃ¼ltig.", "Die angegebene BIC ist ungÃ¼ltig.");
 				throw new ValidatorException(msg);
 			}
 		}

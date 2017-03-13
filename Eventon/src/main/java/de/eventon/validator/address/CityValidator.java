@@ -10,13 +10,13 @@ import javax.faces.validator.ValidatorException;
 @FacesValidator("cityValidator")
 public class CityValidator implements Validator{
 
-	private static final String CITY_PATTERN = "^[a-zäöüßA-ZÄÖÜ]+(?:[\\s-][a-zäöüßA-ZÄÖÜ]+)*$";
+	private static final String CITY_PATTERN = "^[a-zÃ¤Ã¶Ã¼ÃŸA-ZÃ„Ã–Ãœ]+(?:[\\s-][a-zÃ¤Ã¶Ã¼ÃŸA-ZÃ„Ã–Ãœ]+)*$";
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		if(value instanceof String){
 			if(!((String) value).matches(CITY_PATTERN)){
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ungültiger Stadtname", "Dies ist kein gültiger Stadtname");
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "UngÃ¼ltiger Stadtname", "Dies ist kein gÃ¼ltiger Stadtname");
 				throw new ValidatorException(msg);
 			}
 		} else {

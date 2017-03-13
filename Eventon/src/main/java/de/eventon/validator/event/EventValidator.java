@@ -18,15 +18,15 @@ public class EventValidator {
 	}
 
 	/**
-	 * Überprüft, ob die Anzahl der Tickets gültig ist. Keine Anzahl darf
+	 * ÃœberprÃ¼ft, ob die Anzahl der Tickets gÃ¼ltig ist. Keine Anzahl darf
 	 * kleiner als 0 sein und mindestens eine Angabe (Loge oder Parkett) muss
-	 * größer als 0 sein.
+	 * grÃ¶ÃŸer als 0 sein.
 	 * 
 	 * @param amountTicketsNormal
 	 *            Menge der Tickets: Parkett
 	 * @param amountTicketsPremium
 	 *            Menge der Tickets: Loge
-	 * @return true, wenn die Angabe gültig ist
+	 * @return true, wenn die Angabe gÃ¼ltig ist
 	 */
 	public static boolean validateAmountTickets(Integer amountTicketsNormal, Integer amountTicketsPremium) {
 		return amountTicketsNormal != null && amountTicketsPremium != null && amountTicketsNormal >= 0

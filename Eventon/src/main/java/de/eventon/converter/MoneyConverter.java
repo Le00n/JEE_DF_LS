@@ -13,7 +13,7 @@ public class MoneyConverter implements Converter{
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if(value != null){
-			value = value.replace("€", "");
+			value = value.replace("â‚¬", "");
 			value = value.replace(",", ".");
 			value = value.trim();
 			
@@ -31,7 +31,7 @@ public class MoneyConverter implements Converter{
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
-		DecimalFormat df = new DecimalFormat("#,###,##0.00 €");
+		DecimalFormat df = new DecimalFormat("#,###,##0.00 â‚¬");
 		return df.format(value);
 	}
 

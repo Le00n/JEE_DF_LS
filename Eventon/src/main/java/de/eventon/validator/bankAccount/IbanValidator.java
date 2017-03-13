@@ -14,7 +14,7 @@ public class IbanValidator implements Validator {
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		if(value == null || value.equals(""))
 		{
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "IBAN nicht gefüllt.", "Die IBAN ist nicht gefüllt.");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "IBAN nicht gefÃ¼llt.", "Die IBAN ist nicht gefÃ¼llt.");
 			throw new ValidatorException(msg);
 		}
 		else
@@ -22,7 +22,7 @@ public class IbanValidator implements Validator {
 			String regex = "^[A-Z]{2}\\d{20}";
 			if(!value.toString().matches(regex))
 			{
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "IBAN ungültig.", "Die IBAN ist nicht korrekt gefüllt.");
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "IBAN ungÃ¼ltig.", "Die IBAN ist nicht korrekt gefÃ¼llt.");
 				throw new ValidatorException(msg);
 			}
 		}

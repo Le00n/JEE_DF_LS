@@ -6,7 +6,7 @@ Fehlerresistenz - nur Manager dürfen Events verwalten
 Nach dem Ausloggen muss der Nutzer von jeder Nicht-Manager-Seite geworfen werden
 Bilder-Upload
 Upload-Methode für User besprechen
-Passwort hashen
+Passwort hashen											DONE
 Ganz am Ende: alle Scopes kontrollieren
 
 //DOKU

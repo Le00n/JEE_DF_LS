@@ -1,33 +1,30 @@
 package de.eventon.ui;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import de.eventon.core.Address;
-import de.eventon.core.Booking;
 import de.eventon.core.Event;
 import de.eventon.core.User;
 import de.eventon.services.ActiveUserService;
 import de.eventon.services.EventService;
 import de.eventon.services.NavigationService;
 
-@ManagedBean
+@Named("managerOverviewEventsInProcess")
 @RequestScoped
-public class ManagerOverviewEventsInProcess {
+public class ManagerOverviewEventsInProcess implements Serializable{
 
-	@ManagedProperty("#{activeUserService}")
-	private ActiveUserService activeUserService;
-
-	@ManagedProperty("#{navigationService}")
-	private NavigationService navigationService;
+	private static final long serialVersionUID = -936830754297682305L;
 	
-	@ManagedProperty("#{eventService}")
+	@Inject
+	private ActiveUserService activeUserService;
+	@Inject
+	private NavigationService navigationService;
+	@Inject
 	private EventService eventService;
 	
 	public List<Event> getEvents(){

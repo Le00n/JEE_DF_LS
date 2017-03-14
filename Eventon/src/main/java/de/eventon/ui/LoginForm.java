@@ -1,24 +1,27 @@
 package de.eventon.ui;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import java.io.Serializable;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.eventon.core.User;
 import de.eventon.services.ActiveUserService;
 import de.eventon.services.NavigationService;
 
-@ManagedBean
+@Named("loginForm")
 @RequestScoped
-public class LoginForm {
+public class LoginForm implements Serializable{
 
+	private static final long serialVersionUID = -5179129049568482482L;
+	
 	private User user;
 	private String password;
 
-	@ManagedProperty("#{activeUserService}")
+	@Inject
 	private ActiveUserService activeUserService;
-	
-	@ManagedProperty("#{navigationService}")
+	@Inject
 	private NavigationService navigationService;
 
 	public String login() {

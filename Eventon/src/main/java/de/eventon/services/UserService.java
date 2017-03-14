@@ -1,20 +1,29 @@
 package de.eventon.services;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 
 import de.eventon.core.Address;
 import de.eventon.core.BankAccount;
 import de.eventon.core.User;
 
+@Named("userService")
 @ApplicationScoped
-@ManagedBean
-public class UserService {
+/**
+ * Dieser Service verwaltet alle Nutzer der Anwender. Über ihn können Nutzer auf
+ * Basis der ID oder der Email gesucht werden sowie neue Nutzer hinzugefügt oder
+ * geupdated werden.
+ * 
+ * @author Leon Stapper
+ */
+public class UserService implements Serializable {
+
+	private static final long serialVersionUID = -1460978899898153682L;
 
 	private List<User> users;
 
@@ -24,11 +33,15 @@ public class UserService {
 	}
 
 	private void init() {
-		User user = new User("leonstapper@gmx.de", "1234", "Leon", "Stapper", new Address("Buchdahlstraße", "6", "48429", "Rheine"), new BankAccount("Leon Stapper", "DE83403500050000123456", "WELADED1RHN"), true);
+		User user = new User("leonstapper@gmx.de", "1234", "Leon", "Stapper",
+				new Address("Buchdahlstraße", "6", "48429", "Rheine"),
+				new BankAccount("Leon Stapper", "DE83403500050000123456", "WELADED1RHN"), true);
 		user.setId(1);
 		addUser(user);
-		
-		User user2 = new User("david.feldhoff@web.de", "1234", "David", "Feldhoff", new Address("Moorstraße", "88a", "48432", "Rheine"), new BankAccount("David Feldhoff", "DE83403500050000123456", "WELADED1RHN"), true);
+
+		User user2 = new User("david.feldhoff@web.de", "1234", "David", "Feldhoff",
+				new Address("Moorstraße", "88a", "48432", "Rheine"),
+				new BankAccount("David Feldhoff", "DE83403500050000123456", "WELADED1RHN"), true);
 		user2.setId(2);
 		addUser(user2);
 	}
@@ -36,7 +49,7 @@ public class UserService {
 	public Optional<User> getUserByEmail(String email) {
 		return users.stream().filter(user -> user.getEmail().equals(email)).findFirst();
 	}
-	
+
 	public Optional<User> getUserById(int id) {
 		return users.stream().filter(user -> user.getId() == id).findFirst();
 	}
@@ -44,18 +57,19 @@ public class UserService {
 	public boolean addUser(User user) {
 		if (getUserByEmail(user.getEmail()).isPresent() == false) {
 			int neueUserId = 1;
-			if(users.size() != 0)
-				neueUserId = users.stream().max((User u1, User u2) -> Integer.compare(u1.getId(), u2.getId())).get().getId() +1;
-			 
-			
+			if (users.size() != 0)
+				neueUserId = users.stream().max((User u1, User u2) -> Integer.compare(u1.getId(), u2.getId())).get()
+						.getId() + 1;
+
 			user.setId(neueUserId);
-			
+
 			return users.add(user);
 		}
 		return false;
 	}
-	
-	public boolean updateUser(User user, String firstname, String lastname, Address address, String email, BankAccount bankAccount) {
+
+	public boolean updateUser(User user, String firstname, String lastname, Address address, String email,
+			BankAccount bankAccount) {
 		user.setFirstname(firstname);
 		user.setLastname(lastname);
 		user.setEmail(email);
@@ -63,7 +77,7 @@ public class UserService {
 		user.setBankAccount(bankAccount);
 		return true;
 	}
-	
+
 	public List<User> getUsers() {
 		return users;
 	}

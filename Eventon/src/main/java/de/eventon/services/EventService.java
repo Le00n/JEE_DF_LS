@@ -1,25 +1,34 @@
 package de.eventon.services;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 
 import de.eventon.core.Address;
 import de.eventon.core.Event;
 import de.eventon.core.User;
 
+@Named("eventService")
 @ApplicationScoped
-@ManagedBean
-public class EventService {
+/**
+ * Dieser Service verwaltet alle Events. Über ihn können Events auf Basis der ID
+ * oder des Namens gesucht werden sowie neue Events hinzugefügt werden.
+ * 
+ * @author Leon Stapper
+ */
+public class EventService implements Serializable {
+
+	private static final long serialVersionUID = -5624893888361134183L;
 
 	private List<Event> events;
 	private int id;
-	
+
 	public EventService() {
 		events = new ArrayList<Event>();
 		init();
@@ -27,7 +36,7 @@ public class EventService {
 
 	private void init() {
 		User manager = new UserService().getUserByEmail("david.feldhoff@web.de").get();
-		
+
 		Event e = new Event();
 		e.setId(0);
 		e.setName("Test");
@@ -120,13 +129,53 @@ public class EventService {
 		createEvent(e6);
 	}
 
+	/**
+	 * Fügt das erstellte Event zur Event-Liste hinzu.
+	 * 
+	 * @param event
+	 *            Event
+	 */
 	public void createEvent(Event event) {
 		event.setId(id++);
 		events.add(event);
 	}
 
+	/**
+	 * Gibt ein Event anhand seiner ID zurück.
+	 * 
+	 * @param id
+	 *            ID des Events
+	 * @return Event, dessen ID der übergebenen entspricht. Ist keins vorhanden
+	 *         bleibt das Optional leer.
+	 */
 	public Optional<Event> getEventById(int id) {
 		return events.stream().filter(event -> event.getId() == id).findFirst();
+	}
+
+	/**
+	 * Diese Methode regelt die Suche eines Events. Für den übergebenen
+	 * Suchbegriff wird hierbei eine Liste von zutreffenden Events
+	 * bereitgestellt. Als Suchkriterium gilt dabei ausschließlich der
+	 * Event-Name. Groß- und Kleinschreibung ist nicht erforderlich. Außerdem
+	 * werden auch Events gefunden, deren Namen lediglich Fragmente des
+	 * Suchbegriffs beinhaltet. Ist kein Event für den Begriff zutreffend, ist
+	 * das Optional leer.
+	 * 
+	 * @param searchTerm
+	 *            Suchbegriff
+	 * @return Liste von zutreffenden Events, falls es Treffer gibt
+	 */
+	public Optional<List<Event>> searchEvents(String searchTerm) {
+		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+			List<Event> searchedEvents = getEvents().stream()
+					.filter(event -> event.getName().toLowerCase().contains(searchTerm.trim().toLowerCase())
+							&& event.isPublished())
+					.collect(Collectors.toList());
+
+			return Optional.of(searchedEvents);
+		}
+
+		return Optional.empty();
 	}
 
 	public List<Event> getEvents() {

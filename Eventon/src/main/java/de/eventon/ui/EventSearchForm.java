@@ -1,35 +1,38 @@
 package de.eventon.ui;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.eventon.core.Event;
-import de.eventon.services.EventSearchService;
+import de.eventon.services.EventService;
 import de.eventon.services.NavigationService;
 
-@ManagedBean
+@Named("eventSearchForm")
 @SessionScoped
-public class EventSearchForm {
+public class EventSearchForm implements Serializable {
 
+	private static final long serialVersionUID = 549403592893015555L;
+	
 	private String searchTerm;
 	private List<Event> searchedEvents;
 
-	@ManagedProperty("#{navigationService}")
+	@Inject
 	private NavigationService navigationService;
-	@ManagedProperty("#{eventSearchService}")
-	private EventSearchService eventSearchService;
+	@Inject
+	private EventService eventService;
 
 	public EventSearchForm() {
 		searchedEvents = new ArrayList<Event>();
 	}
 
 	public String searchEvents() {
-		Optional<List<Event>> optSearchedEvents = eventSearchService.searchEvents(searchTerm);
+		Optional<List<Event>> optSearchedEvents = eventService.searchEvents(searchTerm);
 		if (optSearchedEvents.isPresent()) {
 			searchedEvents = optSearchedEvents.get();
 		} else {
@@ -63,11 +66,11 @@ public class EventSearchForm {
 		this.navigationService = navigationService;
 	}
 
-	public EventSearchService getEventSearchService() {
-		return eventSearchService;
+	public EventService getEventSearchService() {
+		return eventService;
 	}
 
-	public void setEventSearchService(EventSearchService eventSearchService) {
-		this.eventSearchService = eventSearchService;
+	public void setEventSearchService(EventService eventService) {
+		this.eventService = eventService;
 	}
 }

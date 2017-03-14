@@ -1,19 +1,23 @@
 package de.eventon.ui;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import java.io.Serializable;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.eventon.services.ActiveUserService;
 import de.eventon.services.NavigationService;
 
-@ManagedBean
+@Named("headerForm")
 @RequestScoped
-public class HeaderForm {
+public class HeaderForm implements Serializable {
 
-	@ManagedProperty("#{activeUserService}")
+	private static final long serialVersionUID = 5659453191787053884L;
+	
+	@Inject
 	private ActiveUserService activeUserService;
-	@ManagedProperty("#{navigationService}")
+	@Inject
 	private NavigationService navigationService;
 
 	public String home(){
@@ -35,6 +39,10 @@ public class HeaderForm {
 	
 	public String userProfile(){
 		return navigationService.userProfile();
+	}
+	
+	public String createEvent(){
+		return navigationService.createEvent();
 	}
 	
 	public String managerOverviewEventsReleased(){

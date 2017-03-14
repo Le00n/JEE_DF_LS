@@ -1,17 +1,27 @@
 package de.eventon.services;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
+
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.eventon.core.User;
 
-@ManagedBean
+@Named("activeUserService")
 @SessionScoped
-public class ActiveUserService {
+/**
+ * Dieser Service verwaltet den User aktiven User für die derzeitige Session.
+ * Hierüber kann sich ein Nutzer ein- und ausloggen.
+ * 
+ * @author Leon Stapper
+ */
+public class ActiveUserService implements Serializable {
+
+	private static final long serialVersionUID = 5883775157529075980L;
 
 	private User activeUser;
-	@ManagedProperty("#{userService}")
+	@Inject
 	private UserService userService;
 
 	public boolean login(User user, String hashedPassword) {

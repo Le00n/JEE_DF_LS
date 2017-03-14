@@ -1,8 +1,10 @@
 package de.eventon.ui;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import java.io.Serializable;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.eventon.core.Address;
 import de.eventon.core.BankAccount;
@@ -10,14 +12,15 @@ import de.eventon.core.User;
 import de.eventon.services.NavigationService;
 import de.eventon.services.UserService;
 
-@ManagedBean
+@Named("registerForm")
 @RequestScoped
-public class RegisterForm {
+public class RegisterForm implements Serializable{
 
-	@ManagedProperty("#{userService}")
+	private static final long serialVersionUID = 3801859673806863588L;
+	
+	@Inject
 	private UserService userService;
-
-	@ManagedProperty("#{navigationService}")
+	@Inject
 	private NavigationService navigationService;
 	
 	private String email, firstname, lastname, street, streetnumber, zip, city, password, passwordConfirm, accountHolder, iban, bic;

@@ -1,40 +1,41 @@
 package de.eventon.ui;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.eventon.core.Event;
 import de.eventon.services.EventBookingService;
 import de.eventon.services.EventService;
 import de.eventon.services.NavigationService;
 
-@ManagedBean
+@Named("eventBookingForm")
 @ViewScoped // Muss für die Ansicht sichtbar sein (Request reicht nicht: ist bei
 			// Buchung schon ungültig; Session zu viel: bei zweiter Buchung ist
 			// die erste noch hinterlegt)
-public class EventBookingForm {
+public class EventBookingForm implements Serializable{
 
+	private static final long serialVersionUID = -4758939465775969668L;
+	
 	private Integer amountTicketsNormal;
 	private Integer amountTicketsPremium;
 	private Event event;
 	private UUID bookingUUID;
 	private boolean bookingConfirmed;
 
-	@ManagedProperty("#{eventService}")
+	@Inject
 	private EventService eventService;
-
-	@ManagedProperty("#{eventBookingService}")
+	@Inject
 	private EventBookingService eventBookingService;
-
-	@ManagedProperty("#{navigationService}")
+	@Inject
 	private NavigationService navigationService;
 
 	public EventBookingForm() {

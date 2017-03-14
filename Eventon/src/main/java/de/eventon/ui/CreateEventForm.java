@@ -1,24 +1,30 @@
 package de.eventon.ui;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.eventon.core.Address;
 import de.eventon.core.Event;
 import de.eventon.core.User;
+import de.eventon.services.ActiveUserService;
 import de.eventon.services.EventService;
 import de.eventon.services.NavigationService;
-import de.eventon.services.UserService;
 import de.eventon.validator.event.EventValidator;
 
-@ManagedBean
+@Named("createEventForm")
 @RequestScoped
-public class CreateEventForm {
+public class CreateEventForm implements Serializable{
+
+	private static final long serialVersionUID = 8170899272566671596L;
 
 	private UIComponent component;
 
@@ -36,20 +42,36 @@ public class CreateEventForm {
 	private String city;
 	private String location;
 
+	private boolean publish;
+
 	private Integer amountTicketsNormal;
 	private Double priceTicketsNormal;
 	private Integer amountTicketsPremium;
 	private Double priceTicketsPremium;
 
-	@ManagedProperty("#{navigationService}")
+	@Inject
 	private NavigationService navigationService;
-	@ManagedProperty("#{eventService}")
+	@Inject
 	private EventService eventService;
-	@ManagedProperty("#{userService}")
-	private UserService userService;
+	@Inject
+	private ActiveUserService activeUserService;
 
 	public CreateEventForm() {
 		// TODO Auto-generated constructor stub
+	}
+
+	@PostConstruct
+	public void init() {
+		// Wenn kein Nutzer eingeloggt ist bzw. dieser nicht Manager ist:
+		// Redirect auf ErrorPage, da nur Manager ein Event erstellen dürfen
+		User activeUser = activeUserService.getActiveUser();
+		if (activeUser == null || !activeUser.isManager()) {
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect(navigationService.userIsNotManager());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public String create() {
@@ -60,13 +82,15 @@ public class CreateEventForm {
 				&& EventValidator.validateAmountTickets(amountTicketsNormal, amountTicketsPremium)
 				&& EventValidator.validatePrices(priceTicketsNormal, priceTicketsPremium)) {
 
-			User manager = userService.getUserByEmail("david.feldhoff@web.de").get();
-			Address eventAddress = new Address(location, street, housenumber, zip, city);
-			Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal, priceTicketsNormal,
-					amountTicketsPremium, priceTicketsPremium, eventAddress, manager, true);
+			User eventCreator = activeUserService.getActiveUser();
+			if (eventCreator != null && eventCreator.isManager()) {
+				Address eventAddress = new Address(location, street, housenumber, zip, city);
+				Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal, priceTicketsNormal,
+						amountTicketsPremium, priceTicketsPremium, eventAddress, eventCreator, publish);
 
-			eventService.createEvent(event);
-			return navigationService.createEventSuccessful();
+				eventService.createEvent(event);
+				return navigationService.createEventSuccessful();
+			}
 		}
 
 		return navigationService.createEventFailed();
@@ -218,5 +242,21 @@ public class CreateEventForm {
 
 	public void setComponent(UIComponent component) {
 		this.component = component;
+	}
+
+	public ActiveUserService getActiveUserService() {
+		return activeUserService;
+	}
+
+	public void setActiveUserService(ActiveUserService activeUserService) {
+		this.activeUserService = activeUserService;
+	}
+
+	public boolean isPublish() {
+		return publish;
+	}
+
+	public void setPublish(boolean publish) {
+		this.publish = publish;
 	}
 }

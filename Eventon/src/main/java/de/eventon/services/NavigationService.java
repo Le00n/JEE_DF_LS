@@ -1,14 +1,25 @@
 package de.eventon.services;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+@Named("navigationService")
 @SessionScoped
-@ManagedBean
-public class NavigationService {
+/**
+ * Dieser Service dient zur Navigation innerhalb der Anwendung. Für jedes
+ * mögliche Ereignis innerhalb der Anwendung ist hier eine Methode hinterlegt,
+ * die beim Aufruf die Folgeseite zurückgibt.
+ * 
+ * @author Leon Stapper
+ */
+public class NavigationService implements Serializable {
 
-	@ManagedProperty("#{activeUserService}")
+	private static final long serialVersionUID = -173122607581315417L;
+
+	@Inject
 	private ActiveUserService activeUserService;
 
 	public NavigationService() {
@@ -45,19 +56,19 @@ public class NavigationService {
 	public String register() {
 		return Pages.REGISTER.toString();
 	}
-	
-	public String registrationSuccessful(){
+
+	public String registrationSuccessful() {
 		return Pages.LOGIN.toString();
 	}
 
-	public String registrationFailed(){
+	public String registrationFailed() {
 		return Pages.LOGIN.toString();
 	}
-	
-	public String registrationCancelled(){
+
+	public String registrationCancelled() {
 		return Pages.HOME.toString();
 	}
-	
+
 	public String userProfile() {
 		return Pages.USERPROFILE.toString();
 	}
@@ -65,19 +76,19 @@ public class NavigationService {
 	public String userDoesNotExist() {
 		return Pages.ERROR_404.toString();
 	}
-	
+
 	public String managerOverviewEventsReleased() {
 		return Pages.MANAGER_OVERVIEW_EVENTS_RELEASED.toString();
 	}
-	
+
 	public String managerOverviewEventsInProcess() {
 		return Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString();
 	}
-	
+
 	public String eventDoesNotExist() {
 		return Pages.ERROR_404.toString();
 	}
-	
+
 	public String book() {
 		if (activeUserService.getActiveUser() == null) {
 			return login();
@@ -89,15 +100,15 @@ public class NavigationService {
 	public String cancelBooking() {
 		return Pages.HOME.toString();
 	}
-	
+
 	public String bookingCodeSeen() {
 		return Pages.HOME.toString();
 	}
-	
-	public String createEvent(){
+
+	public String createEvent() {
 		return Pages.CREATE_EVENT.toString();
 	}
-	
+
 	public String createEventSuccessful() {
 		return Pages.HOME.toString();
 	}
@@ -105,11 +116,15 @@ public class NavigationService {
 	public String createEventFailed() {
 		return Pages.STAY.toString();
 	}
-	
+
 	public String cancelCreateEvent() {
 		return Pages.HOME.toString();
 	}
-	
+
+	public String userIsNotManager() {
+		return Pages.HOME.toString();
+	}
+
 	public ActiveUserService getActiveUserService() {
 		return activeUserService;
 	}
@@ -118,10 +133,17 @@ public class NavigationService {
 		this.activeUserService = activeUserService;
 	}
 
+	/**
+	 * Enum, welches alle Seiten der Anwendung speichert.
+	 * 
+	 * @author Leon Stapper
+	 */
 	public enum Pages {
-		STAY("#"), LOGIN("login.jsp"), REGISTER("register.jsp"), HOME("index.jsp"), USERPROFILE("user.jsp"), 
-		MANAGER_OVERVIEW_EVENTS_RELEASED("managerOverviewEventsReleased.jsp"), MANAGER_OVERVIEW_EVENTS_IN_PROCESS("managerOverviewEventsInProcess.jsp"), 
-		BOOK("book.jsp"), CREATE_EVENT("createEvent.jsp"), ERROR_404("404.jsp");
+		STAY("#"), LOGIN("login.jsp"), REGISTER("register.jsp"), HOME("index.jsp"), USERPROFILE(
+				"user.jsp"), MANAGER_OVERVIEW_EVENTS_RELEASED(
+						"managerOverviewEventsReleased.jsp"), MANAGER_OVERVIEW_EVENTS_IN_PROCESS(
+								"managerOverviewEventsInProcess.jsp"), BOOK(
+										"book.jsp"), CREATE_EVENT("createEvent.jsp"), ERROR_404("404.jsp");
 
 		private String value;
 

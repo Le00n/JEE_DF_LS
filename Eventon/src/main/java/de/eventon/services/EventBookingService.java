@@ -1,21 +1,30 @@
 package de.eventon.services;
 
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.eventon.core.Booking;
 import de.eventon.core.Event;
 import de.eventon.core.User;
 
+@Named("eventBookingService")
 @SessionScoped
-@ManagedBean
-public class EventBookingService {
+/**
+ * Dieser Service dient zur Buchung von Events. Über ihn kann ein Event von
+ * einem Nutzer gebucht werden.
+ * 
+ * @author Leon Stapper
+ */
+public class EventBookingService implements Serializable {
 
-	@ManagedProperty("#{activeUserService}")
+	private static final long serialVersionUID = 2437677069545276093L;
+
+	@Inject
 	private ActiveUserService activeUserService;
 
 	public EventBookingService() {

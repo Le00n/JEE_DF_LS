@@ -1,0 +1,16 @@
+//PROGRAMMIERUNG
+Umstellung auf CDI										DONE
+EventSearchService entfernen							DONE
+Übersichtsseite für Events
+Fehlerresistenz - nur Manager dürfen Events verwalten
+Nach dem Ausloggen muss der Nutzer von jeder Nicht-Manager-Seite geworfen werden
+Bilder-Upload
+Upload-Methode für User besprechen
+Passwort hashen
+Ganz am Ende: alle Scopes kontrollieren
+
+//DOKU
+ER-Modell erstellen in Visio
+Architektur dokumentieren
+User Stories dokumentieren
+Quellcode dokumentieren

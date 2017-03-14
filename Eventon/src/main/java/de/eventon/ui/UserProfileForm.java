@@ -1,16 +1,15 @@
 package de.eventon.ui;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.eventon.core.Address;
 import de.eventon.core.BankAccount;
@@ -19,19 +18,20 @@ import de.eventon.services.ActiveUserService;
 import de.eventon.services.NavigationService;
 import de.eventon.services.UserService;
 
-@ManagedBean
+@Named("userProfileForm")
 @ViewScoped
-public class UserProfileForm {
+public class UserProfileForm implements Serializable{
 
+	private static final long serialVersionUID = 6985231480343494936L;
+	
 	private User user;
 	private String firstname, lastname, street, housenumber, zip, city, email, accountHolder, iban, bic;
-	@ManagedProperty("#{userService}")
+	
+	@Inject
 	private UserService userService;
-
-	@ManagedProperty("#{activeUserService}")
+	@Inject
 	private ActiveUserService activeUserService;
-
-	@ManagedProperty("#{navigationService}")
+	@Inject
 	private NavigationService navigationService;
 
 	public UserProfileForm() {

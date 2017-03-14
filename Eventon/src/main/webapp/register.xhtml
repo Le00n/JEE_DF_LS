@@ -104,12 +104,16 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	  		</div>
 	  		<div class="form-group">
 	    		<div class="col-md-12">
-	    			<h:inputSecret class="form-control" id="inputPassword1" value="#{registerForm.password}" a:placeholder="Passwort"/>
+	    			<h:inputSecret class="form-control" id="inputPassword1" value="#{registerForm.password}" a:placeholder="Passwort">
+	    				<f:converter converterId="passwordConverter"/>
+	    			</h:inputSecret>
 	    		</div>
 	  		</div>
 	  		<div class="form-group">
 	    		<div class="col-md-12">
-	    			<h:inputSecret class="form-control" id="inputPassword2" value="#{registerForm.passwordConfirm}" a:placeholder="Passwort wiederholen"/>
+	    			<h:inputSecret class="form-control" id="inputPassword2" value="#{registerForm.passwordConfirm}" a:placeholder="Passwort wiederholen">
+	    				<f:converter converterId="passwordConverter"/>
+	    			</h:inputSecret>
 	    		</div>
 	  		</div>
 	  		

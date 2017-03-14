@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 
+Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+<h:head>
+	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css"/>
+	<h:outputStylesheet name="css/validatorError.css"/>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<h:outputScript name="bootstrap/3.2.0/js/bootstrap.js"></h:outputScript>
+	<ui:insert name="header"/>
+</h:head>
+
+<body>
+	<h:form>
+		<div id="header">
+			<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<!-- Navbabbbr konfigurieren -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<h:commandLink class="navbar-brand" action="#{headerForm.home}"
+						value="eventon"></h:commandLink>
+				</div>
+
+				<!-- Elemente der Nav-Bar definieren -->
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<!--Rendering, falls der Nutzer nicht eingelogged ist-->
+						<h:panelGroup rendered="#{activeUserService.activeUser == null}">
+							<li class="active"><h:commandLink
+									action="#{headerForm.login}" value="Anmelden"></h:commandLink></li>
+							<li><h:commandLink action="#{headerForm.register}"
+									value="Registrieren"></h:commandLink></li>
+						</h:panelGroup>
+						<!-- Rendering, falls der Nutzer eingelogged ist -->
+						<h:panelGroup rendered="#{activeUserService.activeUser != null}">
+							<li class="active"><h:link outcome="user"
+									value="#{activeUserService.activeUser.firstname} #{activeUserService.activeUser.lastname}">
+									<f:param name="id" value="#{activeUserService.activeUser.id}" />
+								</h:link></li>
+							<!-- Rendering, falls der Nutzer eingelogged und Manager ist -->
+							<h:panelGroup rendered="#{activeUserService.activeUser.manager}">
+								<li role="presentation" class="dropdown"><a
+									class="dropdown-toggle" data-toggle="dropdown" href="#"
+									role="button" aria-haspopup="true" aria-expanded="false">
+										Meine Events <span class="caret"></span>
+								</a>
+									<ul class="dropdown-menu">
+										<li><h:commandLink action="#{headerForm.createEvent}"
+												value="Event erstellen" /></li>
+										<li><h:commandLink
+												action="#{headerForm.managerOverviewEventsInProcess}"
+												value="In Bearbeitung" /></li>
+										<li><h:commandLink
+												action="#{headerForm.managerOverviewEventsReleased}"
+												value="Veröffentlicht" /></li>
+									</ul></li>
+							</h:panelGroup>
+
+						</h:panelGroup>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						<!-- Rendering, falls der Nutzer eingelogged ist -->
+						<h:panelGroup rendered="#{activeUserService.activeUser != null}">
+							<li><h:commandLink action="#{headerForm.logout}"
+									value="Logout" /></li>
+						</h:panelGroup>
+					</ul>
+				</div>
+			</div>
+			</nav>
+		</div>
+	</h:form>
+	
+	<!-- Main-Content -->
+	<div class="container-fluid">
+		<div class="row">
+			<div id="main" class="content col-md-12">
+				<ui:insert name="content"/>			
+			</div>	
+		</div>
+	</div>
+	
+	<!-- JavaScript am Ende der Seite einbinden -->
+	<ui:insert name="javascript"/>
+</body>
+</html>

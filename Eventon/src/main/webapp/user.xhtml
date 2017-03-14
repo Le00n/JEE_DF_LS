@@ -5,204 +5,220 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsf/core"
 	xmlns:f="http://java.sun.com/jsf/core">
-<h:head>
-	<h:outputStylesheet name="css/index.css" />
-	<h:outputStylesheet name="css/validatorError.css"></h:outputStylesheet>
-	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css" />
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<h:outputScript name="bootstrap/3.2.0/js/bootstrap.js"></h:outputScript>
-</h:head>
 
-<body>
-	<ui:insert name="header">
-		<ui:include src="/header.xhtml" />
-	</ui:insert>
+<ui:composition template="baseSide.xhtml">
 
-	<!-- Event-Informationen -->
-	<h:panelGroup layout="block"
-		rendered="#{userProfileForm.user != null}">
-		<h1 style="text-align:center"><h:outputText value="Angemeldet als #{userProfileForm.user.firstname} #{userProfileForm.user.lastname}"/></h1>
-	</h:panelGroup>
-	
-	
-	<div class="container-fluid searchresult">
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<h:panelGroup class="panel panel-primary" layout="block">
-					<div class="panel-heading" style="margin-bottom: 20px;">
-						<h3 class="panel-title">Benutzerdaten</h3>
-					</div>
-					<div class="panel-body">
-						<h:form class="form-horizontal">
-							<div class="col-md-6 form-group">
-								<div class="form-group">
-									<div class="col-md-3 col-md-offset-1">
-										<h:outputLabel>Vorname</h:outputLabel>
-									</div>
-									<div class="col-md-8">
-										<h:inputText class="form-control" value="#{userProfileForm.firstname}"/>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-md-3 col-md-offset-1">
-										<h:outputLabel>Nachname</h:outputLabel>
-									</div>
-									<div class="col-md-8">
-										<h:inputText class="form-control" value="#{userProfileForm.lastname}"/>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-md-3 col-md-offset-1">
-										<h:outputLabel>Straße / Hausnummer</h:outputLabel>
-									</div>
-									<div class="col-md-5">
-										<h:inputText class="form-control" value="#{userProfileForm.street}"></h:inputText>
-									</div>
-									<div class="col-md-3">
-										<h:inputText class="form-control" value="#{userProfileForm.housenumber}"></h:inputText>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-md-3 col-md-offset-1">
-										<h:outputLabel>PLZ / Ort</h:outputLabel>
-									</div>
-									<div class="col-md-3">
-										<h:inputText class="form-control" value="#{userProfileForm.zip}"/>
-									</div>
-									<div class="col-md-5">
-										<h:inputText class="form-control" value="#{userProfileForm.city}"/>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-md-3 col-md-offset-1">
-										<h:outputLabel class="control-label">E-Mail</h:outputLabel>
-									</div>
-									<div class="col-md-8">
-										<h:inputText class="form-control" value="#{userProfileForm.email}"/>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<div class="col-md-3">
-										<h:outputLabel>Kontoinhaber</h:outputLabel>
-									</div>
-									<div class="col-md-9">
-										<h:inputText class="form-control" id="accountHolder" value="#{userProfileForm.accountHolder}">
-											<f:validator validatorId="accountHolderValidator" />
-										</h:inputText>
-										<div class="error">
-											<h:message for="accountHolder" class="alert alert-danger error" />
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-md-3">
-										<h:outputLabel>IBAN</h:outputLabel>
-									</div>
-									<div class="col-md-9">
-										<h:inputText class="form-control" id="iban" value="#{userProfileForm.iban}">
-											<f:validator validatorId="ibanValidator"/>
-										</h:inputText>
-										<div class="error">
-											<h:message for="iban" class="alert alert-danger error" />
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-md-3">
-										<h:outputLabel>BIC</h:outputLabel>
-									</div>
-									<div class="col-md-9">
-										<h:inputText class="form-control" id="bic" value="#{userProfileForm.bic}">
-											<f:validator validatorId="bicValidator" />
-										</h:inputText>
-										<div class="error">
-											<h:message for="bic" class="alert alert-danger error" />
-										</div>
-									</div>
-								</div>
-								
-								<div class="form-group" style=" margin-top:50px;">
-					   			<div class="col-md-3 col-md-offset-9">
-					   				<h:commandButton class="btn btn-success btn-lg" action="#{userProfileForm.save}" value="Speichern"></h:commandButton>
-					    		</div>
-					  		</div>
-							</div>
-						</h:form>
-					</div>
-				</h:panelGroup>
-			</div>
-		</div>
-	</div>
-	
-	<div class="container-fluid searchresult">
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<h:panelGroup class="panel panel-danger" rendered="#{empty eventSearchForm.searchedEvents}" layout="block">
-					<div class="panel-heading">
-						<h3 class="panel-title">Keine Bestellungen</h3>
-					</div>
-					<div class="panel-body"></div>
-				</h:panelGroup>
-			</div>
-		</div>
-	</div>
-	<div id="showOrders" class="col-md-8 col-md-offset-2 searchresult" style="border: 0">
-		<h:panelGroup class="panel panel-primary"
-					rendered="#{not empty eventSearchForm.searchedEvents}"
-					layout="block">
-			<div class="panel-heading">
-				<h3 class="panel-title">Ihre Bestellungen</h3>
-			</div>
-			<div class="panel-body">
-				<h:dataTable value="#{userProfileForm.user.bookings}" var="booking" class="table table-hover table-bordered">
-					<h:column>
-						<c:facet name="header">Bild</c:facet>
-						<img src="http://www.kraftklub.to/randale/images/content/cover_album_in-schwarz.png?v=1" class="img-rounded" style="max-width:50px; max-height:50px;"/>
-					</h:column>
-					<h:column>
-						<c:facet name="header">Veranstaltung</c:facet>
-						<h:link outcome="event" value="#{booking.event.name}">
-							<f:param name="id" value="#{booking.event.id}" />
-						</h:link>
-					</h:column>
-					<h:column>
-						<c:facet name="header">Datum</c:facet>
-						<h:outputText pattern="dd.MM.YYYY" value="#{booking.event.datetime}">
-							<f:converter converterId="LocalDateConverterID" />
-						</h:outputText>
-					</h:column>
-					<h:column>
-						<c:facet name="header">Uhrzeit</c:facet>
-						<h:outputText pattern="HH:mm" value="#{booking.event.datetime}">
-							<f:converter converterId="LocalDateConverterID" />
-						</h:outputText>
-					</h:column>
-					<h:column>
-						<c:facet name="header">Location</c:facet>
-						<h:outputText value="#{booking.event.address.locationName}" />
-					</h:column>
-					<h:column>
-						<c:facet name="header">Ort</c:facet>
-						<h:outputText value="#{booking.event.address.city}" />
-					</h:column>
-					<h:column>
-						<c:facet name="header">Reserviert Parkett</c:facet>
-						<h:outputText value="#{booking.amountNormalTickets}" />
-					</h:column>
-					<h:column>
-						<c:facet name="header">Reserviert Loge</c:facet>
-						<h:outputText value="#{booking.amountPremiumTickets}" />
-					</h:column>
-					<h:column>
-						<c:facet name="header">Preis</c:facet>
-						<h:outputText value="#{booking.price} €" />
-					</h:column>
-				</h:dataTable>
-			</div>
+	<ui:define name="header">
+		<h:outputStylesheet name="css/index.css" />
+	</ui:define>
+
+	<ui:define name="content">
+		<!-- Event-Informationen -->
+		<h:panelGroup layout="block"
+			rendered="#{userProfileForm.user != null}">
+			<h1 style="text-align: center">
+				<h:outputText
+					value="Angemeldet als #{userProfileForm.user.firstname} #{userProfileForm.user.lastname}" />
+			</h1>
 		</h:panelGroup>
-	</div>
-</body>
+
+
+		<div class="container-fluid searchresult">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<h:panelGroup class="panel panel-primary" layout="block">
+						<div class="panel-heading" style="margin-bottom: 20px;">
+							<h3 class="panel-title">Benutzerdaten</h3>
+						</div>
+						<div class="panel-body">
+							<h:form class="form-horizontal">
+								<div class="col-md-6 form-group">
+									<div class="form-group">
+										<div class="col-md-3 col-md-offset-1">
+											<h:outputLabel>Vorname</h:outputLabel>
+										</div>
+										<div class="col-md-8">
+											<h:inputText class="form-control"
+												value="#{userProfileForm.firstname}" />
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-3 col-md-offset-1">
+											<h:outputLabel>Nachname</h:outputLabel>
+										</div>
+										<div class="col-md-8">
+											<h:inputText class="form-control"
+												value="#{userProfileForm.lastname}" />
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-3 col-md-offset-1">
+											<h:outputLabel>Straße / Hausnummer</h:outputLabel>
+										</div>
+										<div class="col-md-5">
+											<h:inputText class="form-control"
+												value="#{userProfileForm.street}"></h:inputText>
+										</div>
+										<div class="col-md-3">
+											<h:inputText class="form-control"
+												value="#{userProfileForm.housenumber}"></h:inputText>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-3 col-md-offset-1">
+											<h:outputLabel>PLZ / Ort</h:outputLabel>
+										</div>
+										<div class="col-md-3">
+											<h:inputText class="form-control"
+												value="#{userProfileForm.zip}" />
+										</div>
+										<div class="col-md-5">
+											<h:inputText class="form-control"
+												value="#{userProfileForm.city}" />
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-3 col-md-offset-1">
+											<h:outputLabel class="control-label">E-Mail</h:outputLabel>
+										</div>
+										<div class="col-md-8">
+											<h:inputText class="form-control"
+												value="#{userProfileForm.email}" />
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<div class="col-md-3">
+											<h:outputLabel>Kontoinhaber</h:outputLabel>
+										</div>
+										<div class="col-md-9">
+											<h:inputText class="form-control" id="accountHolder"
+												value="#{userProfileForm.accountHolder}">
+												<f:validator validatorId="accountHolderValidator" />
+											</h:inputText>
+											<div class="error">
+												<h:message for="accountHolder"
+													class="alert alert-danger error" />
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-3">
+											<h:outputLabel>IBAN</h:outputLabel>
+										</div>
+										<div class="col-md-9">
+											<h:inputText class="form-control" id="iban"
+												value="#{userProfileForm.iban}">
+												<f:validator validatorId="ibanValidator" />
+											</h:inputText>
+											<div class="error">
+												<h:message for="iban" class="alert alert-danger error" />
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-3">
+											<h:outputLabel>BIC</h:outputLabel>
+										</div>
+										<div class="col-md-9">
+											<h:inputText class="form-control" id="bic"
+												value="#{userProfileForm.bic}">
+												<f:validator validatorId="bicValidator" />
+											</h:inputText>
+											<div class="error">
+												<h:message for="bic" class="alert alert-danger error" />
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group" style="margin-top: 50px;">
+										<div class="col-md-3 col-md-offset-9">
+											<h:commandButton class="btn btn-success btn-lg"
+												action="#{userProfileForm.save}" value="Speichern"></h:commandButton>
+										</div>
+									</div>
+								</div>
+							</h:form>
+						</div>
+					</h:panelGroup>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid searchresult">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<h:panelGroup class="panel panel-danger"
+						rendered="#{empty eventSearchForm.searchedEvents}" layout="block">
+						<div class="panel-heading">
+							<h3 class="panel-title">Keine Bestellungen</h3>
+						</div>
+						<div class="panel-body"></div>
+					</h:panelGroup>
+				</div>
+			</div>
+		</div>
+		<div id="showOrders" class="col-md-8 col-md-offset-2 searchresult"
+			style="border: 0">
+			<h:panelGroup class="panel panel-primary"
+				rendered="#{not empty eventSearchForm.searchedEvents}"
+				layout="block">
+				<div class="panel-heading">
+					<h3 class="panel-title">Ihre Bestellungen</h3>
+				</div>
+				<div class="panel-body">
+					<h:dataTable value="#{userProfileForm.user.bookings}" var="booking"
+						class="table table-hover table-bordered">
+						<h:column>
+							<c:facet name="header">Bild</c:facet>
+							<img
+								src="http://www.kraftklub.to/randale/images/content/cover_album_in-schwarz.png?v=1"
+								class="img-rounded" style="max-width: 50px; max-height: 50px;" />
+						</h:column>
+						<h:column>
+							<c:facet name="header">Veranstaltung</c:facet>
+							<h:link outcome="event" value="#{booking.event.name}">
+								<f:param name="id" value="#{booking.event.id}" />
+							</h:link>
+						</h:column>
+						<h:column>
+							<c:facet name="header">Datum</c:facet>
+							<h:outputText pattern="dd.MM.YYYY"
+								value="#{booking.event.datetime}">
+								<f:converter converterId="LocalDateConverterID" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<c:facet name="header">Uhrzeit</c:facet>
+							<h:outputText pattern="HH:mm" value="#{booking.event.datetime}">
+								<f:converter converterId="LocalDateConverterID" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<c:facet name="header">Location</c:facet>
+							<h:outputText value="#{booking.event.address.locationName}" />
+						</h:column>
+						<h:column>
+							<c:facet name="header">Ort</c:facet>
+							<h:outputText value="#{booking.event.address.city}" />
+						</h:column>
+						<h:column>
+							<c:facet name="header">Reserviert Parkett</c:facet>
+							<h:outputText value="#{booking.amountNormalTickets}" />
+						</h:column>
+						<h:column>
+							<c:facet name="header">Reserviert Loge</c:facet>
+							<h:outputText value="#{booking.amountPremiumTickets}" />
+						</h:column>
+						<h:column>
+							<c:facet name="header">Preis</c:facet>
+							<h:outputText value="#{booking.price} €" />
+						</h:column>
+					</h:dataTable>
+				</div>
+			</h:panelGroup>
+		</div>
+	</ui:define>
+</ui:composition>
 </html>

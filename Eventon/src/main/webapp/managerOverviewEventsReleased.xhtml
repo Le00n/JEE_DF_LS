@@ -6,18 +6,9 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
-<h:head>
-	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css" />
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<h:outputScript name="bootstrap/3.2.0/js/bootstrap.js"></h:outputScript>
-</h:head>
-
-<body>
-	<ui:insert name="header">
-		<ui:include src="/header.xhtml" />
-	</ui:insert>
-
-	<h1>Manager-Übersicht Events Released</h1>
-</body>
+<ui:composition template="baseSide.xhtml">
+	<ui:define name="content">
+		<h1>Manager-Übersicht Events Released</h1>
+	</ui:define>
+</ui:composition>
 </html>

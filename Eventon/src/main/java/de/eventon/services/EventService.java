@@ -7,9 +7,11 @@ import java.util.Optional;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 
 import de.eventon.core.Address;
 import de.eventon.core.Event;
+import de.eventon.core.User;
 
 @ApplicationScoped
 @ManagedBean
@@ -17,13 +19,15 @@ public class EventService {
 
 	private List<Event> events;
 	private int id;
-
+	
 	public EventService() {
 		events = new ArrayList<Event>();
 		init();
 	}
 
 	private void init() {
+		User manager = new UserService().getUserByEmail("david.feldhoff@web.de").get();
+		
 		Event e = new Event();
 		e.setId(0);
 		e.setName("Test");
@@ -33,6 +37,8 @@ public class EventService {
 		e.setAmountTicketsNormal(5);
 		e.setAmountTicketsPremium(10);
 		e.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraße", "2"));
+		e.setManager(manager);
+		e.setPublished(true);
 		createEvent(e);
 
 		Event e1 = new Event();
@@ -44,6 +50,8 @@ public class EventService {
 		e1.setAmountTicketsNormal(5);
 		e1.setAmountTicketsPremium(10);
 		e1.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraße", "2"));
+		e1.setManager(manager);
+		e1.setPublished(true);
 		createEvent(e1);
 
 		Event e2 = new Event();
@@ -55,6 +63,8 @@ public class EventService {
 		e2.setAmountTicketsNormal(5);
 		e2.setAmountTicketsPremium(10);
 		e2.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraße", "2"));
+		e2.setManager(manager);
+		e2.setPublished(true);
 		createEvent(e2);
 
 		Event e3 = new Event();
@@ -68,6 +78,8 @@ public class EventService {
 		e3.setAmountTicketsNormal(5);
 		e3.setAmountTicketsPremium(10);
 		e3.setAddress(new Address("Stadthalle", "Teststraße", "2", "48429", "Rheine"));
+		e3.setManager(manager);
+		e3.setPublished(true);
 		createEvent(e3);
 
 		Event e4 = new Event();
@@ -79,6 +91,7 @@ public class EventService {
 		e4.setAmountTicketsNormal(5);
 		e4.setAmountTicketsPremium(10);
 		e4.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraße", "2"));
+		e4.setManager(manager);
 		createEvent(e4);
 
 		Event e5 = new Event();
@@ -90,6 +103,7 @@ public class EventService {
 		e5.setAmountTicketsNormal(5);
 		e5.setAmountTicketsPremium(10);
 		e5.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraße", "2"));
+		e5.setManager(manager);
 		createEvent(e5);
 
 		Event e6 = new Event();
@@ -101,6 +115,8 @@ public class EventService {
 		e6.setAmountTicketsNormal(5);
 		e6.setAmountTicketsPremium(10);
 		e6.setAddress(new Address("Stadthalle", "48429", "Rheine", "Teststraße", "2"));
+		e6.setManager(manager);
+		e6.setPublished(true);
 		createEvent(e6);
 	}
 

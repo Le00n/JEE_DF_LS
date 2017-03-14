@@ -11,9 +11,9 @@ import javax.faces.bean.SessionScoped;
 import de.eventon.core.Event;
 
 @ManagedBean
-@SessionScoped //damit die Suche nicht nach Seitenwechsel verfällt
+@SessionScoped //damit die Suche nicht nach Seitenwechsel verfï¿½llt
 /**
- * Die Klasse eventSearchForm ist verantwortlich für die Suche eines Events.
+ * Die Klasse eventSearchForm ist verantwortlich fï¿½r die Suche eines Events.
  * Sie nimmt die Suchbegriffe entgegen, verwertet sie und stellt eine Liste der
  * zutreffenenden Events bereit.
  * 
@@ -31,7 +31,7 @@ public class EventSearchService {
 	public Optional<List<Event>> searchEvents(String searchTerm) {
 		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
 			List<Event> searchedEvents = eventService.getEvents().stream()
-					.filter(event -> event.getName().toLowerCase().contains(searchTerm.trim().toLowerCase()))
+					.filter(event -> event.getName().toLowerCase().contains(searchTerm.trim().toLowerCase()) && event.isPublished())
 					.collect(Collectors.toList());
 			
 			return Optional.of(searchedEvents);

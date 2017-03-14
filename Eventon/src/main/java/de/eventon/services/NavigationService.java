@@ -66,8 +66,12 @@ public class NavigationService {
 		return Pages.ERROR_404.toString();
 	}
 	
-	public String eventManagerOverview() {
-		return Pages.EVENT_MANAGER_OVERVIEW.toString();
+	public String managerOverviewEventsReleased() {
+		return Pages.MANAGER_OVERVIEW_EVENTS_RELEASED.toString();
+	}
+	
+	public String managerOverviewEventsInProcess() {
+		return Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString();
 	}
 	
 	public String eventDoesNotExist() {
@@ -115,8 +119,9 @@ public class NavigationService {
 	}
 
 	public enum Pages {
-		STAY("#"), LOGIN("login.jsp"), REGISTER("register.jsp"), HOME("index.jsp"), USERPROFILE("user.jsp"), EVENT_MANAGER_OVERVIEW("eventManagerOverview.jsp"), BOOK(
-				"book.jsp"), CREATE_EVENT("createEvent.jsp"), ERROR_404("404.jsp");
+		STAY("#"), LOGIN("login.jsp"), REGISTER("register.jsp"), HOME("index.jsp"), USERPROFILE("user.jsp"), 
+		MANAGER_OVERVIEW_EVENTS_RELEASED("managerOverviewEventsReleased.jsp"), MANAGER_OVERVIEW_EVENTS_IN_PROCESS("managerOverviewEventsInProcess.jsp"), 
+		BOOK("book.jsp"), CREATE_EVENT("createEvent.jsp"), ERROR_404("404.jsp");
 
 		private String value;
 

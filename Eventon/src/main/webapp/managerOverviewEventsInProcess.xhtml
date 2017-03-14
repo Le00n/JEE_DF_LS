@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 
+Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css" />
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<h:outputScript name="bootstrap/3.2.0/js/bootstrap.js"></h:outputScript>
+</h:head>
+
+<body>
+	<ui:insert name="header">
+		<ui:include src="/header.xhtml" />
+	</ui:insert>
+	
+	<div class="container-fluid searchresult">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<h:panelGroup class="panel panel-danger" rendered="#{empty managerOverviewEventsInProcess.events}" layout="block">
+					<div class="panel-heading">
+						<h3 class="panel-title">Sie haben derzeit keine unveröffentlichten Events.</h3>
+					</div>
+					<div class="panel-body"></div>
+				</h:panelGroup>
+			</div>
+		</div>
+	</div>
+	<div id="showEvents" class="col-md-8 col-md-offset-2 searchresult" style="border: 0">
+		<h:panelGroup class="panel panel-primary"
+					rendered="#{not empty managerOverviewEventsInProcess.events}"
+					layout="block">
+			<div class="panel-heading">
+				<h3 class="panel-title">Unveröffentlichte Events</h3>
+			</div>
+			<div class="panel-body">
+				<h:dataTable value="#{managerOverviewEventsInProcess.events}" var="event" class="table table-hover table-bordered">
+					<h:column>
+						<f:facet name="header">Bild</f:facet>
+						<img src="http://www.kraftklub.to/randale/images/content/cover_album_in-schwarz.png?v=1" class="img-rounded" style="max-width:50px; max-height:50px;"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Veranstaltung</f:facet>
+						<h:link outcome="event" value="#{event.name}">
+							<f:param name="id" value="#{event.id}" />
+						</h:link>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Datum</f:facet>
+						<h:outputText pattern="dd.MM.YYYY" value="#{event.datetime}">
+							<f:converter converterId="LocalDateConverterID" />
+						</h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Uhrzeit</f:facet>
+						<h:outputText pattern="HH:mm" value="#{event.datetime}">
+							<f:converter converterId="LocalDateConverterID" />
+						</h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Location</f:facet>
+						<h:outputText value="#{event.address.locationName}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Ort</f:facet>
+						<h:outputText value="#{event.address.city}" />
+					</h:column>
+					
+				</h:dataTable>
+			</div>
+		</h:panelGroup>
+	</div>
+</body>
+</html>

@@ -10,8 +10,10 @@ import javax.faces.component.UIComponent;
 
 import de.eventon.core.Address;
 import de.eventon.core.Event;
+import de.eventon.core.User;
 import de.eventon.services.EventService;
 import de.eventon.services.NavigationService;
+import de.eventon.services.UserService;
 import de.eventon.validator.event.EventValidator;
 
 @ManagedBean
@@ -43,6 +45,8 @@ public class CreateEventForm {
 	private NavigationService navigationService;
 	@ManagedProperty("#{eventService}")
 	private EventService eventService;
+	@ManagedProperty("#{userService}")
+	private UserService userService;
 
 	public CreateEventForm() {
 		// TODO Auto-generated constructor stub
@@ -56,9 +60,10 @@ public class CreateEventForm {
 				&& EventValidator.validateAmountTickets(amountTicketsNormal, amountTicketsPremium)
 				&& EventValidator.validatePrices(priceTicketsNormal, priceTicketsPremium)) {
 
+			User manager = userService.getUserByEmail("david.feldhoff@web.de").get();
 			Address eventAddress = new Address(location, street, housenumber, zip, city);
 			Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal, priceTicketsNormal,
-					amountTicketsPremium, priceTicketsPremium, eventAddress);
+					amountTicketsPremium, priceTicketsPremium, eventAddress, manager, true);
 
 			eventService.createEvent(event);
 			return navigationService.createEventSuccessful();

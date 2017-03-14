@@ -37,8 +37,12 @@ public class HeaderForm {
 		return navigationService.userProfile();
 	}
 	
-	public String eventManagerOverview(){
-		return navigationService.eventManagerOverview();
+	public String managerOverviewEventsReleased(){
+		return navigationService.managerOverviewEventsReleased();
+	}
+	
+	public String managerOverviewEventsInProcess(){
+		return navigationService.managerOverviewEventsInProcess();
 	}
 	
 	public NavigationService getNavigationService() {

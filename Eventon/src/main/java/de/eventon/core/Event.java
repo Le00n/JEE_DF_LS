@@ -16,13 +16,16 @@ public class Event {
 	private int amountTicketsNormal;
 	private Address address;
 	private List<Booking> bookings;
+	private User manager;
+	private boolean published;
 
 	public Event(){
 		bookings = new ArrayList<Booking>();
 	}
 	
 	public Event(String name, LocalDateTime datetime, String description, int amountTicketsNormal,
-			double priceTicketsNormal, int amountTicketsPremium, double priceTicketsPremium, Address address) {
+			double priceTicketsNormal, int amountTicketsPremium, double priceTicketsPremium, Address address, 
+			User manager, boolean published) {
 
 		this.name = name;
 		this.datetime = datetime;
@@ -32,7 +35,9 @@ public class Event {
 		this.amountTicketsNormal = amountTicketsNormal;
 		this.amountTicketsPremium = amountTicketsPremium;
 		this.address = address;
-
+		this.manager = manager;
+		this.published = published;
+		
 		bookings = new ArrayList<Booking>();
 	}
 
@@ -136,5 +141,21 @@ public class Event {
 		}
 
 		return amountFreePremiumTickets;
+	}
+
+	public User getManager() {
+		return manager;
+	}
+
+	public void setManager(User manager) {
+		this.manager = manager;
+	}
+
+	public boolean isPublished() {
+		return published;
+	}
+
+	public void setPublished(boolean published) {
+		this.published = published;
 	}
 }

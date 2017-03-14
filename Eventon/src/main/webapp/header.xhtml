@@ -43,10 +43,18 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 									</li>
 									<!-- Rendering, falls der Nutzer eingelogged und Manager ist -->
 									<h:panelGroup rendered="#{activeUserService.activeUser.manager}">
-										<li>
-											<h:commandLink action="#{headerForm.eventManagerOverview}"
-												value="Meine Events">
-											</h:commandLink>
+										<li role="presentation" class="dropdown">
+											<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+												Meine Events <span class="caret"></span>
+											</a>
+											<ul class="dropdown-menu">
+												<li>
+													<h:commandLink action="#{headerForm.managerOverviewEventsReleased}" value="Veröffentlicht" />
+												</li>
+												<li>
+													<h:commandLink action="#{headerForm.managerOverviewEventsInProcess}" value="In Bearbeitung" />
+												</li>
+											</ul>
 										</li>
 									</h:panelGroup>
 									

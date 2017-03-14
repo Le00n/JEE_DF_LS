@@ -28,7 +28,7 @@ public class UserService {
 		user.setId(1);
 		addUser(user);
 		
-		User user2 = new User("david.feldhoff@web.de", "1234", "David", "Feldhoff", new Address("Moorstraße", "88a", "48432", "Rheine"), new BankAccount("David Feldhoff", "DE83403500050000123456", "WELADED1RHN"), false);
+		User user2 = new User("david.feldhoff@web.de", "1234", "David", "Feldhoff", new Address("Moorstraße", "88a", "48432", "Rheine"), new BankAccount("David Feldhoff", "DE83403500050000123456", "WELADED1RHN"), true);
 		user2.setId(2);
 		addUser(user2);
 	}

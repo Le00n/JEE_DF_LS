@@ -21,6 +21,7 @@ public class RegisterForm {
 	private NavigationService navigationService;
 	
 	private String email, firstname, lastname, street, streetnumber, zip, city, password, passwordConfirm, accountHolder, iban, bic;
+	private boolean manager;
 	
 	
 	public String getEmail() {
@@ -95,9 +96,11 @@ public class RegisterForm {
 	public void setBic(String bic) {
 		this.bic = bic;
 	}
-	
-	public String cancel(){
-		return navigationService.registrationCancelled();
+	public boolean isManager() {
+		return manager;
+	}
+	public void setManager(boolean manager) {
+		this.manager = manager;
 	}
 	
 	public String register(){
@@ -105,14 +108,18 @@ public class RegisterForm {
 		{
 			if(password.equals(passwordConfirm) && email.contains("@"))
 			{
-				User user = new User(email, password, firstname, lastname, new Address(zip, city, street, streetnumber), new BankAccount(accountHolder, iban, bic), false);
+				User user = new User(email, password, firstname, lastname, new Address(zip, city, street, streetnumber), new BankAccount(accountHolder, iban, bic), manager);
 				if(userService.addUser(user))
 				{
+					System.out.println("User.isManager: " + user.isManager());
 					return navigationService.registrationSuccessful();
 				}
 			}
 		}
 		return navigationService.registrationFailed();
+	}
+	public String cancel(){
+		return navigationService.registrationCancelled();
 	}
 	
 	public UserService getUserService() {

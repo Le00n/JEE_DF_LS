@@ -1,16 +1,23 @@
 //PROGRAMMIERUNG
-Umstellung auf CDI										DONE
-EventSearchService entfernen							DONE
-Übersichtsseite für Events
-Fehlerresistenz - nur Manager dürfen Events verwalten
-Nach dem Ausloggen muss der Nutzer von jeder Nicht-Manager-Seite geworfen werden
-Bilder-Upload
+Umstellung auf CDI																	DONE
+EventSearchService entfernen														DONE
+Übersichtsseite für Events 															David
+Fehlerresistenz - nur Manager dürfen Events verwalten								David
+Nach dem Ausloggen muss der Nutzer von jeder Nicht-Manager-Seite geworfen werden	Leon	
+Bilder-Upload																		David
 Upload-Methode für User besprechen
-Passwort hashen											DONE
+Passwort hashen																		DONE
+Abbrechen-Button erzwingt Validierung (type: submit)								Leon
+Login Validatoren, Triple Navigation (bzw. wie besprochen Bootstrap Login-Dropdown)	Leon
+Gradle JQuery																		Leon
+Messages außerhalb eines Validator werfen (wenn Lösung gefunden - Leon schreiben) 	David
+Registrierung Validierung															David
 Ganz am Ende: alle Scopes kontrollieren
+Regex Vorname Nachname ohne Sonderzeichen aber mit "á" und "-" etc. in UserFirstnameValidator David
+JPA Nachforschungen anstellen														David
 
 //DOKU
-ER-Modell erstellen in Visio
-Architektur dokumentieren
-User Stories dokumentieren
+ER-Modell erstellen in Visio														David
+Architektur dokumentieren															Leon
+User Stories dokumentieren															
 Quellcode dokumentieren

@@ -12,7 +12,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<div id="register"
 			class="panel panel-default col-md-4 col-md-offset-4">
 			<h1>Registrieren</h1>
-			<h:form class="form-horizontal">
+			<h:form class="form-horizontal" id="registerForm">
 				<div class="form-group">
 					<h:outputLabel class="col-md-4 control-label">Anrede</h:outputLabel>
 					<div class="col-md-8">
@@ -123,9 +123,11 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 							a:placeholder="Passwort wiederholen">
 							<f:converter converterId="passwordConverter" />
 						</h:inputSecret>
+						<div class="error">
+							<h:message for="inputPassword2" class="alert alert-danger error" />
+						</div>
 					</div>
 				</div>
-
 				<div class="form-group">
 					<div class="col-md-12">
 						<h:inputText class="form-control" id="accountHolder"
@@ -172,11 +174,11 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				<div class="form-group">
 					<div class="col-md-12">
 						<div class="col-md-9" style="text-align: right; padding: 0;">
-							<h:commandButton class="btn btn-success btn-lg"
+							<h:commandButton class="btn btn-success btn-md"
 								action="#{registerForm.register}" value="Registrieren" />
 						</div>
 						<div class="col-md-3" style="text-align: right; padding: 0;">
-							<h:commandButton class="btn btn-danger btn-lg"
+							<h:commandButton class="btn btn-danger btn-md"
 								action="#{registerForm.cancel}" value="Abbrechen" />
 						</div>
 					</div>

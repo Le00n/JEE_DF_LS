@@ -35,7 +35,7 @@ public class UserService implements Serializable {
 	private void init() {
 		User user = new User("leonstapper@gmx.de", "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "Leon", "Stapper",
 				new Address("Buchdahlstraße", "6", "48429", "Rheine"),
-				new BankAccount("Leon Stapper", "DE83403500050000123456", "WELADED1RHN"), true);
+				new BankAccount("Leon Stapper", "DE83403500050000123456", "WELADED1RHN"), false);
 		user.setId(1);
 		addUser(user);
 

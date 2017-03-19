@@ -181,14 +181,14 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 							action="#{createEventForm.create}"
 							value="Veranstaltung erstellen"/>
 						<h:commandButton class="btn btn-danger"
-							action="#{createEventForm.cancel}" value="Anlegen abbrechen"/>
+							action="#{createEventForm.cancel}" value="Anlegen abbrechen" immediate="true"/>
 					</div>
 					<div class="btn-toolbar pull-right" jsf:rendered="#{createEventForm.eventToEdit != null}">
 						<h:commandButton class="btn btn-success"
 							action="#{createEventForm.create}"
 							value="Veranstaltung bearbeiten"/>
 						<h:commandButton class="btn btn-danger"
-							action="#{createEventForm.cancel}" value="Bearbeitung abbrechen"/>
+							action="#{createEventForm.cancel}" value="Bearbeitung abbrechen" immediate="true"/>
 					</div>
 				</div>
 			</h:form>

@@ -1,12 +1,22 @@
 package de.eventon.validator.user;
 
-public class UserValidator {
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
 
-	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\." +
-			"[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*" +
-			"(\\.[A-Za-z]{2,})$";
-	
-	public static boolean validateEmail(String email){
-		return email != null && !"".equals(email) && email.matches(EMAIL_PATTERN);
+@FacesValidator ("userValidator")
+public class UserValidator implements Validator{
+
+	@Override
+	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+		if(value == null)
+		{
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Dieser User existiert nicht", "Der angegebene User existiert nicht.");
+			throw new ValidatorException(msg);
+		}
 	}
+	
 }

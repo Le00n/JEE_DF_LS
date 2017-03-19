@@ -112,9 +112,9 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 										<div class="form-group row">
 											<div class="btn-toolbar pull-right">
 												<h:commandButton class="btn btn-success" value="Buchen"
-													action="#{eventBookingForm.book}" />
+													action="#{eventBookingForm.book}"/>
 												<h:commandButton class="btn btn-danger" value="Abbrechen"
-													action="#{eventBookingForm.cancel}" />
+													action="#{eventBookingForm.cancel}" immediate="true"/>
 											</div>
 										</div>
 									</div>
@@ -173,7 +173,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 			</h:panelGroup>
 		</h:panelGroup>
 	</ui:define>
-
+	
 	<!-- Einbindung von Script zur Live-Preisberechnung -->
 	<ui:define name="javascript">
 		<h:outputScript name="js/calculateTicketCosts.js" />

@@ -9,8 +9,9 @@ Nach dem Ausloggen muss der Nutzer von jeder Nicht-Manager-Seite geworfen werden
 Bilder-Upload																		David
 Upload-Methode für User besprechen
 Passwort hashen																		Leon - DONE
-Abbrechen-Button erzwingt Validierung (type: submit)								Leon
-Login Validatoren, Triple Navigation (bzw. wie besprochen Bootstrap Login-Dropdown)	Leon
+Abbrechen-Button erzwingt Validierung immediate="true"								Leon - DONE
+Login Validatoren																	Leon - DONE
+Triple Navigation (bzw. wie besprochen Bootstrap Login-Dropdown)					Leon
 Gradle JQuery																		Leon - DONE
 Messages außerhalb eines Validator werfen (wenn Lösung gefunden - Leon schreiben) 	David - DONE
 Registrierung Validierung															David - DONE

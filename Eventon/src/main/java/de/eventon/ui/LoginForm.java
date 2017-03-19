@@ -3,6 +3,8 @@ package de.eventon.ui;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -28,6 +30,8 @@ public class LoginForm implements Serializable{
 		if (activeUserService.login(user, password)) {
 			return navigationService.loginSuccessful();
 		} else {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-Mail oder Passwort nicht korrekt", "Die E-Mail-Adresse oder das Passwort ist nicht korrekt.");
+			FacesContext.getCurrentInstance().addMessage("loginForm:password", msg);
 			return navigationService.loginFailed();
 		}
 	}

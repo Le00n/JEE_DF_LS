@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -21,10 +22,10 @@ import de.eventon.services.NavigationService;
 @ViewScoped // Muss für die Ansicht sichtbar sein (Request reicht nicht: ist bei
 			// Buchung schon ungültig; Session zu viel: bei zweiter Buchung ist
 			// die erste noch hinterlegt)
-public class EventBookingForm implements Serializable{
+public class EventBookingForm implements Serializable {
 
 	private static final long serialVersionUID = -4758939465775969668L;
-	
+
 	private Integer amountTicketsNormal;
 	private Integer amountTicketsPremium;
 	private Event event;
@@ -74,18 +75,50 @@ public class EventBookingForm implements Serializable{
 			}
 		}
 	}
-	
-	public String book() {
-		setBookingConfirmed(true);
 
-		Optional<UUID> optBookingUUID = eventBookingService.bookEvent(event, amountTicketsNormal, amountTicketsPremium);
-		if (optBookingUUID.isPresent()) {
-			bookingUUID = optBookingUUID.get();
+	public String book() {
+		// Separate Variablen, um zu verhindern, dass im Anschluss im
+		// Input-Field "0" steht
+		// Null wird somit automatisch als leeres Feld dargestellt
+		int intAmountTicketsNormal = (amountTicketsNormal == null) ? 0 : amountTicketsNormal.intValue();
+		int intAmountTicketsPremium = (amountTicketsPremium == null) ? 0 : amountTicketsPremium.intValue();
+
+		//Mindestens 1 Ticket muss gebucht werden
+		if (intAmountTicketsNormal != 0 || intAmountTicketsPremium != 0) {
+			//Steht die gewünschte Anzahl noch zur Verfügung?
+			if (intAmountTicketsNormal <= event.getAmountFreeNormalTickets()) {
+				if(intAmountTicketsPremium <= event.getAmountFreePremiumTickets()) {
+					
+					//Alle Bedingung erfüllt --> Buchen
+					Optional<UUID> optBookingUUID = eventBookingService.bookEvent(event, intAmountTicketsNormal,
+							intAmountTicketsPremium);
+					if (optBookingUUID.isPresent()) {
+						bookingUUID = optBookingUUID.get();
+						setBookingConfirmed(true);
+						return navigationService.book();
+					}
+				} else {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Es stehen keine " + intAmountTicketsPremium + " Logen-Tickets zur Verfügung.", "Es stehen keine " + intAmountTicketsPremium + " Logen-Tickets zur Verfügung.");
+					FacesContext.getCurrentInstance().addMessage("eventBookingForm:inputPremium", msg);
+				}
+			} else {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Es stehen keine " + intAmountTicketsNormal + " Parkett-Tickets zur Verfügung.", "Es stehen keine " + intAmountTicketsNormal + " Parkett-Tickets zur Verfügung.");
+				FacesContext.getCurrentInstance().addMessage("eventBookingForm:inputNormal", msg);
+			}
+		} else {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Es muss mindestens ein Ticket gebucht werden.", "Es muss mindestens ein Ticket gebucht werden.");
+			FacesContext.getCurrentInstance().addMessage("eventBookingForm:inputNormal", msg);
+			FacesContext.getCurrentInstance().addMessage("eventBookingForm:inputPremium", msg);
 		}
-		return navigationService.book();
+
+		setBookingConfirmed(false);
+		return navigationService.bookingFailed();
 	}
-	
-	public String bookingCodeSeen(){
+
+	public String bookingCodeSeen() {
 		return navigationService.bookingCodeSeen();
 	}
 

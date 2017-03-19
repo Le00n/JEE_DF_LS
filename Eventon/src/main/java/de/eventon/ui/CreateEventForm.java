@@ -1,14 +1,11 @@
 package de.eventon.ui;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -16,7 +13,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.Part;
 
 import de.eventon.core.Address;
 import de.eventon.core.Event;
@@ -28,7 +24,14 @@ import de.eventon.validator.event.EventValidator;
 
 @Named("createEventForm")
 @RequestScoped
-public class CreateEventForm implements Serializable{
+/**
+ * Diese Klasse dient sowohl für die Erstellung eines neuen Events als auch für
+ * die Bearbeitung eines bereits bestehenden aber noch nicht veröffentlichten
+ * Events.
+ * 
+ * @author Leon Stapper
+ */
+public class CreateEventForm implements Serializable {
 
 	private static final long serialVersionUID = 8170899272566671596L;
 
@@ -39,24 +42,24 @@ public class CreateEventForm implements Serializable{
 	private String eventTime;
 	private String eventDescription;
 
-	private int eventStartHour;
-	private int eventStartMinute;
-
 	private String street;
 	private String housenumber;
 	private String zip;
 	private String city;
 	private String location;
 
-	private boolean publish;
-
 	private Integer amountTicketsNormal;
 	private Double priceTicketsNormal;
 	private Integer amountTicketsPremium;
 	private Double priceTicketsPremium;
 
-	private Part file;
+	private boolean publish; // Event direkt veröffentlichen?
+
+	private Event eventToEdit;
 	
+	private static final String DATE_PATTERN = "yyyy-MM-dd";
+	private static final String TIME_PATTERN = "HH:mm";
+
 	@Inject
 	private NavigationService navigationService;
 	@Inject
@@ -71,7 +74,8 @@ public class CreateEventForm implements Serializable{
 	@PostConstruct
 	public void init() {
 		// Wenn kein Nutzer eingeloggt ist bzw. dieser nicht Manager ist:
-		// Redirect auf ErrorPage, da nur Manager ein Event erstellen dürfen
+		// Redirect auf ErrorPage, da nur Manager ein Event erstellen/bearbeiten
+		// dürfen
 		User activeUser = activeUserService.getActiveUser();
 		if (activeUser == null || !activeUser.isManager()) {
 			try {
@@ -79,52 +83,95 @@ public class CreateEventForm implements Serializable{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		} else {
+			// Event erstellen oder bearbeiten?
+			// Wenn ID im Query-Parameter: Bearbeiten
+			// Bearbeitung nur wenn die ID gültig und das dazugehörige Event
+			// unveröffentlicht ist
+			// Wenn ID nicht im Query-Parameter: Erstellen (also nichts tun)
+			Map<String, String> rqParameter = FacesContext.getCurrentInstance().getExternalContext()
+					.getRequestParameterMap();
+			String id = rqParameter.get("id");
+
+			// Wurde eine gültige ID im Query-Parameter mitgegeben?
+			// Dann Event anzeigen
+			if (id != null) {
+				try {
+					int idAsInteger = Integer.parseInt(id);
+					Optional<Event> optEvent = eventService.getEventById(idAsInteger);
+					if (optEvent.isPresent()) {
+						// Ein bereits veröffentlichtes Event kann nicht mehr
+						// bearbeitet werden
+						if (!optEvent.get().isPublished()) {
+							eventToEdit = optEvent.get();
+							eventName = eventToEdit.getName();
+							eventDate = eventToEdit.getDatetime().format(DateTimeFormatter.ofPattern(DATE_PATTERN));
+							eventTime = eventToEdit.getDatetime().format(DateTimeFormatter.ofPattern(TIME_PATTERN));
+							eventDescription = eventToEdit.getDescription();
+
+							street = eventToEdit.getAddress().getStreet();
+							housenumber = eventToEdit.getAddress().getStreetnumber();
+							zip = eventToEdit.getAddress().getZip();
+							city = eventToEdit.getAddress().getCity();
+							location = eventToEdit.getAddress().getLocationName();
+
+							amountTicketsNormal = eventToEdit.getAmountTicketsNormal();
+							priceTicketsNormal = eventToEdit.getPriceTicketsNormal();
+							amountTicketsPremium = eventToEdit.getAmountTicketsPremium();
+							priceTicketsPremium = eventToEdit.getPriceTicketsPremium();
+						}
+					}
+				} catch (NumberFormatException e) {
+				}
+
+				// Ansonsten (wenn keine gültige ID mitgegeben wurde): Redirect
+				// auf
+				// ErrorPage, da das Event nicht gefunden werden kann
+				if (eventToEdit == null) {
+					try {
+						FacesContext.getCurrentInstance().getExternalContext()
+								.redirect(navigationService.eventDoesNotExist());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
 		}
 	}
 
 	public String create() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN + TIME_PATTERN);
 		LocalDateTime dateTime = LocalDateTime.parse(eventDate + eventTime, formatter);
 
 		if (EventValidator.validateDatetime(dateTime, component.getClientId(), "eventTime")
 				&& EventValidator.validateAmountTickets(amountTicketsNormal, amountTicketsPremium)
 				&& EventValidator.validatePrices(priceTicketsNormal, priceTicketsPremium)) {
-			
-			
-			String filename = getFileName(getFile());
-			Path destination = null;
-			try{
-				System.out.println("vor Aenderung");
-				String filenameWithoutEnding = filename.substring(0, filename.lastIndexOf("."));
-				String fileEnding = filename.substring(filename.lastIndexOf("."));
-				destination = Files.createTempFile(Paths.get("/var/webapp/images"), filenameWithoutEnding, fileEnding);
-				filename = destination.getFileName().toString();
-				System.out.println("File: " + destination);
-			}catch(Exception ex){ ex.printStackTrace(); }
-			
-			
-			
-			InputStream bytes = null;
-			if(getFile() != null)
-			{
-				try{
-				bytes = getFile().getInputStream();
-				Files.copy(bytes, destination, StandardCopyOption.REPLACE_EXISTING);
-				}catch(Exception e)
-				{
-					System.out.println("File Exception");
-					e.printStackTrace();
-				}
-			}
-			
+
 			User eventCreator = activeUserService.getActiveUser();
 			if (eventCreator != null && eventCreator.isManager()) {
-				Address eventAddress = new Address(location, street, housenumber, zip, city);
-				Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal, priceTicketsNormal,
-						amountTicketsPremium, priceTicketsPremium, eventAddress, eventCreator, publish, filename);
-
-				eventService.createEvent(event);
-				System.out.println("Event filename: " + event.getFilename());
+				//Neuerstellen oder Bearbeiten?
+				if(eventToEdit == null)
+				{
+					Address eventAddress = new Address(location, street, housenumber, zip, city);
+					Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal, priceTicketsNormal,
+							amountTicketsPremium, priceTicketsPremium, eventAddress, eventCreator, publish);
+	
+					eventService.createEvent(event);
+				} else {
+					eventToEdit.setName(eventName);
+					eventToEdit.setDatetime(dateTime);
+					eventToEdit.setDescription(eventDescription);
+					eventToEdit.setAmountTicketsNormal(amountTicketsNormal);
+					eventToEdit.setAmountTicketsPremium(amountTicketsPremium);
+					eventToEdit.setPriceTicketsNormal(priceTicketsNormal);
+					eventToEdit.setPriceTicketsPremium(priceTicketsPremium);
+					eventToEdit.getAddress().setStreet(street);
+					eventToEdit.getAddress().setStreetnumber(housenumber);
+					eventToEdit.getAddress().setZip(zip);
+					eventToEdit.getAddress().setCity(city);
+					eventToEdit.getAddress().setLocationName(location);
+					eventToEdit.setPublished(publish);
+				}
 				return navigationService.createEventSuccessful();
 			}
 		}
@@ -150,22 +197,6 @@ public class CreateEventForm implements Serializable{
 
 	public void setEventDescription(String eventDescription) {
 		this.eventDescription = eventDescription;
-	}
-
-	public int getEventStartHour() {
-		return eventStartHour;
-	}
-
-	public void setEventStartHour(int eventStartHour) {
-		this.eventStartHour = eventStartHour;
-	}
-
-	public int getEventStartMinute() {
-		return eventStartMinute;
-	}
-
-	public void setEventStartMinute(int eventStartMinute) {
-		this.eventStartMinute = eventStartMinute;
 	}
 
 	public String getStreet() {
@@ -296,26 +327,11 @@ public class CreateEventForm implements Serializable{
 		this.publish = publish;
 	}
 
-	public Part getFile() {
-		return file;
+	public Event getEventToEdit() {
+		return eventToEdit;
 	}
 
-	public void setFile(Part file) {
-		this.file = file;
+	public void setEventToEdit(Event eventToEdit) {
+		this.eventToEdit = eventToEdit;
 	}
-	
-	private static String getFileName(Part filePart)
-    {
-        String header = filePart.getHeader("content-disposition");
-        if(header == null)
-            return null;
-        for(String headerPart : header.split(";"))
-        {
-            if(headerPart.trim().startsWith("filename"))
-            {
-                return headerPart.substring(headerPart.indexOf('=') + 1).trim().replace("\"", "");
-            }
-        }
-        return null;
-    }
 }

@@ -11,11 +11,12 @@ Upload-Methode für User besprechen
 Passwort hashen																		Leon - DONE
 Abbrechen-Button erzwingt Validierung (type: submit)								Leon
 Login Validatoren, Triple Navigation (bzw. wie besprochen Bootstrap Login-Dropdown)	Leon
-Gradle JQuery																		Leon
+Gradle JQuery																		Leon - DONE
 Messages außerhalb eines Validator werfen (wenn Lösung gefunden - Leon schreiben) 	David - DONE
 Registrierung Validierung															David - DONE
 - Passwortvergleich, Email existiert bereits
 Ganz am Ende: alle Scopes kontrollieren
+baseSide zu baseSite umbenennen (in allen Seiten)
 
 Regex Vorname Nachname ohne Sonderzeichen aber mit "á" und "-" etc. in UserFirstnameValidator David
 JPA Nachforschungen anstellen														David

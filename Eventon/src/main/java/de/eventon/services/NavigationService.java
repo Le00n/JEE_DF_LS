@@ -1,8 +1,11 @@
 package de.eventon.services;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Optional;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -57,6 +60,18 @@ public class NavigationService implements Serializable {
 	}
 
 	public String logout() {
+		// Wenn die derzeitige Seite eine Manager-Seite ist
+		// --> Navigation zu Home
+		// Ansonsten auf der Seite bleiben (Stay)
+		Optional<Pages> optPages = Pages.getPage(FacesContext.getCurrentInstance().getViewRoot());
+		if (optPages.isPresent()) {
+			if (optPages.get().equals(Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS) //
+					|| optPages.get().equals(Pages.MANAGER_OVERVIEW_EVENTS_RELEASED) //
+					|| optPages.get().equals(Pages.CREATE_EVENT) //
+					|| optPages.get().equals(Pages.USERPROFILE)) { //
+				return Pages.HOME.toString();
+			}
+		}
 		return Pages.STAY.toString();
 	}
 
@@ -91,8 +106,8 @@ public class NavigationService implements Serializable {
 	public String managerOverviewEventsInProcess() {
 		return Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString();
 	}
-	
-	public String notAuthorizedViewingManagerSites(){
+
+	public String notAuthorizedViewingManagerSites() {
 		return Pages.ERROR_404.toString();
 	}
 
@@ -102,9 +117,7 @@ public class NavigationService implements Serializable {
 
 	public String book() {
 		if (activeUserService.getActiveUser() == null) {
-			String request = FacesContext.getCurrentInstance().getExternalContext().getRequest().toString();
-			System.out.println(request);
-			lastSignificantPage = Pages.BOOK;
+			lastSignificantPage = Pages.EVENT;
 			return login();
 		} else {
 			return Pages.STAY.toString();
@@ -161,11 +174,11 @@ public class NavigationService implements Serializable {
 	 * @author Leon Stapper
 	 */
 	public enum Pages {
-		STAY("#"), LOGIN("login.jsp"), REGISTER("register.jsp"), HOME("index.jsp"), USERPROFILE(
-				"user.jsp"), MANAGER_OVERVIEW_EVENTS_RELEASED(
-						"managerOverviewEventsReleased.jsp"), MANAGER_OVERVIEW_EVENTS_IN_PROCESS(
-								"managerOverviewEventsInProcess.jsp"), BOOK(
-										"book.jsp"), CREATE_EVENT("createEvent.jsp"), ERROR_404("404.jsp");
+		STAY("#"), LOGIN("login.xhtml"), REGISTER("register.xhtml"), HOME("index.xhtml"), USERPROFILE(
+				"user.xhtml"), MANAGER_OVERVIEW_EVENTS_RELEASED(
+						"managerOverviewEventsReleased.xhtml"), MANAGER_OVERVIEW_EVENTS_IN_PROCESS(
+								"managerOverviewEventsInProcess.xhtml"), EVENT(
+										"event.xhtml"), CREATE_EVENT("createEvent.xhtml"), ERROR_404("404.xhtml");
 
 		private String value;
 
@@ -176,6 +189,12 @@ public class NavigationService implements Serializable {
 		@Override
 		public String toString() {
 			return value;
+		}
+
+		public static Optional<Pages> getPage(UIViewRoot view) {
+			String pageString = view.getViewId().replace("/", "");
+			return Arrays.asList(Pages.values()).stream().filter(page -> page.toString().equals(pageString))
+					.findFirst();
 		}
 	}
 }

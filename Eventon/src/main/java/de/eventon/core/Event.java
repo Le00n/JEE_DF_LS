@@ -18,6 +18,7 @@ public class Event {
 	private List<Booking> bookings;
 	private User manager;
 	private boolean published;
+	private String filename;
 
 	public Event(){
 		bookings = new ArrayList<Booking>();
@@ -25,7 +26,7 @@ public class Event {
 	
 	public Event(String name, LocalDateTime datetime, String description, int amountTicketsNormal,
 			double priceTicketsNormal, int amountTicketsPremium, double priceTicketsPremium, Address address, 
-			User manager, boolean published) {
+			User manager, boolean published, String filename) {
 
 		this.name = name;
 		this.datetime = datetime;
@@ -37,6 +38,7 @@ public class Event {
 		this.address = address;
 		this.manager = manager;
 		this.published = published;
+		this.filename = filename;
 		
 		bookings = new ArrayList<Booking>();
 	}
@@ -157,5 +159,13 @@ public class Event {
 
 	public void setPublished(boolean published) {
 		this.published = published;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 }

@@ -1,7 +1,12 @@
 package de.eventon.ui;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,6 +16,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 
 import de.eventon.core.Address;
 import de.eventon.core.Event;
@@ -49,6 +55,8 @@ public class CreateEventForm implements Serializable{
 	private Integer amountTicketsPremium;
 	private Double priceTicketsPremium;
 
+	private Part file;
+	
 	@Inject
 	private NavigationService navigationService;
 	@Inject
@@ -81,14 +89,42 @@ public class CreateEventForm implements Serializable{
 		if (EventValidator.validateDatetime(dateTime, component.getClientId(), "eventTime")
 				&& EventValidator.validateAmountTickets(amountTicketsNormal, amountTicketsPremium)
 				&& EventValidator.validatePrices(priceTicketsNormal, priceTicketsPremium)) {
-
+			
+			
+			String filename = getFileName(getFile());
+			Path destination = null;
+			try{
+				System.out.println("vor Aenderung");
+				String filenameWithoutEnding = filename.substring(0, filename.lastIndexOf("."));
+				String fileEnding = filename.substring(filename.lastIndexOf("."));
+				destination = Files.createTempFile(Paths.get("/var/webapp/images"), filenameWithoutEnding, fileEnding);
+				filename = destination.getFileName().toString();
+				System.out.println("File: " + destination);
+			}catch(Exception ex){ ex.printStackTrace(); }
+			
+			
+			
+			InputStream bytes = null;
+			if(getFile() != null)
+			{
+				try{
+				bytes = getFile().getInputStream();
+				Files.copy(bytes, destination, StandardCopyOption.REPLACE_EXISTING);
+				}catch(Exception e)
+				{
+					System.out.println("File Exception");
+					e.printStackTrace();
+				}
+			}
+			
 			User eventCreator = activeUserService.getActiveUser();
 			if (eventCreator != null && eventCreator.isManager()) {
 				Address eventAddress = new Address(location, street, housenumber, zip, city);
 				Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal, priceTicketsNormal,
-						amountTicketsPremium, priceTicketsPremium, eventAddress, eventCreator, publish);
+						amountTicketsPremium, priceTicketsPremium, eventAddress, eventCreator, publish, filename);
 
 				eventService.createEvent(event);
+				System.out.println("Event filename: " + event.getFilename());
 				return navigationService.createEventSuccessful();
 			}
 		}
@@ -259,4 +295,27 @@ public class CreateEventForm implements Serializable{
 	public void setPublish(boolean publish) {
 		this.publish = publish;
 	}
+
+	public Part getFile() {
+		return file;
+	}
+
+	public void setFile(Part file) {
+		this.file = file;
+	}
+	
+	private static String getFileName(Part filePart)
+    {
+        String header = filePart.getHeader("content-disposition");
+        if(header == null)
+            return null;
+        for(String headerPart : header.split(";"))
+        {
+            if(headerPart.trim().startsWith("filename"))
+            {
+                return headerPart.substring(headerPart.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
+    }
 }

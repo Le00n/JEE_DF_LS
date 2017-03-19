@@ -13,7 +13,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 			rendered="#{activeUserService.activeUser != null and activeUserService.activeUser.manager}"
 			id="register" class="panel panel-default col-md-5 col-md-offset-3">
 			<h1>Event anlegen</h1>
-			<h:form class="form-horizontal">
+			<h:form class="form-horizontal" id="createEvent" enctype="multipart/form-data">
 				<div class="form-group">
 					<div class="col-md-12">
 						<h:inputText class="form-control" id="eventName"
@@ -162,6 +162,15 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						</h:inputText>
 						<div class="error">
 							<h:message for="eventPricePremium" showSummary="true"
+								showDetail="false" class="alert alert-danger error"></h:message>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<h:inputFile id="eventPicture" value="#{createEventForm.file}">
+							<f:validator validatorId="fileUploadValidator" />
+						</h:inputFile>
+						<div class="error">
+							<h:message for="eventPicture" showSummary="true"
 								showDetail="false" class="alert alert-danger error"></h:message>
 						</div>
 					</div>

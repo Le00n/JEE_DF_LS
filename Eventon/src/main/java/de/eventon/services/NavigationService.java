@@ -91,6 +91,10 @@ public class NavigationService implements Serializable {
 	public String managerOverviewEventsInProcess() {
 		return Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString();
 	}
+	
+	public String notAuthorizedViewingManagerSites(){
+		return Pages.ERROR_404.toString();
+	}
 
 	public String eventDoesNotExist() {
 		return Pages.ERROR_404.toString();

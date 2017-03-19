@@ -3,6 +3,8 @@ package de.eventon.ui;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -109,13 +111,26 @@ public class RegisterForm implements Serializable{
 	public String register(){
 		if(email != "" && password != "" && passwordConfirm != "" && firstname != "" && lastname != "" && zip != "" && city != "" && street != "" && streetnumber != "" && accountHolder != "" && iban != "" && bic != "")
 		{
-			if(password.equals(passwordConfirm) && email.contains("@"))
+			if(email.contains("@"))
 			{
-				User user = new User(email, password, firstname, lastname, new Address(zip, city, street, streetnumber), new BankAccount(accountHolder, iban, bic), manager);
-				if(userService.addUser(user))
+				if(userService.getUserByEmail(email).isPresent())
 				{
-					System.out.println("User.isManager: " + user.isManager());
-					return navigationService.registrationSuccessful();
+					FacesContext.getCurrentInstance().addMessage("registerForm:inputEmail", new FacesMessage(FacesMessage.SEVERITY_ERROR, "EMail Adresse bereits registriert", "Die angegebene EMail Adresse ist bereits im System registriert."));
+					return null;
+				}
+				else{
+					if(password.equals(passwordConfirm))
+					{
+						User user = new User(email, password, firstname, lastname, new Address(zip, city, street, streetnumber), new BankAccount(accountHolder, iban, bic), manager);
+						if(userService.addUser(user))
+						{
+							System.out.println("User.isManager: " + user.isManager());
+							return navigationService.registrationSuccessful();
+						}
+					}else{
+						FacesContext.getCurrentInstance().addMessage("registerForm:inputPassword2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwörter stimmen nicht überein", "Die Passwörter stimmen nicht überein."));
+						return null;
+					}
 				}
 			}
 		}

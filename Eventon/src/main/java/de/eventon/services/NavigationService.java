@@ -3,6 +3,7 @@ package de.eventon.services;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -22,6 +23,8 @@ public class NavigationService implements Serializable {
 	@Inject
 	private ActiveUserService activeUserService;
 
+	private Pages lastSignificantPage;
+
 	public NavigationService() {
 	}
 
@@ -38,7 +41,11 @@ public class NavigationService implements Serializable {
 	}
 
 	public String loginSuccessful() {
-		return Pages.HOME.toString();
+		if (lastSignificantPage == null) {
+			return Pages.HOME.toString();
+		} else {
+			return Pages.HOME.toString();
+		}
 	}
 
 	public String loginFailed() {
@@ -91,6 +98,9 @@ public class NavigationService implements Serializable {
 
 	public String book() {
 		if (activeUserService.getActiveUser() == null) {
+			String request = FacesContext.getCurrentInstance().getExternalContext().getRequest().toString();
+			System.out.println(request);
+			lastSignificantPage = Pages.BOOK;
 			return login();
 		} else {
 			return Pages.STAY.toString();
@@ -131,6 +141,14 @@ public class NavigationService implements Serializable {
 
 	public void setActiveUserService(ActiveUserService activeUserService) {
 		this.activeUserService = activeUserService;
+	}
+
+	public Pages getLastSignificantPage() {
+		return lastSignificantPage;
+	}
+
+	public void setLastSignificantPage(Pages lastSignificantPage) {
+		this.lastSignificantPage = lastSignificantPage;
 	}
 
 	/**

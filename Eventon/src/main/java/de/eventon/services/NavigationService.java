@@ -127,7 +127,7 @@ public class NavigationService implements Serializable {
 	public String bookingFailed() {
 		return null;
 	}
-	
+
 	public String cancelBooking() {
 		return Pages.HOME.toString();
 	}
@@ -140,16 +140,21 @@ public class NavigationService implements Serializable {
 		return Pages.CREATE_EVENT.toString();
 	}
 
-	public String createEventSuccessful() {
-		return Pages.HOME.toString();
+	public String createEventSuccessful(boolean directPublished) {
+		return directPublished ? Pages.MANAGER_OVERVIEW_EVENTS_RELEASED.toString()
+				: Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString();
 	}
 
 	public String createEventFailed() {
-		return Pages.STAY.toString();
+		return null;
 	}
 
 	public String cancelCreateEvent() {
 		return Pages.HOME.toString();
+	}
+
+	public String editEventSuccessful() {
+		return Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString();
 	}
 
 	public String userIsNotManager() {

@@ -124,6 +124,10 @@ public class NavigationService implements Serializable {
 		}
 	}
 
+	public String bookingFailed() {
+		return null;
+	}
+	
 	public String cancelBooking() {
 		return Pages.HOME.toString();
 	}

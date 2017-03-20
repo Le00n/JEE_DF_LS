@@ -1,7 +1,12 @@
 package de.eventon.ui;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -13,6 +18,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 
 import de.eventon.core.Address;
 import de.eventon.core.Event;
@@ -54,6 +60,7 @@ public class CreateEventForm implements Serializable {
 	private Double priceTicketsPremium;
 
 	private boolean publish; // Event direkt veröffentlichen?
+	private Part file;
 
 	private Event eventToEdit;
 	
@@ -146,18 +153,22 @@ public class CreateEventForm implements Serializable {
 		if (EventValidator.validateDatetime(dateTime, component.getClientId(), "eventTime")
 				&& EventValidator.validateAmountTickets(amountTicketsNormal, amountTicketsPremium)
 				&& EventValidator.validatePrices(priceTicketsNormal, priceTicketsPremium)) {
+			
+			String filename = doFileUpload();
 
 			User eventCreator = activeUserService.getActiveUser();
 			if (eventCreator != null && eventCreator.isManager()) {
 				//Neuerstellen oder Bearbeiten?
 				if(eventToEdit == null)
 				{
+					System.out.println("ist null");
 					Address eventAddress = new Address(location, street, housenumber, zip, city);
 					Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal, priceTicketsNormal,
-							amountTicketsPremium, priceTicketsPremium, eventAddress, eventCreator, publish);
+							amountTicketsPremium, priceTicketsPremium, eventAddress, eventCreator, publish, filename);
 	
 					eventService.createEvent(event);
 				} else {
+					System.out.println("ist nicht null = bearbeite");
 					eventToEdit.setName(eventName);
 					eventToEdit.setDatetime(dateTime);
 					eventToEdit.setDescription(eventDescription);
@@ -171,6 +182,7 @@ public class CreateEventForm implements Serializable {
 					eventToEdit.getAddress().setCity(city);
 					eventToEdit.getAddress().setLocationName(location);
 					eventToEdit.setPublished(publish);
+					eventToEdit.setFilename(filename);
 				}
 				return navigationService.createEventSuccessful();
 			}
@@ -333,5 +345,52 @@ public class CreateEventForm implements Serializable {
 
 	public void setEventToEdit(Event eventToEdit) {
 		this.eventToEdit = eventToEdit;
+	}
+
+	public Part getFile() {
+		return file;
+	}
+
+	public void setFile(Part file) {
+		this.file = file;
+	}
+
+	private String doFileUpload() {
+		String filename = getFilename(getFile());
+		if(filename == null)
+			return null;
+		
+		Path destination = null;
+		try{
+			String filenameWithoutEnding = filename.substring(0, filename.lastIndexOf("."));
+			String fileEnding = filename.substring(filename.lastIndexOf("."));
+			destination = Files.createTempFile(Paths.get("/var/webapp/images"), filenameWithoutEnding, fileEnding);
+			filename = destination.getFileName().toString();
+		}catch(Exception ex){ ex.printStackTrace(); }
+		
+		InputStream bytes = null;
+		if(getFile() != null)
+		{
+			try{
+			bytes = getFile().getInputStream();
+			Files.copy(bytes, destination, StandardCopyOption.REPLACE_EXISTING);
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return filename;
+	}
+	private static String getFilename(Part part) {
+		if(part != null)
+		{
+	        for (String cd : part.getHeader("content-disposition").split(";")) {
+	            if (cd.trim().startsWith("filename")) {
+	                String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+	                return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
+	            }
+	        }
+		}
+        return null;
 	}
 }

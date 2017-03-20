@@ -167,7 +167,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						</div>
 					</div>
 					<div class="col-md-12">
-						<h:inputFile id="eventPicture" value="#{createEventForm.file}">
+						<h:inputFile id="eventPicture" value="#{createEventForm.file}" accept="image/x-png, image/gif, image/jpeg, image/svg" class="file-loading">
 							<f:validator validatorId="fileUploadValidator" />
 						</h:inputFile>
 						<div class="error">

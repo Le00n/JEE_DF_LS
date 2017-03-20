@@ -20,18 +20,22 @@ public class FileUploadValidator implements Validator {
         try {
         	System.out.println("Im Validator");
 			System.out.println(file.getContentType());
+			System.out.println(file.toString());
+			if(file.getSize() <= 0) System.out.println("file ist kleiner 0");
+			if(file.getContentType().isEmpty()) System.out.println("contenttype ist leer");
+			System.out.println("Hallo Validator");
             if (file==null || file.getSize()<=0 || file.getContentType().isEmpty() )
-                message=new FacesMessage("Select a valid file");
+                message=new FacesMessage("Wählen Sie eine gültige Datei");
             else if (!file.getContentType().endsWith("jpeg"))
-                message=new FacesMessage("Select JPG file");
+                message=new FacesMessage("Wählen Sie eine JPG Datei");
             else if (file.getSize()>2000000)
-                 message=new FacesMessage("File size too big. File size allowed  is less than or equal to 2 MB.");
+                 message=new FacesMessage("Die Datei ist zu groß. Die maximale Größe beträgt 2 MB.");
  
             if (message!=null && !message.getDetail().isEmpty())
-                {
-                    message.setSeverity(FacesMessage.SEVERITY_ERROR);
-                    FacesContext.getCurrentInstance().addMessage("createEvent:eventPicture", message);
-                }
+            {
+                message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                FacesContext.getCurrentInstance().addMessage("createEvent:eventPicture", message);
+            }
  
         } catch (Exception ex) {
     		FacesContext.getCurrentInstance().addMessage("createEvent:eventPicture", 

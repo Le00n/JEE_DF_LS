@@ -19,10 +19,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 			<div class="container-fluid">
 				<div class="row">
 					<div id="event-picture" class="col-md-4">
-						<a href="#" class="thumbnail"> <img
-							src="http://www.kraftklub.to/randale/images/content/cover_album_in-schwarz.png?v=1"
-							alt="..." />
-						</a>
+						<h:graphicImage value="/images/#{eventBookingForm.event.filename}" class="img-rounded" style="max-width: 95%; max-height: 95%;"/>
 					</div>
 					<div id="event-information" class="col-md-8">
 						<h1>
@@ -94,7 +91,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 												a:placeholder="Anzahl Parkett-Tickets">
 												<f:validator validatorId="amountTicketsValidator" />
 											</h:inputText>
-											<div class="col-md-8"/>
+											<div class="col-md-8" />
 											<div class="error col-md-4">
 												<h:message for="inputNormal" showSummary="true"
 													showDetail="false" class="alert alert-danger error"></h:message>
@@ -114,7 +111,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 												a:placeholder="Anzahl Logen-Tickets">
 												<f:validator validatorId="amountTicketsValidator" />
 											</h:inputText>
-											<div class="col-md-8"/>
+											<div class="col-md-8" />
 											<div class="error col-md-4">
 												<h:message for="inputPremium" showSummary="true"
 													showDetail="false" class="alert alert-danger error"></h:message>
@@ -190,6 +187,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 	<!-- Einbindung von Script zur Live-Preisberechnung -->
 	<ui:define name="javascript">
+		<h:outputScript name="bootstrap/3.2.0/js/bootstrap.min.js" />
 		<h:outputScript name="js/calculateTicketCosts.js" />
 	</ui:define>
 </ui:composition>

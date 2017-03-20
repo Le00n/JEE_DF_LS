@@ -162,7 +162,12 @@ public class Event {
 	}
 
 	public String getFilename() {
-		return filename;
+		if(filename == null){ 
+			return "photo_not_available.jpg";
+		}
+		else {
+			return filename;
+		}
 	}
 
 	public void setFilename(String filename) {

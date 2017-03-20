@@ -14,8 +14,10 @@ import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
@@ -26,10 +28,9 @@ import de.eventon.core.User;
 import de.eventon.services.ActiveUserService;
 import de.eventon.services.EventService;
 import de.eventon.services.NavigationService;
-import de.eventon.validator.event.EventValidator;
 
 @Named("createEventForm")
-@RequestScoped
+@ViewScoped
 /**
  * Diese Klasse dient sowohl für die Erstellung eines neuen Events als auch für
  * die Bearbeitung eines bereits bestehenden aber noch nicht veröffentlichten
@@ -63,7 +64,7 @@ public class CreateEventForm implements Serializable {
 	private Part file;
 
 	private Event eventToEdit;
-	
+
 	private static final String DATE_PATTERN = "yyyy-MM-dd";
 	private static final String TIME_PATTERN = "HH:mm";
 
@@ -147,28 +148,27 @@ public class CreateEventForm implements Serializable {
 	}
 
 	public String create() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN + TIME_PATTERN);
-		LocalDateTime dateTime = LocalDateTime.parse(eventDate + eventTime, formatter);
+		User eventCreator = activeUserService.getActiveUser();
+		if (eventCreator != null && eventCreator.isManager()) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN + TIME_PATTERN);
+			LocalDateTime dateTime = LocalDateTime.parse(eventDate + eventTime, formatter);
 
-		if (EventValidator.validateDatetime(dateTime, component.getClientId(), "eventTime")
-				&& EventValidator.validateAmountTickets(amountTicketsNormal, amountTicketsPremium)
-				&& EventValidator.validatePrices(priceTicketsNormal, priceTicketsPremium)) {
-			
-			String filename = doFileUpload();
-
-			User eventCreator = activeUserService.getActiveUser();
-			if (eventCreator != null && eventCreator.isManager()) {
-				//Neuerstellen oder Bearbeiten?
-				if(eventToEdit == null)
-				{
-					System.out.println("ist null");
+			// Event muss nach dem jetzigen Termin liegen
+			LocalDateTime now = LocalDateTime.now();
+			if (now.compareTo(dateTime) < 0) {
+				
+				String filename = doFileUpload();
+				
+				// Neuerstellen oder Bearbeiten?
+				if (eventToEdit == null) {
 					Address eventAddress = new Address(location, street, housenumber, zip, city);
-					Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal, priceTicketsNormal,
-							amountTicketsPremium, priceTicketsPremium, eventAddress, eventCreator, publish, filename);
-	
+					Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal,
+							priceTicketsNormal, amountTicketsPremium, priceTicketsPremium, eventAddress, eventCreator,
+							publish, filename);
+							
 					eventService.createEvent(event);
+					return navigationService.createEventSuccessful(publish);
 				} else {
-					System.out.println("ist nicht null = bearbeite");
 					eventToEdit.setName(eventName);
 					eventToEdit.setDatetime(dateTime);
 					eventToEdit.setDescription(eventDescription);
@@ -182,9 +182,14 @@ public class CreateEventForm implements Serializable {
 					eventToEdit.getAddress().setCity(city);
 					eventToEdit.getAddress().setLocationName(location);
 					eventToEdit.setPublished(publish);
-					eventToEdit.setFilename(filename);
+					if(filename != null)
+						eventToEdit.setFilename(filename);
+					return navigationService.editEventSuccessful();
 				}
-				return navigationService.createEventSuccessful();
+			} else {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Starttermin liegt in der Vergangenheit", "Der Starttermin des Events muss in der Zukunft liegen.");
+				FacesContext.getCurrentInstance().addMessage("createEventForm:eventDate", msg);
+				FacesContext.getCurrentInstance().addMessage("createEventForm:eventTime", msg);
 			}
 		}
 

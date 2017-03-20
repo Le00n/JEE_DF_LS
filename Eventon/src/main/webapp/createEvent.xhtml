@@ -8,13 +8,18 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <ui:composition template="baseSide.xhtml">
+	<ui:define name="header">
+		<h:outputStylesheet name="css/fileinput.min.css" />
+		<h:outputScript name="js/fileinput.min.js" />
+	</ui:define>
+		
 	<ui:define name="content">
 		<h:panelGroup layout="block"
 			rendered="#{activeUserService.activeUser != null and activeUserService.activeUser.manager}"
 			id="register" class="panel panel-default col-md-5 col-md-offset-3">
 			<h1 jsf:rendered="#{createEventForm.eventToEdit == null}">Event anlegen</h1>
 			<h1 jsf:rendered="#{createEventForm.eventToEdit != null}">Event bearbeiten</h1>
-			<h:form class="form-horizontal" id="createEvent" enctype="multipart/form-data">
+			<h:form class="form-horizontal" id="createEventForm" enctype="multipart/form-data">
 				<div class="form-group">
 					<div class="col-md-12">
 						<h:inputText class="form-control" id="eventName"
@@ -29,19 +34,19 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				</div>
 				<div class="form-group">
 					<div class="col-md-6">
-						<input type="date" class="form-control" id="eventDate"
-							jsf:binding="#{createEventForm.component}"
-							jsf:value="#{createEventForm.eventDate}" placeholder="Datum">
-						</input>
+						<h:inputText a:type="date" class="form-control" id="eventDate"
+							binding="#{createEventForm.component}"
+							value="#{createEventForm.eventDate}" a:placeholder="Datum">
+						</h:inputText>
 						<div class="error">
 							<h:message for="eventDate" showSummary="true" showDetail="false"
 								class="alert alert-danger error"></h:message>
 						</div>
 					</div>
 					<div class="col-md-6">
-						<input type="time" class="form-control" id="eventTime"
-							jsf:value="#{createEventForm.eventTime}" placeholder="Start-Zeit">
-						</input>
+						<h:inputText a:type="time" class="form-control" id="eventTime"
+							value="#{createEventForm.eventTime}" a:placeholder="Start-Zeit">
+						</h:inputText>
 						<div class="error">
 							<h:message for="eventTime" showSummary="true" showDetail="false"
 								class="alert alert-danger error"></h:message>
@@ -167,7 +172,8 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						</div>
 					</div>
 					<div class="col-md-12">
-						<h:inputFile id="eventPicture" value="#{createEventForm.file}" accept="image/x-png, image/gif, image/jpeg, image/svg" class="file-loading">
+						<h:outputLabel class="control-label">Datei auswählen</h:outputLabel>
+						<h:inputFile id="eventPicture" value="#{createEventForm.file}" accept="image/x-png, image/gif, image/jpeg, image/svg" class="file">
 							<f:validator validatorId="fileUploadValidator" />
 						</h:inputFile>
 						<div class="error">

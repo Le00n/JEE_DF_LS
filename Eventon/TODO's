@@ -19,7 +19,7 @@ Registrierung Validierung															David - DONE
 Ganz am Ende: alle Scopes kontrollieren
 baseSide zu baseSite umbenennen (in allen Seiten)
 "Als Manager registrieren" und "Direkt veröffentlichen" schön machen				David
-Date im Firefox																		Leon
+Date im Firefox																		Leon - DONE
 Table-Darstellung																	Leon - DONE
 Aktuelles Bild beim Event bearbeiten anzeigen, falls vorhanden						David
 Glyphicons verwenden
@@ -33,3 +33,4 @@ ER-Modell erstellen in Visio														David
 Architektur dokumentieren															Leon
 User Stories dokumentieren															
 Quellcode dokumentieren
+Date Time - kein Converter, weil beides zusammengehört (Begründung in Doku)

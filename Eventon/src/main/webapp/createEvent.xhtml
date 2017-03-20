@@ -37,6 +37,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						<h:inputText a:type="date" class="form-control" id="eventDate"
 							binding="#{createEventForm.component}"
 							value="#{createEventForm.eventDate}" a:placeholder="Datum">
+							<f:validator validatorId="dateValidator"/>
 						</h:inputText>
 						<div class="error">
 							<h:message for="eventDate" showSummary="true" showDetail="false"
@@ -46,6 +47,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 					<div class="col-md-6">
 						<h:inputText a:type="time" class="form-control" id="eventTime"
 							value="#{createEventForm.eventTime}" a:placeholder="Start-Zeit">
+							<f:validator validatorId="timeValidator"/>
 						</h:inputText>
 						<div class="error">
 							<h:message for="eventTime" showSummary="true" showDetail="false"

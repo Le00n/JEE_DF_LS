@@ -20,9 +20,10 @@ Ganz am Ende: alle Scopes kontrollieren
 baseSide zu baseSite umbenennen (in allen Seiten)
 "Als Manager registrieren" und "Direkt veröffentlichen" schön machen				David
 Date im Firefox																		Leon
-Table-Darstellung																	Leon
+Table-Darstellung																	Leon - DONE
 Aktuelles Bild beim Event bearbeiten anzeigen, falls vorhanden						David
 Glyphicons verwenden
+Rendering Userprofile "keine Bestellungen" funktioniert nicht
 
 Regex Vorname Nachname ohne Sonderzeichen aber mit "á" und "-" etc. in UserFirstnameValidator David
 JPA Nachforschungen anstellen														David

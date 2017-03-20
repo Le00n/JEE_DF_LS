@@ -1,0 +1,9 @@
+@CHARSET "ISO-8859-1";
+
+.panel-table .table{
+	margin-bottom: 0px;
+}
+
+.panel-table .panel-body{
+	padding: 0px;
+}

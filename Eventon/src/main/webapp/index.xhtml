@@ -41,7 +41,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<div class="container-fluid searchresult">
 			<div class="row">
 				<div class="col-md-12">
-					<h:panelGroup class="panel panel-danger"
+					<h:panelGroup class="panel panel-danger panel-table"
 						rendered="#{empty eventSearchForm.searchedEvents}" layout="block">
 						<div class="panel-heading">
 							<h3 class="panel-title">Keine Suchergebnisse</h3>
@@ -49,7 +49,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						<div class="panel-body"></div>
 					</h:panelGroup>
 					<!-- Suchergebnisse gefunden -->
-					<h:panelGroup class="panel panel-primary"
+					<h:panelGroup class="panel panel-primary panel-table"
 						rendered="#{not empty eventSearchForm.searchedEvents}"
 						layout="block">
 						<div class="panel-heading">

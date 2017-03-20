@@ -8,10 +8,10 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <ui:composition template="baseSide.xhtml">
 	<ui:define name="content">
-		<div class="container-fluid searchresult">
+		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
-					<h:panelGroup class="panel panel-danger"
+					<h:panelGroup class="panel panel-danger panel-table"
 						rendered="#{empty managerOverviewEvents.unpublishedEvents}"
 						layout="block">
 						<div class="panel-heading">
@@ -23,8 +23,8 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				</div>
 			</div>
 		</div>
-		<div id="showEvents" class="col-md-10 col-md-offset-1 searchresult" style="border: 0">
-			<h:panelGroup class="panel panel-primary"
+		<div id="showEvents" class="col-md-10 col-md-offset-1" style="border: 0">
+			<h:panelGroup class="panel panel-primary panel-table"
 				rendered="#{not empty managerOverviewEvents.unpublishedEvents}"
 				layout="block">
 				<div class="panel-heading">

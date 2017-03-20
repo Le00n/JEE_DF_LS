@@ -8,10 +8,6 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <ui:composition template="baseSide.xhtml">
 
-	<ui:define name="header">
-		<h:outputStylesheet name="css/index.css" />
-	</ui:define>
-
 	<ui:define name="content">
 		<!-- Event-Informationen -->
 		<h:panelGroup layout="block"
@@ -23,7 +19,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		</h:panelGroup>
 
 
-		<div class="container-fluid searchresult">
+		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<h:panelGroup class="panel panel-primary" layout="block">
@@ -146,10 +142,10 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 			</div>
 		</div>
 
-		<div class="container-fluid searchresult">
+		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
-					<h:panelGroup class="panel panel-danger"
+					<h:panelGroup class="panel panel-danger panel-table"
 						rendered="#{empty eventSearchForm.searchedEvents}" layout="block">
 						<div class="panel-heading">
 							<h3 class="panel-title">Keine Bestellungen</h3>
@@ -159,9 +155,9 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				</div>
 			</div>
 		</div>
-		<div id="showOrders" class="col-md-8 col-md-offset-2 searchresult"
+		<div id="showOrders" class="col-md-8 col-md-offset-2"
 			style="border: 0">
-			<h:panelGroup class="panel panel-primary"
+			<h:panelGroup class="panel panel-primary panel-table"
 				rendered="#{not empty eventSearchForm.searchedEvents}"
 				layout="block">
 				<div class="panel-heading">

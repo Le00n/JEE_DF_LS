@@ -17,13 +17,13 @@ Messages außerhalb eines Validator werfen (wenn Lösung gefunden - Leon schreib
 Registrierung Validierung															David - DONE
 - Passwortvergleich, Email existiert bereits
 Ganz am Ende: alle Scopes kontrollieren
-baseSide zu baseSite umbenennen (in allen Seiten)
+baseSide zu baseSite umbenennen (in allen Seiten)									Leon - DONE
 "Als Manager registrieren" und "Direkt veröffentlichen" schön machen				David
 Date im Firefox																		Leon - DONE
 Table-Darstellung																	Leon - DONE
 Aktuelles Bild beim Event bearbeiten anzeigen, falls vorhanden						David
 Glyphicons verwenden
-Rendering Userprofile "keine Bestellungen" funktioniert nicht
+Rendering Userprofile "keine Bestellungen" funktioniert nicht						David
 
 Regex Vorname Nachname ohne Sonderzeichen aber mit "á" und "-" etc. in UserFirstnameValidator David
 JPA Nachforschungen anstellen														David

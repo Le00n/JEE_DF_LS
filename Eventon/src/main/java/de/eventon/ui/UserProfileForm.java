@@ -20,13 +20,13 @@ import de.eventon.services.UserService;
 
 @Named("userProfileForm")
 @ViewScoped
-public class UserProfileForm implements Serializable{
+public class UserProfileForm implements Serializable {
 
 	private static final long serialVersionUID = 6985231480343494936L;
-	
+
 	private User user;
 	private String firstname, lastname, street, housenumber, zip, city, email, accountHolder, iban, bic;
-	
+
 	@Inject
 	private UserService userService;
 	@Inject
@@ -35,7 +35,7 @@ public class UserProfileForm implements Serializable{
 	private NavigationService navigationService;
 
 	public UserProfileForm() {
-		
+
 	}
 
 	@PostConstruct
@@ -55,19 +55,18 @@ public class UserProfileForm implements Serializable{
 					User queryUser = optUser.get();
 
 					User activeUser = activeUserService.getActiveUser();
-					if(activeUser != null && queryUser.equals(activeUser))
-					{
+					if (activeUser != null && queryUser.equals(activeUser)) {
 						user = queryUser;
 						firstname = user.getFirstname();
 						lastname = user.getLastname();
 						email = user.getEmail();
-						
+
 						Address address = user.getAddress();
 						street = address.getStreet();
 						housenumber = address.getStreetnumber();
 						zip = address.getZip();
 						city = address.getCity();
-						
+
 						BankAccount bankAccount = user.getBankAccount();
 						accountHolder = bankAccount.getAccountHolder();
 						iban = bankAccount.getIban();
@@ -91,18 +90,11 @@ public class UserProfileForm implements Serializable{
 			}
 		}
 	}
-	
-	public String save()
-	{
-		if(firstname != "" && lastname != "" && street != "" && housenumber != "" && zip != "" && city != "" && email != "" && accountHolder != "" && iban != "" && bic != "")
-		{
-			if(email.contains("@"))
-			{
-				Address address = new Address(street, housenumber, zip, city);
-				BankAccount bankAccount = new BankAccount(accountHolder, iban, bic);
-				userService.updateUser(user, firstname, lastname, address, email, bankAccount);
-			}
-		}
+
+	public String save() {
+		Address address = new Address(street, housenumber, zip, city);
+		BankAccount bankAccount = new BankAccount(accountHolder, iban, bic);
+		userService.updateUser(user, firstname, lastname, address, email, bankAccount);
 		return navigationService.home();
 	}
 

@@ -1,7 +1,9 @@
 package de.eventon.services;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.enterprise.context.SessionScoped;
@@ -9,6 +11,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 @Named("navigationService")
 @SessionScoped
@@ -27,7 +30,8 @@ public class NavigationService implements Serializable {
 	private ActiveUserService activeUserService;
 
 	private Pages lastSignificantPage;
-
+	private String lastSignificantQuery;
+	
 	public NavigationService() {
 	}
 
@@ -36,7 +40,7 @@ public class NavigationService implements Serializable {
 	}
 
 	public String searchEvents() {
-		return Pages.STAY.toString();
+		return null;
 	}
 
 	public String login() {
@@ -47,7 +51,14 @@ public class NavigationService implements Serializable {
 		if (lastSignificantPage == null) {
 			return Pages.HOME.toString();
 		} else {
-			return Pages.HOME.toString();
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect(lastSignificantPage + lastSignificantQuery);
+			} catch (IOException e) {
+			} finally {
+				lastSignificantPage = null;
+				lastSignificantQuery = "";
+			}
+			return Pages.ERROR_404.toString();
 		}
 	}
 
@@ -72,7 +83,7 @@ public class NavigationService implements Serializable {
 				return Pages.HOME.toString();
 			}
 		}
-		return Pages.STAY.toString();
+		return null;
 	}
 
 	public String register() {
@@ -116,14 +127,15 @@ public class NavigationService implements Serializable {
 	}
 
 	public String book() {
-		if (activeUserService.getActiveUser() == null) {
-			lastSignificantPage = Pages.EVENT;
-			return login();
-		} else {
-			return Pages.STAY.toString();
-		}
+		return null;
 	}
 
+	public String bookWithoutLogin(int eventId) {
+		lastSignificantPage = Pages.EVENT;
+		lastSignificantQuery = "?id=" + eventId;
+		return login();
+	}
+	
 	public String bookingFailed() {
 		return null;
 	}
@@ -183,7 +195,7 @@ public class NavigationService implements Serializable {
 	 * @author Leon Stapper
 	 */
 	public enum Pages {
-		STAY("#"), LOGIN("login.xhtml"), REGISTER("register.xhtml"), HOME("index.xhtml"), USERPROFILE(
+		LOGIN("login.xhtml"), REGISTER("register.xhtml"), HOME("index.xhtml"), USERPROFILE(
 				"user.xhtml"), MANAGER_OVERVIEW_EVENTS_RELEASED(
 						"managerOverviewEventsReleased.xhtml"), MANAGER_OVERVIEW_EVENTS_IN_PROCESS(
 								"managerOverviewEventsInProcess.xhtml"), EVENT(

@@ -6,7 +6,7 @@ Bilder-Upload																		David
 
 Upload-Methode für User besprechen
 
-Triple Navigation (bzw. wie besprochen Bootstrap Login-Dropdown)					Leon
+Triple Navigation (bzw. wie besprochen Bootstrap Login-Dropdown)					Leon - DONE
 
 Ganz am Ende: alle Scopes kontrollieren												Leon
 
@@ -21,17 +21,11 @@ Rendering Userprofile "keine Bestellungen" funktioniert nicht						David
 Einrückung und Darstellung Userprofile bei Verkleinerung des Browsers 				David
 	- (bei Buttons vllt. wie bei Login mit bootstrap-Klassen?)
 	
-Tabelle Darstellung bei Verkleinerung des Browsers									David
-
-Buttons createEvent																	Leon - DONE
-
-Responsive-Darstellung Event anzeigen												Leon
-
 Login über User statt getPassword? mit Session Context								Leon
 
 Regex Vorname Nachname ohne Sonderzeichen aber mit "á" und "-" etc. in UserFirstnameValidator David
 
-JPA Nachforschungen anstellen														David
+UUID in UserProfile myBooking-Tabelle												David
 
 //DOKU
 ER-Modell erstellen in Visio														David
@@ -39,3 +33,4 @@ Architektur dokumentieren															Leon
 User Stories dokumentieren															
 Quellcode dokumentieren
 Date Time - kein Converter, weil beides zusammengehört (Begründung in Doku)
+Installationsanleitung

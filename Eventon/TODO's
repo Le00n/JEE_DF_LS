@@ -1,31 +1,36 @@
 //PROGRAMMIERUNG
-Umstellung auf CDI																	Leon - DONE
-EventSearchService entfernen														Leon - DONE
-Übersichtsseite für Events 															David - (DONE) - Event kann direkt veröffentlicht werden, allerdings merkt der User es erst beim Neuladen der Page
-- Anzahl Plätze/Preis pro Loge/Parkett, Event direkt publishen, Link über Name auf Bearbeiten-Seite 
-Fehlerresistenz - nur Manager dürfen Events verwalten								David - DONE
-- Bei beiden Seiten
-Nach dem Ausloggen muss der Nutzer von jeder Nicht-Manager-Seite geworfen werden	Leon - DONE
+Event kann direkt veröffentlicht werden, allerdings merkt der User es erst beim Neuladen der Page
+- Buttons zum Absenden einbauen
+
 Bilder-Upload																		David
+
 Upload-Methode für User besprechen
-Passwort hashen																		Leon - DONE
-Abbrechen-Button erzwingt Validierung immediate="true"								Leon - DONE
-Login Validatoren																	Leon - DONE
+
 Triple Navigation (bzw. wie besprochen Bootstrap Login-Dropdown)					Leon
-Gradle JQuery																		Leon - DONE
-Messages außerhalb eines Validator werfen (wenn Lösung gefunden - Leon schreiben) 	David - DONE
-Registrierung Validierung															David - DONE
-- Passwortvergleich, Email existiert bereits
-Ganz am Ende: alle Scopes kontrollieren
-baseSide zu baseSite umbenennen (in allen Seiten)									Leon - DONE
+
+Ganz am Ende: alle Scopes kontrollieren												Leon
+
 "Als Manager registrieren" und "Direkt veröffentlichen" schön machen				David
-Date im Firefox																		Leon - DONE
-Table-Darstellung																	Leon - DONE
+
 Aktuelles Bild beim Event bearbeiten anzeigen, falls vorhanden						David
-Glyphicons verwenden
+
+Glyphicons verwenden																David
+
 Rendering Userprofile "keine Bestellungen" funktioniert nicht						David
 
+Einrückung und Darstellung Userprofile bei Verkleinerung des Browsers 				David
+	- (bei Buttons vllt. wie bei Login mit bootstrap-Klassen?)
+	
+Tabelle Darstellung bei Verkleinerung des Browsers									David
+
+Buttons createEvent																	Leon
+
+Responsive-Darstellung Event anzeigen												Leon
+
+Login über User statt getPassword? mit Session Context								Leon
+
 Regex Vorname Nachname ohne Sonderzeichen aber mit "á" und "-" etc. in UserFirstnameValidator David
+
 JPA Nachforschungen anstellen														David
 
 //DOKU

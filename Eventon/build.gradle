@@ -27,6 +27,8 @@ dependencies {
 	providedCompile 'org.glassfish:javax.faces:2.2.0-m09'
 	providedCompile 'javax.enterprise:cdi-api:1.2'
 	providedCompile 'org.glassfish:javax.servlet:3.0'
+	providedCompile 'org.eclipse.persistence:javax.persistence:2.1.0'
+	compile 'com.h2database:h2:1.4.192'
 	compile 'org.webjars.bower:bootstrap-fileinput:4.3.8'
 	compile 'org.hibernate:hibernate-core:3.6.7.Final'
 	//TODO: copy bootstrap-folder to resources?

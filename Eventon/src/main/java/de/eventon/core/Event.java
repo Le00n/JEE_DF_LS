@@ -163,10 +163,10 @@ public class Event {
 
 	public String getFilename() {
 		if(filename == null){ 
-			return "photo_not_available.jpg";
+			return "/resources/img/photo_not_available.jpg";
 		}
 		else {
-			return filename;
+			return "/images/" + filename;
 		}
 	}
 

@@ -36,13 +36,13 @@ public class UserService implements Serializable {
 		User user = new User("leonstapper@gmx.de", "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "Leon", "Stapper",
 				new Address("Buchdahlstraße", "6", "48429", "Rheine"),
 				new BankAccount("Leon Stapper", "DE83403500050000123456", "WELADED1RHN"), false);
-		user.setId(1);
+		user.setUserId(1);
 		addUser(user);
 
 		User user2 = new User("david.feldhoff@web.de", "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "David", "Feldhoff",
 				new Address("Moorstraße", "88a", "48432", "Rheine"),
 				new BankAccount("David Feldhoff", "DE83403500050000123456", "WELADED1RHN"), true);
-		user2.setId(2);
+		user2.setUserId(2);
 		addUser(user2);
 	}
 
@@ -51,17 +51,17 @@ public class UserService implements Serializable {
 	}
 
 	public Optional<User> getUserById(int id) {
-		return users.stream().filter(user -> user.getId() == id).findFirst();
+		return users.stream().filter(user -> user.getUserId() == id).findFirst();
 	}
 
 	public boolean addUser(User user) {
 		if (getUserByEmail(user.getEmail()).isPresent() == false) {
 			int neueUserId = 1;
 			if (users.size() != 0)
-				neueUserId = users.stream().max((User u1, User u2) -> Integer.compare(u1.getId(), u2.getId())).get()
-						.getId() + 1;
+				neueUserId = users.stream().max((User u1, User u2) -> Integer.compare(u1.getUserId(), u2.getUserId())).get()
+						.getUserId() + 1;
 
-			user.setId(neueUserId);
+			user.setUserId(neueUserId);
 
 			return users.add(user);
 		}

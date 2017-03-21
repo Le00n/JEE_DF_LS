@@ -3,17 +3,39 @@ package de.eventon.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+@Entity
 public class User {
 
-	private int id;
+	@Id @GeneratedValue
+	private int userId;
+	@Column
 	private String email;
+	@Column
 	private String hashedPassword;
+	@Column
 	private String firstname;
+	@Column
 	private String lastname;
+	@ManyToOne
 	private Address address;
+	@ManyToOne
 	private BankAccount	bankAccount;
+	@OneToMany
+	@JoinColumn(referencedColumnName="ID", name="uuid")
 	private List<Booking> bookings;
+	@Column
 	private boolean manager;
+	
+	public User() {
+	}
 	
 	public User(String email, String hashedPassword, String firstname, String lastname, Address address, BankAccount bankAccount, boolean manager) {
 		bookings = new ArrayList<Booking>();
@@ -30,12 +52,12 @@ public class User {
 		return bookings.add(booking);
 	}
 	
-	public int getId() {
-		return id;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUserId(int UserId) {
+		this.userId = UserId;
 	}
 	
 	public String getFirstname() {

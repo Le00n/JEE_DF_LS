@@ -4,20 +4,43 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Event {
 
-	private int id;
+	@Id @GeneratedValue
+	private int eventId;
+	@Column
 	private String name;
+	@Column
 	private LocalDateTime datetime;
+	@Column
 	private String description;
+	@Column
 	private double priceTicketsPremium;
+	@Column
 	private double priceTicketsNormal;
+	@Column
 	private int amountTicketsPremium;
+	@Column
 	private int amountTicketsNormal;
+	@ManyToOne
 	private Address address;
+	@OneToMany
 	private List<Booking> bookings;
+	@ManyToOne
+	@JoinColumn(name="userId")
 	private User manager;
+	@Column
 	private boolean published;
+	@Column
 	private String filename;
 
 	public Event(){
@@ -91,12 +114,12 @@ public class Event {
 		this.address = address;
 	}
 
-	public int getId() {
-		return id;
+	public int getEventId() {
+		return eventId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
 	}
 
 	public double getPriceTicketsPremium() {

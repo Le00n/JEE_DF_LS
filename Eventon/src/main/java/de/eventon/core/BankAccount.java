@@ -1,9 +1,22 @@
 package de.eventon.core;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class BankAccount {
+	
+	@Column
 	private String accountHolder;
+	@Id
 	private String iban;
+	@Column
 	private String bic;
+	
+	public BankAccount() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public BankAccount(String accountHolder, String iban, String bic) {
 		this.accountHolder = accountHolder;

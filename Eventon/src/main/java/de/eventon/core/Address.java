@@ -1,12 +1,29 @@
 package de.eventon.core;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Address {
 
+	@Id @GeneratedValue
+	private int id;
+	@Column
 	private String locationName;
+	@Column
 	private String zip;
+	@Column
 	private String city;
+	@Column
 	private String street;
+	@Column
 	private String streetnumber;
+	
+	public Address() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public Address(String street, String streetnumber, String zip, String city) {
 		this.street = street;

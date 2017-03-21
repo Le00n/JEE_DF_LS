@@ -52,7 +52,7 @@ public class ManagerOverviewEvents implements Serializable{
 		{
 			User manager = activeUserService.getActiveUser();
 			List<Event> events = eventService.getEvents().stream()
-					.filter(event -> !event.isPublished() && event.getManager().getId() == manager.getId())
+					.filter(event -> !event.isPublished() && event.getManager().getUserId() == manager.getUserId())
 					.collect(Collectors.toList());
 			return events;
 		}
@@ -63,7 +63,7 @@ public class ManagerOverviewEvents implements Serializable{
 		{
 			User manager = activeUserService.getActiveUser();
 			List<Event> events = eventService.getEvents().stream()
-					.filter(event -> event.isPublished() && event.getManager().getId() == manager.getId())
+					.filter(event -> event.isPublished() && event.getManager().getUserId() == manager.getUserId())
 					.collect(Collectors.toList());
 			return events;
 		}

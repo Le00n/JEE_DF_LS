@@ -3,14 +3,29 @@ package de.eventon.core;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Booking {
 
+	@Id
 	private UUID bookingUUID;
+	@Column
 	private LocalDateTime bookingDatetime;
+	@OneToOne
 	private Event event;
+	@Column
 	private int amountNormalTickets;
+	@Column
 	private int amountPremiumTickets;
 
+	public Booking() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Booking(Event event, int amountNormalTickets, int amountPremiumTickets) {
 		setBookingUUID(UUID.randomUUID());
 		setBookingDatetime(LocalDateTime.now());

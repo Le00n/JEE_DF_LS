@@ -7,8 +7,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 
 import de.eventon.core.Address;
 import de.eventon.core.Event;
@@ -29,16 +32,20 @@ public class EventService implements Serializable {
 	private List<Event> events;
 	private int id;
 
+	@Inject
+	private EntityManager entityManager;
+	
 	public EventService() {
 		events = new ArrayList<Event>();
-		init();
 	}
 
+	@PostConstruct
 	private void init() {
 		User manager = new UserService().getUserByEmail("david.feldhoff@web.de").get();
+		entityManager.persist(manager);
 
 		Event e = new Event();
-		e.setId(0);
+		e.setEventId(0);
 		e.setName("Test");
 		e.setDescription("Der Wahnsinn");
 		e.setPriceTicketsNormal(40.00);
@@ -52,7 +59,7 @@ public class EventService implements Serializable {
 		createEvent(e);
 
 		Event e1 = new Event();
-		e1.setId(1);
+		e1.setEventId(1);
 		e1.setName("Shakespeare");
 		e1.setDescription("Der Wahnsinn");
 		e1.setPriceTicketsNormal(40.00);
@@ -66,7 +73,7 @@ public class EventService implements Serializable {
 		createEvent(e1);
 
 		Event e2 = new Event();
-		e2.setId(2);
+		e2.setEventId(2);
 		e2.setName("Linkin Park Konzert");
 		e2.setDescription("Der Wahnsinn");
 		e2.setPriceTicketsNormal(40.00);
@@ -80,7 +87,7 @@ public class EventService implements Serializable {
 		createEvent(e2);
 
 		Event e3 = new Event();
-		e3.setId(3);
+		e3.setEventId(3);
 		e3.setName("Kraftklub Konzert");
 		e3.setPriceTicketsNormal(40.33);
 		e3.setPriceTicketsPremium(60.55);
@@ -95,7 +102,7 @@ public class EventService implements Serializable {
 		createEvent(e3);
 
 		Event e4 = new Event();
-		e4.setId(4);
+		e4.setEventId(4);
 		e4.setName("Theater Shakespeare");
 		e4.setDescription("Der Wahnsinn");
 		e4.setPriceTicketsNormal(40.00);
@@ -108,7 +115,7 @@ public class EventService implements Serializable {
 		createEvent(e4);
 
 		Event e5 = new Event();
-		e5.setId(5);
+		e5.setEventId(5);
 		e5.setName("Shakespeare-Theater");
 		e5.setDescription("Der Wahnsinn");
 		e5.setPriceTicketsNormal(40.00);
@@ -121,7 +128,7 @@ public class EventService implements Serializable {
 		createEvent(e5);
 
 		Event e6 = new Event();
-		e6.setId(6);
+		e6.setEventId(6);
 		e6.setName("Shakespeare Musical");
 		e6.setDescription("Der Wahnsinn");
 		e6.setPriceTicketsNormal(40.00);
@@ -142,7 +149,7 @@ public class EventService implements Serializable {
 	 *            Event
 	 */
 	public void createEvent(Event event) {
-		event.setId(id++);
+		event.setEventId(id++);
 		events.add(event);
 	}
 
@@ -155,7 +162,7 @@ public class EventService implements Serializable {
 	 *         bleibt das Optional leer.
 	 */
 	public Optional<Event> getEventById(int id) {
-		return events.stream().filter(event -> event.getId() == id).findFirst();
+		return events.stream().filter(event -> event.getEventId() == id).findFirst();
 	}
 
 	/**

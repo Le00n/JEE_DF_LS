@@ -118,7 +118,7 @@ public class EventBookingForm implements Serializable {
 				FacesContext.getCurrentInstance().addMessage("eventBookingForm:inputPremium", msg);
 			}
 		} else {
-			return navigationService.bookWithoutLogin(event.getId());
+			return navigationService.bookWithoutLogin(event.getEventId());
 		}
 		
 		setBookingConfirmed(false);

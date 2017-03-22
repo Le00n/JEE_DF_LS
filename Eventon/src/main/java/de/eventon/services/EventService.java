@@ -12,6 +12,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 
 import de.eventon.core.Address;
 import de.eventon.core.Event;
@@ -42,7 +43,9 @@ public class EventService implements Serializable {
 	@PostConstruct
 	private void init() {
 		User manager = new UserService().getUserByEmail("david.feldhoff@web.de").get();
+		entityManager.getTransaction().begin();
 		entityManager.persist(manager);
+		entityManager.getTransaction().commit();
 
 		Event e = new Event();
 		e.setEventId(0);

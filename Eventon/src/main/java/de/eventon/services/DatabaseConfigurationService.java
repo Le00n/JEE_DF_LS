@@ -11,6 +11,7 @@ public class DatabaseConfigurationService {
 
 	@Produces
 	public EntityManager createEntityManager(){
+		Persistence.generateSchema("h2", null);
 		EntityManagerFactory createEntityManagerFactory = Persistence.createEntityManagerFactory("h2");
 		return createEntityManagerFactory.createEntityManager();
 	}

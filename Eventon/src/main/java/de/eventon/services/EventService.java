@@ -45,6 +45,8 @@ public class EventService implements Serializable {
 		User manager = new UserService().getUserByEmail("david.feldhoff@web.de").get();
 		entityManager.getTransaction().begin();
 		entityManager.persist(manager);
+		entityManager.persist(manager.getAddress());
+		entityManager.persist(manager.getBankAccount());
 		entityManager.getTransaction().commit();
 
 		Event e = new Event();

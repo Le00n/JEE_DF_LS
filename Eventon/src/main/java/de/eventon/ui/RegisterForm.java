@@ -12,7 +12,7 @@ import de.eventon.core.Address;
 import de.eventon.core.BankAccount;
 import de.eventon.core.User;
 import de.eventon.services.NavigationService;
-import de.eventon.services.UserService;
+import de.eventon.services.interfaces.IsUserService;
 
 @Named("registerForm")
 @RequestScoped
@@ -21,7 +21,7 @@ public class RegisterForm implements Serializable{
 	private static final long serialVersionUID = 3801859673806863588L;
 	
 	@Inject
-	private UserService userService;
+	private IsUserService userService;
 	@Inject
 	private NavigationService navigationService;
 	
@@ -140,10 +140,10 @@ public class RegisterForm implements Serializable{
 		return navigationService.registrationCancelled();
 	}
 	
-	public UserService getUserService() {
+	public IsUserService getUserService() {
 		return userService;
 	}
-	public void setUserService(UserService userService) {
+	public void setUserService(IsUserService userService) {
 		this.userService = userService;
 	}
 	public NavigationService getNavigationService() {

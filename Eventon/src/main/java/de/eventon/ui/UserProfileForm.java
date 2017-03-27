@@ -16,7 +16,7 @@ import de.eventon.core.BankAccount;
 import de.eventon.core.User;
 import de.eventon.services.ActiveUserService;
 import de.eventon.services.NavigationService;
-import de.eventon.services.UserService;
+import de.eventon.services.interfaces.IsUserService;
 
 @Named("userProfileForm")
 @ViewScoped
@@ -28,7 +28,7 @@ public class UserProfileForm implements Serializable {
 	private String firstname, lastname, street, housenumber, zip, city, email, accountHolder, iban, bic;
 
 	@Inject
-	private UserService userService;
+	private IsUserService userService;
 	@Inject
 	private ActiveUserService activeUserService;
 	@Inject
@@ -186,11 +186,11 @@ public class UserProfileForm implements Serializable {
 		this.bic = bic;
 	}
 
-	public UserService getUserService() {
+	public IsUserService getUserService() {
 		return userService;
 	}
 
-	public void setUserService(UserService userService) {
+	public void setUserService(IsUserService userService) {
 		this.userService = userService;
 	}
 

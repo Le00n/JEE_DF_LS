@@ -1,4 +1,4 @@
-package de.eventon.services;
+package de.eventon.services.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import javax.inject.Named;
 import de.eventon.core.Address;
 import de.eventon.core.BankAccount;
 import de.eventon.core.User;
+import de.eventon.services.interfaces.IsUserService;
 
 @Named("userService")
 @ApplicationScoped
@@ -21,7 +22,7 @@ import de.eventon.core.User;
  * 
  * @author Leon Stapper
  */
-public class UserService implements Serializable {
+public class UserService implements Serializable, IsUserService {
 
 	private static final long serialVersionUID = -1460978899898153682L;
 
@@ -46,14 +47,26 @@ public class UserService implements Serializable {
 		addUser(user2);
 	}
 
+	/* (non-Javadoc)
+	 * @see de.eventon.services.IsUserService#getUserByEmail(java.lang.String)
+	 */
+	@Override
 	public Optional<User> getUserByEmail(String email) {
 		return users.stream().filter(user -> user.getEmail().equals(email)).findFirst();
 	}
 
+	/* (non-Javadoc)
+	 * @see de.eventon.services.IsUserService#getUserById(int)
+	 */
+	@Override
 	public Optional<User> getUserById(int id) {
 		return users.stream().filter(user -> user.getUserId() == id).findFirst();
 	}
 
+	/* (non-Javadoc)
+	 * @see de.eventon.services.IsUserService#addUser(de.eventon.core.User)
+	 */
+	@Override
 	public boolean addUser(User user) {
 		if (getUserByEmail(user.getEmail()).isPresent() == false) {
 			int neueUserId = 1;
@@ -68,6 +81,10 @@ public class UserService implements Serializable {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.eventon.services.IsUserService#updateUser(de.eventon.core.User, java.lang.String, java.lang.String, de.eventon.core.Address, java.lang.String, de.eventon.core.BankAccount)
+	 */
+	@Override
 	public boolean updateUser(User user, String firstname, String lastname, Address address, String email,
 			BankAccount bankAccount) {
 		user.setFirstname(firstname);
@@ -78,10 +95,18 @@ public class UserService implements Serializable {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.eventon.services.IsUserService#getUsers()
+	 */
+	@Override
 	public List<User> getUsers() {
 		return users;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.eventon.services.IsUserService#setUsers(java.util.List)
+	 */
+	@Override
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}

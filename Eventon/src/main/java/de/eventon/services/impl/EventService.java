@@ -1,4 +1,4 @@
-package de.eventon.services;
+package de.eventon.services.impl;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -12,11 +12,11 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 
 import de.eventon.core.Address;
 import de.eventon.core.Event;
 import de.eventon.core.User;
+import de.eventon.services.interfaces.IsEventService;
 
 @Named("eventService")
 @ApplicationScoped
@@ -26,7 +26,7 @@ import de.eventon.core.User;
  * 
  * @author Leon Stapper
  */
-public class EventService implements Serializable {
+public class EventService implements Serializable, IsEventService {
 
 	private static final long serialVersionUID = -5624893888361134183L;
 
@@ -43,11 +43,11 @@ public class EventService implements Serializable {
 	@PostConstruct
 	private void init() {
 		User manager = new UserService().getUserByEmail("david.feldhoff@web.de").get();
-		entityManager.getTransaction().begin();
-		entityManager.persist(manager);
-		entityManager.persist(manager.getAddress());
-		entityManager.persist(manager.getBankAccount());
-		entityManager.getTransaction().commit();
+//		entityManager.getTransaction().begin();
+//		entityManager.persist(manager);
+//		entityManager.persist(manager.getAddress());
+//		entityManager.persist(manager.getBankAccount());
+//		entityManager.getTransaction().commit();
 
 		Event e = new Event();
 		e.setEventId(0);
@@ -147,42 +147,27 @@ public class EventService implements Serializable {
 		createEvent(e6);
 	}
 
-	/**
-	 * Fügt das erstellte Event zur Event-Liste hinzu.
-	 * 
-	 * @param event
-	 *            Event
+	/* (non-Javadoc)
+	 * @see de.eventon.services.IsEventService#createEvent(de.eventon.core.Event)
 	 */
+	@Override
 	public void createEvent(Event event) {
 		event.setEventId(id++);
 		events.add(event);
 	}
 
-	/**
-	 * Gibt ein Event anhand seiner ID zurück.
-	 * 
-	 * @param id
-	 *            ID des Events
-	 * @return Event, dessen ID der übergebenen entspricht. Ist keins vorhanden
-	 *         bleibt das Optional leer.
+	/* (non-Javadoc)
+	 * @see de.eventon.services.IsEventService#getEventById(int)
 	 */
+	@Override
 	public Optional<Event> getEventById(int id) {
 		return events.stream().filter(event -> event.getEventId() == id).findFirst();
 	}
 
-	/**
-	 * Diese Methode regelt die Suche eines Events. Für den übergebenen
-	 * Suchbegriff wird hierbei eine Liste von zutreffenden Events
-	 * bereitgestellt. Als Suchkriterium gilt dabei ausschließlich der
-	 * Event-Name. Groß- und Kleinschreibung ist nicht erforderlich. Außerdem
-	 * werden auch Events gefunden, deren Namen lediglich Fragmente des
-	 * Suchbegriffs beinhaltet. Ist kein Event für den Begriff zutreffend, ist
-	 * das Optional leer.
-	 * 
-	 * @param searchTerm
-	 *            Suchbegriff
-	 * @return Liste von zutreffenden Events, falls es Treffer gibt
+	/* (non-Javadoc)
+	 * @see de.eventon.services.IsEventService#searchEvents(java.lang.String)
 	 */
+	@Override
 	public Optional<List<Event>> searchEvents(String searchTerm) {
 		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
 			List<Event> searchedEvents = getEvents().stream()
@@ -196,10 +181,18 @@ public class EventService implements Serializable {
 		return Optional.empty();
 	}
 
+	/* (non-Javadoc)
+	 * @see de.eventon.services.IsEventService#getEvents()
+	 */
+	@Override
 	public List<Event> getEvents() {
 		return events;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.eventon.services.IsEventService#setEvents(java.util.List)
+	 */
+	@Override
 	public void setEvents(List<Event> events) {
 		this.events = events;
 	}

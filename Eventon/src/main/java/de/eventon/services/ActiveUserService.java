@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import de.eventon.core.User;
+import de.eventon.services.interfaces.IsUserService;
 
 @Named("activeUserService")
 @SessionScoped
@@ -22,7 +23,7 @@ public class ActiveUserService implements Serializable {
 
 	private User activeUser;
 	@Inject
-	private UserService userService;
+	private IsUserService userService;
 
 	public boolean login(User user, String hashedPassword) {
 		if (user != null) {
@@ -46,11 +47,11 @@ public class ActiveUserService implements Serializable {
 		this.activeUser = activeUser;
 	}
 
-	public UserService getUserService() {
+	public IsUserService getUserService() {
 		return userService;
 	}
 
-	public void setUserService(UserService userService) {
+	public void setUserService(IsUserService userService) {
 		this.userService = userService;
 	}
 }

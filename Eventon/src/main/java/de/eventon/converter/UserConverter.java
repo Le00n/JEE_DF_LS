@@ -10,13 +10,13 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import de.eventon.core.User;
-import de.eventon.services.UserService;
+import de.eventon.services.interfaces.IsUserService;
 
 @ManagedBean
 public class UserConverter implements Converter{
 
 	@Inject
-	private UserService userService;
+	private IsUserService userService;
 	
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -28,11 +28,11 @@ public class UserConverter implements Converter{
 		return (value != null && value instanceof User) ? ((User) value).getEmail() : null;
 	}
 
-	public UserService getUserService() {
+	public IsUserService getUserService() {
 		return userService;
 	}
 
-	public void setUserService(UserService userService) {
+	public void setUserService(IsUserService userService) {
 		this.userService = userService;
 	}
 

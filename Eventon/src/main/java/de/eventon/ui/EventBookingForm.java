@@ -15,9 +15,9 @@ import javax.inject.Named;
 
 import de.eventon.core.Event;
 import de.eventon.services.ActiveUserService;
-import de.eventon.services.EventBookingService;
-import de.eventon.services.EventService;
 import de.eventon.services.NavigationService;
+import de.eventon.services.interfaces.IsEventBookingService;
+import de.eventon.services.interfaces.IsEventService;
 
 @Named("eventBookingForm")
 @ViewScoped // Muss für die Ansicht sichtbar sein (Request reicht nicht: ist bei
@@ -36,9 +36,9 @@ public class EventBookingForm implements Serializable {
 	@Inject
 	private ActiveUserService activeUserService;
 	@Inject
-	private EventService eventService;
+	private IsEventService eventService;
 	@Inject
-	private EventBookingService eventBookingService;
+	private IsEventBookingService eventBookingService;
 	@Inject
 	private NavigationService navigationService;
 
@@ -133,11 +133,11 @@ public class EventBookingForm implements Serializable {
 		return navigationService.cancelBooking();
 	}
 
-	public EventService getEventService() {
+	public IsEventService getEventService() {
 		return eventService;
 	}
 
-	public void setEventService(EventService eventService) {
+	public void setEventService(IsEventService eventService) {
 		this.eventService = eventService;
 	}
 
@@ -157,11 +157,11 @@ public class EventBookingForm implements Serializable {
 		this.navigationService = navigationService;
 	}
 
-	public EventBookingService getEventBookingService() {
+	public IsEventBookingService getEventBookingService() {
 		return eventBookingService;
 	}
 
-	public void setEventBookingService(EventBookingService eventBookingService) {
+	public void setEventBookingService(IsEventBookingService eventBookingService) {
 		this.eventBookingService = eventBookingService;
 	}
 

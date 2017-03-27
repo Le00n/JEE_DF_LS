@@ -26,8 +26,8 @@ import de.eventon.core.Address;
 import de.eventon.core.Event;
 import de.eventon.core.User;
 import de.eventon.services.ActiveUserService;
-import de.eventon.services.EventService;
 import de.eventon.services.NavigationService;
+import de.eventon.services.interfaces.IsEventService;
 
 @Named("createEventForm")
 @ViewScoped
@@ -71,7 +71,7 @@ public class CreateEventForm implements Serializable {
 	@Inject
 	private NavigationService navigationService;
 	@Inject
-	private EventService eventService;
+	private IsEventService eventService;
 	@Inject
 	private ActiveUserService activeUserService;
 
@@ -296,11 +296,11 @@ public class CreateEventForm implements Serializable {
 		this.navigationService = navigationService;
 	}
 
-	public EventService getEventService() {
+	public IsEventService getEventService() {
 		return eventService;
 	}
 
-	public void setEventService(EventService eventService) {
+	public void setEventService(IsEventService eventService) {
 		this.eventService = eventService;
 	}
 

@@ -10,8 +10,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import de.eventon.core.Event;
-import de.eventon.services.EventService;
 import de.eventon.services.NavigationService;
+import de.eventon.services.interfaces.IsEventService;
 
 @Named("eventSearchForm")
 @SessionScoped
@@ -25,7 +25,7 @@ public class EventSearchForm implements Serializable {
 	@Inject
 	private NavigationService navigationService;
 	@Inject
-	private EventService eventService;
+	private IsEventService eventService;
 
 	public EventSearchForm() {
 		searchedEvents = new ArrayList<Event>();
@@ -66,11 +66,11 @@ public class EventSearchForm implements Serializable {
 		this.navigationService = navigationService;
 	}
 
-	public EventService getEventSearchService() {
+	public IsEventService getEventSearchService() {
 		return eventService;
 	}
 
-	public void setEventSearchService(EventService eventService) {
+	public void setEventSearchService(IsEventService eventService) {
 		this.eventService = eventService;
 	}
 }

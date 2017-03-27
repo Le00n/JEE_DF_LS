@@ -1,4 +1,4 @@
-package de.eventon.services;
+package de.eventon.services.impl;
 
 import java.io.Serializable;
 import java.util.Optional;
@@ -11,6 +11,8 @@ import javax.inject.Named;
 import de.eventon.core.Booking;
 import de.eventon.core.Event;
 import de.eventon.core.User;
+import de.eventon.services.ActiveUserService;
+import de.eventon.services.interfaces.IsEventBookingService;
 
 @Named("eventBookingService")
 @SessionScoped
@@ -20,7 +22,7 @@ import de.eventon.core.User;
  * 
  * @author Leon Stapper
  */
-public class EventBookingService implements Serializable {
+public class EventBookingService implements Serializable, IsEventBookingService {
 
 	private static final long serialVersionUID = 2437677069545276093L;
 
@@ -30,22 +32,10 @@ public class EventBookingService implements Serializable {
 	public EventBookingService() {
 	}
 
-	/**
-	 * Diese Methode bucht ein Event und gibt die ID der Buchung zurück. Die
-	 * Voraussetzung hierfür ist, dass der Nutzer bereits eingeloggt ist und die
-	 * angegebenene Bestellmenge die Anzahl der freien Plätze nicht
-	 * überschreitet. Sind die angegebenen Voraussetzungen nicht erfüllt, wird
-	 * das Event nicht gebucht. In diesem Fall wird demnach keine UUID
-	 * zurückgegeben.
-	 * 
-	 * @param event
-	 *            Zu buchendes Event
-	 * @param amountTicketsNormal
-	 *            Menge der Parkett-Tickets, die gebucht werden soll
-	 * @param amountTicketsPremium
-	 *            Menge der Logen-Tickets, die gebucht werden soll
-	 * @return ID der Buchung, sofern der Nutzer bereits eingeloggt ist
+	/* (non-Javadoc)
+	 * @see de.eventon.services.IsEventBookingService#bookEvent(de.eventon.core.Event, int, int)
 	 */
+	@Override
 	public Optional<UUID> bookEvent(Event event, int amountTicketsNormal, int amountTicketsPremium) {
 		User user = activeUserService.getActiveUser();
 		if (user != null && amountTicketsNormal <= event.getAmountFreeNormalTickets()
@@ -58,10 +48,18 @@ public class EventBookingService implements Serializable {
 		return Optional.empty();
 	}
 
+	/* (non-Javadoc)
+	 * @see de.eventon.services.IsEventBookingService#getActiveUserService()
+	 */
+	@Override
 	public ActiveUserService getActiveUserService() {
 		return activeUserService;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.eventon.services.IsEventBookingService#setActiveUserService(de.eventon.services.ActiveUserService)
+	 */
+	@Override
 	public void setActiveUserService(ActiveUserService activeUserService) {
 		this.activeUserService = activeUserService;
 	}

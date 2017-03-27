@@ -8,6 +8,10 @@ Upload-Methode für User besprechen
 
 Triple Navigation (bzw. wie besprochen Bootstrap Login-Dropdown)					Leon - DONE
 
+Extract Interfaces																	Leon - DONE
+
+Datenbank überall einbinden															David & Leon
+
 Ganz am Ende: alle Scopes kontrollieren												Leon
 
 "Als Manager registrieren" und "Direkt veröffentlichen" schön machen				David
@@ -21,7 +25,7 @@ Rendering Userprofile "keine Bestellungen" funktioniert nicht						David
 Einrückung und Darstellung Userprofile bei Verkleinerung des Browsers 				David
 	- (bei Buttons vllt. wie bei Login mit bootstrap-Klassen?)
 	
-Login über User statt getPassword? mit Session Context								Leon
+Login über User statt getPassword? mit Session Context								Leon - DONE
 
 Regex Vorname Nachname ohne Sonderzeichen aber mit "á" und "-" etc. in UserFirstnameValidator David
 

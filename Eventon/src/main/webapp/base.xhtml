@@ -46,7 +46,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						<h:panelGroup rendered="#{activeUserService.activeUser != null}">
 							<li class="active"><h:link outcome="user"
 									value="#{activeUserService.activeUser.firstname} #{activeUserService.activeUser.lastname}">
-									<f:param name="id" value="#{activeUserService.activeUser.id}" />
+									<f:param name="id" value="#{activeUserService.activeUser.userId}" />
 								</h:link></li>
 							<!-- Rendering, falls der Nutzer eingelogged und Manager ist -->
 							<h:panelGroup rendered="#{activeUserService.activeUser.manager}">

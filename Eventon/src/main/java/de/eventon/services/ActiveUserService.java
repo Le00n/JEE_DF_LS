@@ -27,7 +27,7 @@ public class ActiveUserService implements Serializable {
 
 	public boolean login(User user, String hashedPassword) {
 		if (user != null) {
-			if (hashedPassword.equals(user.getHashedPassword())) {
+			if (user.validatePassword(hashedPassword)) {
 				activeUser = user;
 				return true;
 			}

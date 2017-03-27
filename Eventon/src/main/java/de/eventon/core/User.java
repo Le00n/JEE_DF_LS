@@ -14,7 +14,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class User {
 
-	@Id @GeneratedValue
+	@Id
+	@GeneratedValue
 	private int userId;
 	@Column
 	private String email;
@@ -27,17 +28,18 @@ public class User {
 	@ManyToOne
 	private Address address;
 	@ManyToOne
-	private BankAccount	bankAccount;
+	private BankAccount bankAccount;
 	@OneToMany
-	@JoinColumn(referencedColumnName="ID", name="uuid")
+	@JoinColumn(referencedColumnName = "ID", name = "uuid")
 	private List<Booking> bookings;
 	@Column
 	private boolean manager;
-	
+
 	public User() {
 	}
-	
-	public User(String email, String hashedPassword, String firstname, String lastname, Address address, BankAccount bankAccount, boolean manager) {
+
+	public User(String email, String hashedPassword, String firstname, String lastname, Address address,
+			BankAccount bankAccount, boolean manager) {
 		bookings = new ArrayList<Booking>();
 		this.email = email;
 		this.hashedPassword = hashedPassword;
@@ -48,10 +50,10 @@ public class User {
 		this.manager = manager;
 	}
 
-	public boolean addBooking(Booking booking){
+	public boolean addBooking(Booking booking) {
 		return bookings.add(booking);
 	}
-	
+
 	public int getUserId() {
 		return userId;
 	}
@@ -59,7 +61,7 @@ public class User {
 	public void setUserId(int UserId) {
 		this.userId = UserId;
 	}
-	
+
 	public String getFirstname() {
 		return firstname;
 	}
@@ -92,6 +94,14 @@ public class User {
 		this.hashedPassword = hashedPassword;
 	}
 
+	public boolean validatePassword(String hashedPassword) {
+		if (hashedPassword != null) {
+			return this.hashedPassword.equals(hashedPassword);
+		} else {
+			return false;
+		}
+	}
+
 	public Address getAddress() {
 		return address;
 	}
@@ -99,12 +109,12 @@ public class User {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	
+
 	public BankAccount getBankAccount() {
 		return bankAccount;
 	}
-	
-	public void setBankAccount(BankAccount bankAccount){
+
+	public void setBankAccount(BankAccount bankAccount) {
 		this.bankAccount = bankAccount;
 	}
 

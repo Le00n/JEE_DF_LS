@@ -3,7 +3,6 @@ package de.eventon.services;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.enterprise.context.SessionScoped;
@@ -11,7 +10,8 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
+
+import de.eventon.session.SessionContext;
 
 @Named("navigationService")
 @SessionScoped
@@ -27,7 +27,7 @@ public class NavigationService implements Serializable {
 	private static final long serialVersionUID = -173122607581315417L;
 
 	@Inject
-	private ActiveUserService activeUserService;
+	private SessionContext sessionContext;
 
 	private Pages lastSignificantPage;
 	private String lastSignificantQuery;
@@ -172,13 +172,13 @@ public class NavigationService implements Serializable {
 	public String userIsNotManager() {
 		return Pages.HOME.toString();
 	}
-
-	public ActiveUserService getActiveUserService() {
-		return activeUserService;
+	
+	public SessionContext getSessionContext() {
+		return sessionContext;
 	}
 
-	public void setActiveUserService(ActiveUserService activeUserService) {
-		this.activeUserService = activeUserService;
+	public void setSessionContext(SessionContext sessionContext) {
+		this.sessionContext = sessionContext;
 	}
 
 	public Pages getLastSignificantPage() {

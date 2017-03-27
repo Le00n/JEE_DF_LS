@@ -14,9 +14,11 @@ import javax.inject.Named;
 import de.eventon.core.Address;
 import de.eventon.core.BankAccount;
 import de.eventon.core.User;
-import de.eventon.services.ActiveUserService;
 import de.eventon.services.NavigationService;
+import de.eventon.services.impl.LoginService;
+import de.eventon.services.interfaces.IsLoginService;
 import de.eventon.services.interfaces.IsUserService;
+import de.eventon.session.SessionContext;
 
 @Named("userProfileForm")
 @ViewScoped
@@ -30,7 +32,7 @@ public class UserProfileForm implements Serializable {
 	@Inject
 	private IsUserService userService;
 	@Inject
-	private ActiveUserService activeUserService;
+	private SessionContext sessionContext;
 	@Inject
 	private NavigationService navigationService;
 
@@ -54,7 +56,7 @@ public class UserProfileForm implements Serializable {
 				if (optUser.isPresent()) {
 					User queryUser = optUser.get();
 
-					User activeUser = activeUserService.getActiveUser();
+					User activeUser = sessionContext.getActiveUser();
 					if (activeUser != null && queryUser.equals(activeUser)) {
 						user = queryUser;
 						firstname = user.getFirstname();
@@ -202,11 +204,11 @@ public class UserProfileForm implements Serializable {
 		this.navigationService = navigationService;
 	}
 
-	public ActiveUserService getActiveUserService() {
-		return activeUserService;
+	public SessionContext getSessionContext() {
+		return sessionContext;
 	}
 
-	public void setActiveUserService(ActiveUserService activeUserService) {
-		this.activeUserService = activeUserService;
+	public void setSessionContext(SessionContext sessionContext) {
+		this.sessionContext = sessionContext;
 	}
 }

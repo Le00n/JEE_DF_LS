@@ -14,9 +14,11 @@ import javax.inject.Named;
 
 import de.eventon.core.Event;
 import de.eventon.core.User;
-import de.eventon.services.ActiveUserService;
 import de.eventon.services.NavigationService;
+import de.eventon.services.impl.LoginService;
 import de.eventon.services.interfaces.IsEventService;
+import de.eventon.services.interfaces.IsLoginService;
+import de.eventon.session.SessionContext;
 
 @Named("managerOverviewEvents")
 @RequestScoped
@@ -25,7 +27,7 @@ public class ManagerOverviewEvents implements Serializable{
 	private static final long serialVersionUID = -936830754297682305L;
 	
 	@Inject
-	private ActiveUserService activeUserService;
+	private SessionContext sessionContext;
 	@Inject
 	private NavigationService navigationService;
 	@Inject
@@ -38,7 +40,7 @@ public class ManagerOverviewEvents implements Serializable{
 	private void init(){
 		// Ansonsten (wenn keine gültige ID mitgegeben wurde): Redirect auf
 		// ErrorPage, da das Event nicht gefunden werden kann
-		if (activeUserService.getActiveUser() == null || !activeUserService.getActiveUser().isManager()) {
+		if (sessionContext.getActiveUser() == null || !sessionContext.getActiveUser().isManager()) {
 			try {
 				FacesContext.getCurrentInstance().getExternalContext().redirect(navigationService.notAuthorizedViewingManagerSites());
 			} catch (IOException e) {
@@ -48,9 +50,9 @@ public class ManagerOverviewEvents implements Serializable{
 	}
 	
 	public List<Event> getUnpublishedEvents(){
-		if(eventService != null && activeUserService.getActiveUser() != null && activeUserService.getActiveUser().isManager())
+		if(eventService != null && sessionContext.getActiveUser() != null && sessionContext.getActiveUser().isManager())
 		{
-			User manager = activeUserService.getActiveUser();
+			User manager = sessionContext.getActiveUser();
 			List<Event> events = eventService.getEvents().stream()
 					.filter(event -> !event.isPublished() && event.getManager().getUserId() == manager.getUserId())
 					.collect(Collectors.toList());
@@ -59,9 +61,9 @@ public class ManagerOverviewEvents implements Serializable{
 		return null;
 	}
 	public List<Event> getPublishedEvents(){
-		if(eventService != null && activeUserService.getActiveUser() != null && activeUserService.getActiveUser().isManager())
+		if(eventService != null && sessionContext.getActiveUser() != null && sessionContext.getActiveUser().isManager())
 		{
-			User manager = activeUserService.getActiveUser();
+			User manager = sessionContext.getActiveUser();
 			List<Event> events = eventService.getEvents().stream()
 					.filter(event -> event.isPublished() && event.getManager().getUserId() == manager.getUserId())
 					.collect(Collectors.toList());
@@ -70,12 +72,12 @@ public class ManagerOverviewEvents implements Serializable{
 		return null;
 	}
 	
-	public ActiveUserService getActiveUserService() {
-		return activeUserService;
+	public SessionContext getSessionContext() {
+		return sessionContext;
 	}
 
-	public void setActiveUserService(ActiveUserService activeUserService) {
-		this.activeUserService = activeUserService;
+	public void setSessionContext(SessionContext sessionContext) {
+		this.sessionContext = sessionContext;
 	}
 
 	public NavigationService getNavigationService() {

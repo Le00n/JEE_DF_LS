@@ -9,8 +9,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import de.eventon.core.User;
-import de.eventon.services.ActiveUserService;
 import de.eventon.services.NavigationService;
+import de.eventon.services.interfaces.IsLoginService;
 
 @Named("loginForm")
 @RequestScoped
@@ -22,12 +22,12 @@ public class LoginForm implements Serializable{
 	private String password;
 
 	@Inject
-	private ActiveUserService activeUserService;
+	private IsLoginService loginService;
 	@Inject
 	private NavigationService navigationService;
 
 	public String login() {
-		if (activeUserService.login(user, password)) {
+		if (loginService.login(user, password)) {
 			return navigationService.loginSuccessful();
 		} else {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-Mail oder Passwort nicht korrekt", "Die E-Mail-Adresse oder das Passwort ist nicht korrekt.");
@@ -56,12 +56,12 @@ public class LoginForm implements Serializable{
 		this.password = password;
 	}
 
-	public ActiveUserService getActiveUserService() {
-		return activeUserService;
+	public IsLoginService getActiveUserService() {
+		return loginService;
 	}
 
-	public void setActiveUserService(ActiveUserService activeUserService) {
-		this.activeUserService = activeUserService;
+	public void setActiveUserService(IsLoginService activeUserService) {
+		this.loginService = activeUserService;
 	}
 
 	public NavigationService getNavigationService() {

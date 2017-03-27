@@ -25,9 +25,11 @@ import javax.servlet.http.Part;
 import de.eventon.core.Address;
 import de.eventon.core.Event;
 import de.eventon.core.User;
-import de.eventon.services.ActiveUserService;
 import de.eventon.services.NavigationService;
+import de.eventon.services.impl.LoginService;
 import de.eventon.services.interfaces.IsEventService;
+import de.eventon.services.interfaces.IsLoginService;
+import de.eventon.session.SessionContext;
 
 @Named("createEventForm")
 @ViewScoped
@@ -73,7 +75,7 @@ public class CreateEventForm implements Serializable {
 	@Inject
 	private IsEventService eventService;
 	@Inject
-	private ActiveUserService activeUserService;
+	private SessionContext sessionContext;
 
 	public CreateEventForm() {
 		// TODO Auto-generated constructor stub
@@ -84,7 +86,7 @@ public class CreateEventForm implements Serializable {
 		// Wenn kein Nutzer eingeloggt ist bzw. dieser nicht Manager ist:
 		// Redirect auf ErrorPage, da nur Manager ein Event erstellen/bearbeiten
 		// dürfen
-		User activeUser = activeUserService.getActiveUser();
+		User activeUser = sessionContext.getActiveUser();
 		if (activeUser == null || !activeUser.isManager()) {
 			try {
 				FacesContext.getCurrentInstance().getExternalContext().redirect(navigationService.userIsNotManager());
@@ -148,7 +150,7 @@ public class CreateEventForm implements Serializable {
 	}
 
 	public String create() {
-		User eventCreator = activeUserService.getActiveUser();
+		User eventCreator = sessionContext.getActiveUser();
 		if (eventCreator != null && eventCreator.isManager()) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN + TIME_PATTERN);
 			LocalDateTime dateTime = LocalDateTime.parse(eventDate + eventTime, formatter);
@@ -328,12 +330,12 @@ public class CreateEventForm implements Serializable {
 		this.component = component;
 	}
 
-	public ActiveUserService getActiveUserService() {
-		return activeUserService;
+	public SessionContext getSessionContext() {
+		return sessionContext;
 	}
 
-	public void setActiveUserService(ActiveUserService activeUserService) {
-		this.activeUserService = activeUserService;
+	public void setSessionContext(SessionContext sessionContext) {
+		this.sessionContext = sessionContext;
 	}
 
 	public boolean isPublish() {

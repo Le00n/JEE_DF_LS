@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import de.eventon.core.Event;
-import de.eventon.services.ActiveUserService;
+import de.eventon.services.impl.LoginService;
 
 public interface IsEventBookingService {
 
@@ -25,9 +25,5 @@ public interface IsEventBookingService {
 	 * @return ID der Buchung, sofern der Nutzer bereits eingeloggt ist
 	 */
 	Optional<UUID> bookEvent(Event event, int amountTicketsNormal, int amountTicketsPremium);
-
-	ActiveUserService getActiveUserService();
-
-	void setActiveUserService(ActiveUserService activeUserService);
 
 }

@@ -1,4 +1,4 @@
-package de.eventon.services;
+package de.eventon.services.impl;
 
 import java.io.Serializable;
 
@@ -7,9 +7,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import de.eventon.core.User;
+import de.eventon.services.interfaces.IsLoginService;
 import de.eventon.services.interfaces.IsUserService;
+import de.eventon.session.SessionContext;
 
-@Named("activeUserService")
+@Named("loginService")
 @SessionScoped
 /**
  * Dieser Service verwaltet den User aktiven User für die derzeitige Session.
@@ -17,34 +19,29 @@ import de.eventon.services.interfaces.IsUserService;
  * 
  * @author Leon Stapper
  */
-public class ActiveUserService implements Serializable {
+public class LoginService implements Serializable, IsLoginService {
 
 	private static final long serialVersionUID = 5883775157529075980L;
 
-	private User activeUser;
 	@Inject
 	private IsUserService userService;
+	@Inject
+	private SessionContext sessionContext;
 
+	@Override
 	public boolean login(User user, String hashedPassword) {
 		if (user != null) {
 			if (user.validatePassword(hashedPassword)) {
-				activeUser = user;
+				sessionContext.setActiveUser(user);
 				return true;
 			}
 		}
 		return false;
 	}
 
+	@Override
 	public void logout() {
-		activeUser = null;
-	}
-
-	public User getActiveUser() {
-		return activeUser;
-	}
-
-	public void setActiveUser(User activeUser) {
-		this.activeUser = activeUser;
+		sessionContext.setActiveUser(null);
 	}
 
 	public IsUserService getUserService() {

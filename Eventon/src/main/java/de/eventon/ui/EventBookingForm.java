@@ -14,10 +14,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import de.eventon.core.Event;
-import de.eventon.services.ActiveUserService;
 import de.eventon.services.NavigationService;
+import de.eventon.services.impl.LoginService;
 import de.eventon.services.interfaces.IsEventBookingService;
 import de.eventon.services.interfaces.IsEventService;
+import de.eventon.session.SessionContext;
 
 @Named("eventBookingForm")
 @ViewScoped // Muss für die Ansicht sichtbar sein (Request reicht nicht: ist bei
@@ -34,7 +35,7 @@ public class EventBookingForm implements Serializable {
 	private boolean bookingConfirmed;
 
 	@Inject
-	private ActiveUserService activeUserService;
+	private SessionContext sessionContext;
 	@Inject
 	private IsEventService eventService;
 	@Inject
@@ -86,7 +87,7 @@ public class EventBookingForm implements Serializable {
 		int intAmountTicketsNormal = (amountTicketsNormal == null) ? 0 : amountTicketsNormal.intValue();
 		int intAmountTicketsPremium = (amountTicketsPremium == null) ? 0 : amountTicketsPremium.intValue();
 
-		if(activeUserService.getActiveUser() != null){
+		if(sessionContext.getActiveUser() != null){
 			//Mindestens 1 Ticket muss gebucht werden
 			if (intAmountTicketsNormal != 0 || intAmountTicketsPremium != 0) {
 				//Steht die gewünschte Anzahl noch zur Verfügung?

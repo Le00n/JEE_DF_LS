@@ -11,8 +11,9 @@ import javax.inject.Named;
 import de.eventon.core.Booking;
 import de.eventon.core.Event;
 import de.eventon.core.User;
-import de.eventon.services.ActiveUserService;
 import de.eventon.services.interfaces.IsEventBookingService;
+import de.eventon.services.interfaces.IsLoginService;
+import de.eventon.session.SessionContext;
 
 @Named("eventBookingService")
 @SessionScoped
@@ -27,17 +28,14 @@ public class EventBookingService implements Serializable, IsEventBookingService 
 	private static final long serialVersionUID = 2437677069545276093L;
 
 	@Inject
-	private ActiveUserService activeUserService;
+	private SessionContext sessionContext;
 
 	public EventBookingService() {
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsEventBookingService#bookEvent(de.eventon.core.Event, int, int)
-	 */
 	@Override
 	public Optional<UUID> bookEvent(Event event, int amountTicketsNormal, int amountTicketsPremium) {
-		User user = activeUserService.getActiveUser();
+		User user = sessionContext.getActiveUser();
 		if (user != null && amountTicketsNormal <= event.getAmountFreeNormalTickets()
 				&& amountTicketsPremium <= event.getAmountFreePremiumTickets()) {
 			Booking booking = new Booking(event, amountTicketsNormal, amountTicketsPremium);
@@ -48,19 +46,11 @@ public class EventBookingService implements Serializable, IsEventBookingService 
 		return Optional.empty();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsEventBookingService#getActiveUserService()
-	 */
-	@Override
-	public ActiveUserService getActiveUserService() {
-		return activeUserService;
+	public SessionContext getSessionContext() {
+		return sessionContext;
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsEventBookingService#setActiveUserService(de.eventon.services.ActiveUserService)
-	 */
-	@Override
-	public void setActiveUserService(ActiveUserService activeUserService) {
-		this.activeUserService = activeUserService;
+	public void setSessionContext(SessionContext sessionContext) {
+		this.sessionContext = sessionContext;
 	}
 }

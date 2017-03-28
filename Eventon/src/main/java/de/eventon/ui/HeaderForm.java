@@ -6,8 +6,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import de.eventon.services.ActiveUserService;
-import de.eventon.services.NavigationService;
+import de.eventon.services.interfaces.IsLoginService;
+import de.eventon.services.interfaces.IsNavigationService;
 
 @Named("headerForm")
 @RequestScoped
@@ -16,9 +16,9 @@ public class HeaderForm implements Serializable {
 	private static final long serialVersionUID = 5659453191787053884L;
 	
 	@Inject
-	private ActiveUserService activeUserService;
+	private IsLoginService loginService;
 	@Inject
-	private NavigationService navigationService;
+	private IsNavigationService navigationService;
 
 	public String home(){
 		return navigationService.home();
@@ -29,7 +29,7 @@ public class HeaderForm implements Serializable {
 	}
 	
 	public String logout(){
-		activeUserService.logout();
+		loginService.logout();
 		return navigationService.logout();
 	}
 	
@@ -53,19 +53,19 @@ public class HeaderForm implements Serializable {
 		return navigationService.managerOverviewEventsInProcess();
 	}
 	
-	public NavigationService getNavigationService() {
+	public IsNavigationService getNavigationService() {
 		return navigationService;
 	}
 
-	public void setNavigationService(NavigationService navigationService) {
+	public void setNavigationService(IsNavigationService navigationService) {
 		this.navigationService = navigationService;
 	}
 
-	public ActiveUserService getActiveUserService() {
-		return activeUserService;
+	public IsLoginService getActiveUserService() {
+		return loginService;
 	}
 
-	public void setActiveUserService(ActiveUserService activeUserService) {
-		this.activeUserService = activeUserService;
+	public void setActiveUserService(IsLoginService activeUserService) {
+		this.loginService = activeUserService;
 	}
 }

@@ -36,20 +36,20 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<!--Rendering, falls der Nutzer nicht eingelogged ist-->
-						<h:panelGroup rendered="#{activeUserService.activeUser == null}">
+						<h:panelGroup rendered="#{sessionContext.activeUser == null}">
 							<li class="active"><h:commandLink
 									action="#{headerForm.login}" value="Anmelden"></h:commandLink></li>
 							<li><h:commandLink action="#{headerForm.register}"
 									value="Registrieren"></h:commandLink></li>
 						</h:panelGroup>
 						<!-- Rendering, falls der Nutzer eingelogged ist -->
-						<h:panelGroup rendered="#{activeUserService.activeUser != null}">
+						<h:panelGroup rendered="#{sessionContext.activeUser != null}">
 							<li class="active"><h:link outcome="user"
-									value="#{activeUserService.activeUser.firstname} #{activeUserService.activeUser.lastname}">
-									<f:param name="id" value="#{activeUserService.activeUser.userId}" />
+									value="#{sessionContext.activeUser.firstname} #{sessionContext.activeUser.lastname}">
+									<f:param name="id" value="#{sessionContext.activeUser.userId}" />
 								</h:link></li>
 							<!-- Rendering, falls der Nutzer eingelogged und Manager ist -->
-							<h:panelGroup rendered="#{activeUserService.activeUser.manager}">
+							<h:panelGroup rendered="#{sessionContext.activeUser.manager}">
 								<li role="presentation" class="dropdown"><a
 									class="dropdown-toggle" data-toggle="dropdown" href="#"
 									role="button" aria-haspopup="true" aria-expanded="false">
@@ -72,7 +72,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 					<ul class="nav navbar-nav navbar-right">
 						<!-- Rendering, falls der Nutzer eingelogged ist -->
-						<h:panelGroup rendered="#{activeUserService.activeUser != null}">
+						<h:panelGroup rendered="#{sessionContext.activeUser != null}">
 							<li><h:commandLink action="#{headerForm.logout}"
 									value="Logout" /></li>
 						</h:panelGroup>

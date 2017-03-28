@@ -15,7 +15,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 	<ui:define name="content">
 		<h:panelGroup layout="block"
-			rendered="#{activeUserService.activeUser != null and activeUserService.activeUser.manager}"
+			rendered="#{sessionContext.activeUser != null and sessionContext.activeUser.manager}"
 			id="register" class="panel panel-default col-md-5 col-md-offset-3">
 			<h1 jsf:rendered="#{createEventForm.eventToEdit == null}">Event
 				anlegen</h1>

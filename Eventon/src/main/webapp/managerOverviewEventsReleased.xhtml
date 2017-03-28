@@ -91,10 +91,10 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 							</h:column>
 							<h:column>
 								<f:facet name="header">Anzahl Reservierungen</f:facet>
-								<h:link outcome="event" value="#{event.getBookings().size()}" rendered="#{event.getBookings().size()} > 0">
+								<h:link outcome="managerEventReservations" value="#{event.bookings.size()}" rendered="#{not empty event.bookings}">
 									<f:param name="id" value="#{event.eventId}" />
 								</h:link>
-								<h:outputText rendered="#{event.bookings.size} == 0" value="0"/>
+								<h:outputText rendered="#{empty event.bookings}" value="0"/>
 							</h:column>
 						</h:dataTable>
 					</h:form>

@@ -82,8 +82,11 @@ public class ManagerOverviewEvents implements Serializable {
 
 	public List<Event> getPublishedEvents() {
 		User manager = sessionContext.getActiveUser();
-		List<Event> events = eventService.getPublishedManagerEvents(manager, true).get();
-		return events;
+		Optional<List<Event>> events = eventService.getPublishedManagerEvents(manager, true);
+		if(!events.isPresent())
+			return new ArrayList<Event>();
+		else
+			return events.get();
 	}
 
 	public String publishEvents() {
@@ -120,19 +123,16 @@ public class ManagerOverviewEvents implements Serializable {
 	}
 
 	public HashMap<Event, Boolean> getMapEventPublished() {
-		if (eventService != null && sessionContext.getActiveUser() != null
-				&& sessionContext.getActiveUser().isManager()) {
-			User manager = sessionContext.getActiveUser();
-			List<Event> events = eventService.getEvents().stream()
-					.filter(event -> !event.isPublished() && event.getManager().getUserId() == manager.getUserId())
-					.collect(Collectors.toList());
-			mapEventPublished = new HashMap<>();
-			for (Event event : events) {
+		User manager = sessionContext.getActiveUser();
+		Optional<List<Event>> events = eventService.getPublishedManagerEvents(manager, false);
+		mapEventPublished = new HashMap<>();
+		if(events.isPresent())
+		{
+			for (Event event : events.get()) {			
 				mapEventPublished.put(event, event.isPublished());
 			}
-			return mapEventPublished;
 		}
-		return null;
+		return mapEventPublished;
 	}
 
 	public void setMapEventPublished(HashMap<Event, Boolean> mapEventPublished) {

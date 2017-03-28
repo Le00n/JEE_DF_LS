@@ -53,13 +53,20 @@ public class UserService implements Serializable, IsUserService {
 
 	@Override
 	public Optional<User> getUserByEmail(String email) {
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-		CriteriaQuery<User> query = cb.createQuery(User.class);
-		Root<User> root = query.from(User.class);
-		query.select(root);
-		query.where(cb.equal(root.get("email"), email));
-		User user = entityManager.createQuery(query).getSingleResult();
-		return (user != null) ? Optional.of(user) : Optional.empty();
+		User user;
+		try {
+			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+			CriteriaQuery<User> query = cb.createQuery(User.class);
+			Root<User> root = query.from(User.class);
+			query.select(root);
+			query.where(cb.equal(root.get("email"), email));
+			user = entityManager.createQuery(query).getSingleResult();
+			
+			return (user != null) ? Optional.of(user) : Optional.empty();
+		} catch (Exception e) {
+			return Optional.empty();
+		}
+		
 	}
 
 	@Override

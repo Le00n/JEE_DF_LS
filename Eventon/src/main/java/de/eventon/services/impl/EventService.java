@@ -5,15 +5,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
-import de.eventon.core.Address;
 import de.eventon.core.Event;
 import de.eventon.core.User;
 import de.eventon.services.interfaces.IsEventService;
@@ -155,6 +157,7 @@ public class EventService implements Serializable, IsEventService {
 	public void updateEvent(Event event){
 		entityManager.getTransaction().begin();
 		entityManager.merge(event);
+		entityManager.merge(event.getAddress());
 		entityManager.getTransaction().commit();
 	}
 	
@@ -174,18 +177,53 @@ public class EventService implements Serializable, IsEventService {
 
 	@Override
 	public Optional<List<Event>> searchEvents(String searchTerm) {
-		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-			List<Event> searchedEvents = getEvents().stream()
-					.filter(event -> event.getName().toLowerCase().contains(searchTerm.trim().toLowerCase())
-							&& event.isPublished())
-					.collect(Collectors.toList());
-
-			return Optional.of(searchedEvents);
+		List<Event> events;
+		try {
+			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+			CriteriaQuery<Event> query = cb.createQuery(Event.class);
+			Root<Event> root = query.from(Event.class);
+			query.select(root);
+			
+			//Case-Insensitive-Namenssuche
+			Predicate expName = cb.like(cb.lower(root.get("name")), "%" + searchTerm.toLowerCase() + "%");
+			//Alle gesuchten Events müssen veröffentlicht sein
+			Predicate expPublished = cb.equal(root.get("published"), true);
+			//Alle gesuchten Events müssen in der Zukunft liegen
+			Predicate expCurrentEvents = cb.greaterThan(root.<LocalDateTime>get("datetime"), LocalDateTime.now());
+			query.where(expName, expPublished, expCurrentEvents);
+			
+			events = entityManager.createQuery(query).getResultList();
+			return (events != null) ? Optional.of(events) : Optional.empty();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Optional.empty();
 		}
-
-		return Optional.empty();
 	}
 
+	@Override
+	public Optional<List<Event>> getPublishedManagerEvents(User manager, boolean published){
+		List<Event> events;
+		try {
+			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+			CriteriaQuery<Event> query = cb.createQuery(Event.class);
+			Root<Event> root = query.from(Event.class);
+			query.select(root);
+			
+			//Nur die Events vom Manager anzeigen
+			Predicate expManager = cb.equal(root.get("manager"), manager);
+			//Veröffentlichte oder nicht veröffentlichte Events gewünscht?
+			Predicate expPublished = cb.equal(root.get("published"), published);
+			//Alle gesuchten Events müssen in der Zukunft liegen
+			Predicate expCurrentEvents = cb.greaterThan(root.<LocalDateTime>get("datetime"), LocalDateTime.now());
+			query.where(expManager, expPublished, expCurrentEvents);
+			
+			events = entityManager.createQuery(query).getResultList();
+			return (events != null) ? Optional.of(events) : Optional.empty();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Optional.empty();
+		}
+	}
 	
 	@Override
 	public List<Event> getEvents() {
@@ -198,14 +236,11 @@ public class EventService implements Serializable, IsEventService {
 	}
 
 	@Override
-	public void publishEvent(int eventId) {
-		Optional<Event> event = getEventById(eventId);
-		if(event.isPresent())
+	public void publishEvent(Event event) {
+		if(event != null)
 		{
-			event.get().setPublished(true);
-//			entityManager.getTransaction().begin();
-//			entityManager.merge(event.get());
-//			entityManager.getTransaction().commit();
+			event.setPublished(true);
+			updateEvent(event);
 		}
 	}	
 }

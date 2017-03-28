@@ -29,36 +29,38 @@ import de.eventon.session.SessionContext;
 
 @Named("managerOverviewEvents")
 @RequestScoped
-public class ManagerOverviewEvents implements Serializable{
+public class ManagerOverviewEvents implements Serializable {
 
 	private static final long serialVersionUID = -936830754297682305L;
-	
+
 	@Inject
 	private SessionContext sessionContext;
 	@Inject
 	private IsNavigationService navigationService;
 	@Inject
 	private IsEventService eventService;
-	
+
 	private HashMap<Event, Boolean> mapEventPublished;
 	private Event event;
-	
-	public ManagerOverviewEvents(){
+
+	public ManagerOverviewEvents() {
 	}
-	
+
 	@PostConstruct
-	private void init(){
+	private void init() {
 		// Ansonsten (wenn keine gültige ID mitgegeben wurde): Redirect auf
 		// ErrorPage, da das Event nicht gefunden werden kann
 		if (sessionContext.getActiveUser() == null || !sessionContext.getActiveUser().isManager()) {
 			try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect(navigationService.notAuthorizedViewingManagerSites());
+				FacesContext.getCurrentInstance().getExternalContext()
+						.redirect(navigationService.notAuthorizedViewingManagerSites());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		Map<String, String> rqParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+
+		Map<String, String> rqParameter = FacesContext.getCurrentInstance().getExternalContext()
+				.getRequestParameterMap();
 		String eventId = rqParameter.get("id");
 
 		// Wurde eine gültige ID im Query-Parameter mitgegeben?
@@ -77,28 +79,22 @@ public class ManagerOverviewEvents implements Serializable{
 			setEvent(null);
 		}
 	}
-	
-	public List<Event> getPublishedEvents(){
-		if(eventService != null && sessionContext.getActiveUser() != null && sessionContext.getActiveUser().isManager())
-		{
-			User manager = sessionContext.getActiveUser();
-			List<Event> events = eventService.getEvents().stream()
-					.filter(event -> event.isPublished() && event.getManager().getUserId() == manager.getUserId())
-					.collect(Collectors.toList());
-			return events;
-		}
-		return null;
+
+	public List<Event> getPublishedEvents() {
+		User manager = sessionContext.getActiveUser();
+		List<Event> events = eventService.getPublishedManagerEvents(manager, true).get();
+		return events;
 	}
-	
-	public String publishEvents(){
-		for(Entry<Event, Boolean> map : mapEventPublished.entrySet()){
-			if(map.getValue()){
-				eventService.publishEvent(map.getKey().getEventId());
+
+	public String publishEvents() {
+		for (Entry<Event, Boolean> map : mapEventPublished.entrySet()) {
+			if (map.getValue()) {
+				eventService.publishEvent(map.getKey());
 			}
 		}
 		return navigationService.managerOverviewEventsInProcess();
 	}
-	
+
 	public SessionContext getSessionContext() {
 		return sessionContext;
 	}
@@ -124,8 +120,8 @@ public class ManagerOverviewEvents implements Serializable{
 	}
 
 	public HashMap<Event, Boolean> getMapEventPublished() {
-		if(eventService != null && sessionContext.getActiveUser() != null && sessionContext.getActiveUser().isManager())
-		{
+		if (eventService != null && sessionContext.getActiveUser() != null
+				&& sessionContext.getActiveUser().isManager()) {
 			User manager = sessionContext.getActiveUser();
 			List<Event> events = eventService.getEvents().stream()
 					.filter(event -> !event.isPublished() && event.getManager().getUserId() == manager.getUserId())

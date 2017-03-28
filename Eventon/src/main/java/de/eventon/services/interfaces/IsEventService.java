@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import de.eventon.core.Event;
+import de.eventon.core.User;
 
 public interface IsEventService {
 
@@ -43,11 +44,13 @@ public interface IsEventService {
 	void updateEvent(Event event);
 	
 	void deleteEvent(Event event);
+	
+	void publishEvent(Event event);
 
 	List<Event> getEvents();
 
 	void setEvents(List<Event> events);
 
-	void publishEvent(int eventId);
+	Optional<List<Event>> getPublishedManagerEvents(User manager, boolean published);
 
 }

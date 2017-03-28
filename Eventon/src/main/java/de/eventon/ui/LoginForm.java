@@ -10,6 +10,7 @@ import javax.inject.Named;
 
 import de.eventon.core.User;
 import de.eventon.services.interfaces.IsLoginService;
+import de.eventon.services.interfaces.IsLoginService.LoginException;
 import de.eventon.services.interfaces.IsNavigationService;
 
 @Named("loginForm")
@@ -27,13 +28,16 @@ public class LoginForm implements Serializable{
 	private IsNavigationService navigationService;
 
 	public String login() {
-		if (loginService.login(user, password)) {
-			return navigationService.loginSuccessful();
-		} else {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-Mail oder Passwort nicht korrekt", "Die E-Mail-Adresse oder das Passwort ist nicht korrekt.");
+		try {
+			if (loginService.login(user, password)) {
+				return navigationService.loginSuccessful();
+			} 
+		} catch (LoginException e) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getDetailMessage());
 			FacesContext.getCurrentInstance().addMessage("loginForm:password", msg);
-			return navigationService.loginFailed();
 		}
+		
+		return navigationService.loginFailed();
 	}
 
 	public String cancel(){

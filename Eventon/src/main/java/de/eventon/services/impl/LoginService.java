@@ -29,11 +29,14 @@ public class LoginService implements Serializable, IsLoginService {
 	private SessionContext sessionContext;
 
 	@Override
-	public boolean login(User user, String hashedPassword) {
+	public boolean login(User user, String hashedPassword) throws LoginException {
 		if (user != null) {
 			if (user.validatePassword(hashedPassword)) {
 				sessionContext.setActiveUser(user);
 				return true;
+			} else {
+				throw new LoginException("E-Mail oder Passwort nicht korrekt",
+						"Die E-Mail-Adresse oder das Passwort ist nicht korrekt.");
 			}
 		}
 		return false;

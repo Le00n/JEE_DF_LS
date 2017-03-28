@@ -32,15 +32,19 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 							<h3 class="panel-title">Benutzerdaten</h3>
 						</div>
 						<div class="panel-body">
-							<h:form class="form-horizontal">
+							<h:form class="form-horizontal" id="userForm">
 								<div class="col-md-6 form-group">
 									<div class="form-group">
 										<div class="col-md-3 col-md-offset-1">
 											<h:outputLabel>Vorname</h:outputLabel>
 										</div>
 										<div class="col-md-8">
-											<h:inputText class="form-control"
-												value="#{userProfileForm.firstname}" />
+											<h:inputText id="inputFirstname" class="form-control" value="#{userProfileForm.firstname}" >
+												<f:validator validatorId="userFirstnameValidator" />
+											</h:inputText>
+											<div class="error">
+												<h:message for="inputFirstname" class="alert alert-danger error" />
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -48,8 +52,12 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 											<h:outputLabel>Nachname</h:outputLabel>
 										</div>
 										<div class="col-md-8">
-											<h:inputText class="form-control"
-												value="#{userProfileForm.lastname}" />
+											<h:inputText id="inputLastname" class="form-control" value="#{userProfileForm.lastname}" >
+												<f:validator validatorId="userLastnameValidator" />
+											</h:inputText>
+											<div class="error">
+												<h:message for="inputLastname" class="alert alert-danger error" />
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -57,12 +65,21 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 											<h:outputLabel>Straße / Hausnummer</h:outputLabel>
 										</div>
 										<div class="col-md-5">
-											<h:inputText class="form-control"
-												value="#{userProfileForm.street}"></h:inputText>
+											<h:inputText id="inputStreet" class="form-control" value="#{userProfileForm.street}">
+												<f:validator validatorId="streetValidator" />
+											</h:inputText>
+											<div class="error">
+												<h:message for="inputStreet" class="alert alert-danger error"
+													showDetail="false" showSummary="true" />
+											</div>
 										</div>
 										<div class="col-md-3">
-											<h:inputText class="form-control"
-												value="#{userProfileForm.housenumber}"></h:inputText>
+											<h:inputText id="inputHousenumber" class="form-control" value="#{userProfileForm.housenumber}">
+												<f:validator validatorId="housenumberValidator" />
+											</h:inputText>
+											<div class="error">
+												<h:message for="inputHousenumber" class="alert alert-danger error" showDetail="false" showSummary="true" />
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -70,12 +87,21 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 											<h:outputLabel>PLZ / Ort</h:outputLabel>
 										</div>
 										<div class="col-md-3">
-											<h:inputText class="form-control"
-												value="#{userProfileForm.zip}" />
+											<h:inputText id="inputZIP" class="form-control" value="#{userProfileForm.zip}" >
+												<f:validator validatorId="zipValidator" />
+											</h:inputText>
+										</div>
+										<div class="error">
+											<h:message for="inputZIP" class="alert alert-danger error"
+												showDetail="false" showSummary="true" />
 										</div>
 										<div class="col-md-5">
-											<h:inputText class="form-control"
-												value="#{userProfileForm.city}" />
+											<h:inputText id="inputCity" class="form-control" value="#{userProfileForm.city}" >
+												<f:validator validatorId="cityValidator" />
+											</h:inputText>
+											<div class="error">
+												<h:message for="inputCity" class="alert alert-danger error" showDetail="false" showSummary="true" />
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -83,8 +109,12 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 											<h:outputLabel class="control-label">E-Mail</h:outputLabel>
 										</div>
 										<div class="col-md-8">
-											<h:inputText class="form-control"
-												value="#{userProfileForm.email}" />
+											<h:inputText id="inputEmail" class="form-control" value="#{userProfileForm.email}" >
+												<f:validator validatorId="userEmailValidator" />
+											</h:inputText>
+											<div class="error">
+												<h:message for="inputEmail" class="alert alert-danger error" />
+											</div>
 										</div>
 									</div>
 								</div>
@@ -94,13 +124,11 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 											<h:outputLabel>Kontoinhaber</h:outputLabel>
 										</div>
 										<div class="col-md-9">
-											<h:inputText class="form-control" id="accountHolder"
-												value="#{userProfileForm.accountHolder}">
+											<h:inputText class="form-control" id="accountHolder" value="#{userProfileForm.accountHolder}">
 												<f:validator validatorId="accountHolderValidator" />
 											</h:inputText>
 											<div class="error">
-												<h:message for="accountHolder"
-													class="alert alert-danger error" />
+												<h:message for="accountHolder" class="alert alert-danger error" />
 											</div>
 										</div>
 									</div>
@@ -109,8 +137,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 											<h:outputLabel>IBAN</h:outputLabel>
 										</div>
 										<div class="col-md-9">
-											<h:inputText class="form-control" id="iban"
-												value="#{userProfileForm.iban}">
+											<h:inputText class="form-control" id="iban" value="#{userProfileForm.iban}">
 												<f:validator validatorId="ibanValidator" />
 											</h:inputText>
 											<div class="error">
@@ -123,8 +150,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 											<h:outputLabel>BIC</h:outputLabel>
 										</div>
 										<div class="col-md-9">
-											<h:inputText class="form-control" id="bic"
-												value="#{userProfileForm.bic}">
+											<h:inputText class="form-control" id="bic" value="#{userProfileForm.bic}">
 												<f:validator validatorId="bicValidator" />
 											</h:inputText>
 											<div class="error">
@@ -135,8 +161,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 									<div class="form-group btnSave" >
 										<div class="col-md-2 col-md-offset-10">
-											<h:commandButton class="btn btn-success btn-md"
-												action="#{userProfileForm.save}" value="Speichern"></h:commandButton>
+											<h:commandButton class="btn btn-success btn-md" action="#{userProfileForm.save}" value="Speichern" />
 										</div>
 									</div>
 								</div>

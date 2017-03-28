@@ -6,7 +6,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -90,6 +92,22 @@ public class UserProfileForm implements Serializable {
 	}
 
 	public String save() {
+		if(getUserService().getUserByEmail(email).isPresent())
+		{
+			boolean isError = true;
+			User activeUser = getSessionContext().getActiveUser();
+			if(activeUser != null)
+			{
+				if(activeUser.getUserId() == getUserService().getUserByEmail(email).get().getUserId())
+					isError = false;
+			}
+			if(isError)
+			{
+				FacesContext.getCurrentInstance().addMessage("userForm:inputEmail", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Die E-Mail-Adresse wird bereits verwendet.", "Die E-Mail-Adresse wird bereits verwendet."));
+				return null;
+			}
+		}
+		
 		BankAccount bankAccount = new BankAccount(accountHolder, iban, bic);
 		
 		user.getAddress().setStreet(street);
@@ -103,6 +121,8 @@ public class UserProfileForm implements Serializable {
 		
 		user.setFirstname(firstname);
 		user.setLastname(lastname);
+		
+		user.setEmail(email);
 		
 		userService.updateUser(user);
 		return navigationService.home();

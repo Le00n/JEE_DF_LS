@@ -206,9 +206,9 @@ public class EventService implements Serializable, IsEventService {
 		if(event.isPresent())
 		{
 			event.get().setPublished(true);
-			entityManager.getTransaction().begin();
-			entityManager.merge(event.get());
-			entityManager.getTransaction().commit();
+//			entityManager.getTransaction().begin();
+//			entityManager.merge(event.get());
+//			entityManager.getTransaction().commit();
 		}
 	}	
 }

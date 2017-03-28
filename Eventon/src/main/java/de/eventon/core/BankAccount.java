@@ -7,10 +7,10 @@ import javax.persistence.Id;
 @Entity
 public class BankAccount {
 	
-	@Column
-	private String accountHolder;
 	@Id
 	private String iban;
+	@Column
+	private String accountHolder;
 	@Column
 	private String bic;
 	

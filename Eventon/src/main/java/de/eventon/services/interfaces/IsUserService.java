@@ -1,6 +1,5 @@
 package de.eventon.services.interfaces;
 
-import java.util.List;
 import java.util.Optional;
 
 import de.eventon.core.Address;
@@ -15,11 +14,6 @@ public interface IsUserService {
 
 	boolean addUser(User user);
 
-	boolean updateUser(User user, String firstname, String lastname, Address address, String email,
-			BankAccount bankAccount);
-
-	List<User> getUsers();
-
-	void setUsers(List<User> users);
+	boolean updateUser(User user);
 
 }

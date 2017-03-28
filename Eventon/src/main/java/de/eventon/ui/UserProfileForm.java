@@ -52,28 +52,24 @@ public class UserProfileForm implements Serializable {
 		if (id != null) {
 			try {
 				int idAsInteger = Integer.parseInt(id);
-				Optional<User> optUser = userService.getUserById(idAsInteger);
-				if (optUser.isPresent()) {
-					User queryUser = optUser.get();
 
-					User activeUser = sessionContext.getActiveUser();
-					if (activeUser != null && queryUser.equals(activeUser)) {
-						user = queryUser;
-						firstname = user.getFirstname();
-						lastname = user.getLastname();
-						email = user.getEmail();
+				User activeUser = sessionContext.getActiveUser();
+				if (activeUser != null && activeUser.getUserId() == idAsInteger) {
+					user = activeUser;
+					firstname = user.getFirstname();
+					lastname = user.getLastname();
+					email = user.getEmail();
 
-						Address address = user.getAddress();
-						street = address.getStreet();
-						housenumber = address.getStreetnumber();
-						zip = address.getZip();
-						city = address.getCity();
-
-						BankAccount bankAccount = user.getBankAccount();
-						accountHolder = bankAccount.getAccountHolder();
-						iban = bankAccount.getIban();
-						bic = bankAccount.getBic();
-					}
+					Address address = user.getAddress();
+					street = address.getStreet();
+					housenumber = address.getStreetnumber();
+					zip = address.getZip();
+					city = address.getCity();
+					
+					BankAccount bankAccount = user.getBankAccount();
+					accountHolder = bankAccount.getAccountHolder();
+					iban = bankAccount.getIban();
+					bic = bankAccount.getBic();
 				}
 			} catch (NumberFormatException e) {
 				user = null;
@@ -94,9 +90,21 @@ public class UserProfileForm implements Serializable {
 	}
 
 	public String save() {
-		Address address = new Address(street, housenumber, zip, city);
 		BankAccount bankAccount = new BankAccount(accountHolder, iban, bic);
-		userService.updateUser(user, firstname, lastname, address, email, bankAccount);
+		
+		user.getAddress().setStreet(street);
+		user.getAddress().setStreetnumber(housenumber);
+		user.getAddress().setZip(zip);
+		user.getAddress().setCity(city);
+		
+		user.getBankAccount().setAccountHolder(accountHolder);
+		user.getBankAccount().setIban(iban);
+		user.getBankAccount().setBic(bic);
+		
+		user.setFirstname(firstname);
+		user.setLastname(lastname);
+		
+		userService.updateUser(user);
 		return navigationService.home();
 	}
 

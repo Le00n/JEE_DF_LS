@@ -18,6 +18,7 @@ public class User {
 
 	@Id
 	@GeneratedValue
+	@Column(name="USERID")
 	private int userId;
 	@Column
 	private String email;
@@ -32,7 +33,7 @@ public class User {
 	@ManyToOne
 	private BankAccount bankAccount;
 	@OneToMany
-	@JoinColumn(referencedColumnName = "ID", name = "uuid")
+	@JoinColumn(referencedColumnName = "USERID", name = "BOOKINGUUID")
 	private List<Booking> bookings;
 	@Column
 	private boolean manager;

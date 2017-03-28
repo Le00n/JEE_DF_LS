@@ -33,8 +33,8 @@ public class EventService implements Serializable, IsEventService {
 	private List<Event> events;
 	private int id;
 
-	@Inject
-	private EntityManager entityManager;
+//	@Inject
+//	private EntityManager entityManager;
 	
 	public EventService() {
 		events = new ArrayList<Event>();
@@ -147,26 +147,34 @@ public class EventService implements Serializable, IsEventService {
 		createEvent(e6);
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsEventService#createEvent(de.eventon.core.Event)
-	 */
 	@Override
 	public void createEvent(Event event) {
 		event.setEventId(id++);
-		events.add(event);
+//		entityManager.getTransaction().begin();
+//		entityManager.persist(event);
+//		entityManager.persist(event.getAddress());
+//		entityManager.getTransaction().commit();
+	}
+	
+	@Override
+	public void updateEvent(Event event){
+//		entityManager.getTransaction().begin();
+//		entityManager.merge(event);
+//		entityManager.getTransaction().commit();
+	}
+	
+	@Override
+	public void deleteEvent(Event event){
+//		entityManager.getTransaction().begin();
+//		entityManager.remove(event);
+//		entityManager.getTransaction().commit();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsEventService#getEventById(int)
-	 */
 	@Override
 	public Optional<Event> getEventById(int id) {
 		return events.stream().filter(event -> event.getEventId() == id).findFirst();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsEventService#searchEvents(java.lang.String)
-	 */
 	@Override
 	public Optional<List<Event>> searchEvents(String searchTerm) {
 		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
@@ -181,17 +189,12 @@ public class EventService implements Serializable, IsEventService {
 		return Optional.empty();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsEventService#getEvents()
-	 */
+	
 	@Override
 	public List<Event> getEvents() {
 		return events;
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsEventService#setEvents(java.util.List)
-	 */
 	@Override
 	public void setEvents(List<Event> events) {
 		this.events = events;

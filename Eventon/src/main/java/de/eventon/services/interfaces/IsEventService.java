@@ -39,6 +39,10 @@ public interface IsEventService {
 	 * @return Liste von zutreffenden Events, falls es Treffer gibt
 	 */
 	Optional<List<Event>> searchEvents(String searchTerm);
+	
+	void updateEvent(Event event);
+	
+	void deleteEvent(Event event);
 
 	List<Event> getEvents();
 

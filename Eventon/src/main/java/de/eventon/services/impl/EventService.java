@@ -43,11 +43,11 @@ public class EventService implements Serializable, IsEventService {
 	@PostConstruct
 	private void init() {
 		User manager = new UserService().getUserByEmail("david.feldhoff@web.de").get();
-//		entityManager.getTransaction().begin();
-//		entityManager.persist(manager);
-//		entityManager.persist(manager.getAddress());
-//		entityManager.persist(manager.getBankAccount());
-//		entityManager.getTransaction().commit();
+		//entityManager.getTransaction().begin();
+		//entityManager.persist(manager);
+		//entityManager.persist(manager.getAddress());
+		//entityManager.persist(manager.getBankAccount());
+		//entityManager.getTransaction().commit();
 
 		Event e = new Event();
 		e.setEventId(0);
@@ -196,4 +196,16 @@ public class EventService implements Serializable, IsEventService {
 	public void setEvents(List<Event> events) {
 		this.events = events;
 	}
+
+	@Override
+	public void publishEvent(int eventId) {
+		Optional<Event> event = getEventById(eventId);
+		if(event.isPresent())
+		{
+			event.get().setPublished(true);
+			entityManager.getTransaction().begin();
+			entityManager.merge(event.get());
+			entityManager.getTransaction().commit();
+		}
+	}	
 }

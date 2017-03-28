@@ -44,4 +44,6 @@ public interface IsEventService {
 
 	void setEvents(List<Event> events);
 
+	void publishEvent(int eventId);
+
 }

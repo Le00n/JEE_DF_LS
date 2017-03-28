@@ -7,3 +7,8 @@
 .panel-table .panel-body{
 	padding: 0px;
 }
+
+img.smallImg{
+	max-width: 50px; 
+	max-height:50px;
+}

@@ -25,10 +25,10 @@ import javax.servlet.http.Part;
 import de.eventon.core.Address;
 import de.eventon.core.Event;
 import de.eventon.core.User;
-import de.eventon.services.NavigationService;
 import de.eventon.services.impl.LoginService;
 import de.eventon.services.interfaces.IsEventService;
 import de.eventon.services.interfaces.IsLoginService;
+import de.eventon.services.interfaces.IsNavigationService;
 import de.eventon.session.SessionContext;
 
 @Named("createEventForm")
@@ -71,7 +71,7 @@ public class CreateEventForm implements Serializable {
 	private static final String TIME_PATTERN = "HH:mm";
 
 	@Inject
-	private NavigationService navigationService;
+	private IsNavigationService navigationService;
 	@Inject
 	private IsEventService eventService;
 	@Inject
@@ -290,11 +290,11 @@ public class CreateEventForm implements Serializable {
 		this.priceTicketsPremium = priceTicketsPremium;
 	}
 
-	public NavigationService getNavigationService() {
+	public IsNavigationService getNavigationService() {
 		return navigationService;
 	}
 
-	public void setNavigationService(NavigationService navigationService) {
+	public void setNavigationService(IsNavigationService navigationService) {
 		this.navigationService = navigationService;
 	}
 

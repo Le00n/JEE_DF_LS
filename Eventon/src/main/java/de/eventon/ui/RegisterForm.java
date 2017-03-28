@@ -11,7 +11,7 @@ import javax.inject.Named;
 import de.eventon.core.Address;
 import de.eventon.core.BankAccount;
 import de.eventon.core.User;
-import de.eventon.services.NavigationService;
+import de.eventon.services.interfaces.IsNavigationService;
 import de.eventon.services.interfaces.IsUserService;
 
 @Named("registerForm")
@@ -23,7 +23,7 @@ public class RegisterForm implements Serializable{
 	@Inject
 	private IsUserService userService;
 	@Inject
-	private NavigationService navigationService;
+	private IsNavigationService navigationService;
 	
 	private String email, firstname, lastname, street, streetnumber, zip, city, password, passwordConfirm, accountHolder, iban, bic;
 	private boolean manager;
@@ -146,10 +146,10 @@ public class RegisterForm implements Serializable{
 	public void setUserService(IsUserService userService) {
 		this.userService = userService;
 	}
-	public NavigationService getNavigationService() {
+	public IsNavigationService getNavigationService() {
 		return navigationService;
 	}
-	public void setNavigationService(NavigationService navigationService) {
+	public void setNavigationService(IsNavigationService navigationService) {
 		this.navigationService = navigationService;
 	}
 }

@@ -9,8 +9,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import de.eventon.core.User;
-import de.eventon.services.NavigationService;
 import de.eventon.services.interfaces.IsLoginService;
+import de.eventon.services.interfaces.IsNavigationService;
 
 @Named("loginForm")
 @RequestScoped
@@ -24,7 +24,7 @@ public class LoginForm implements Serializable{
 	@Inject
 	private IsLoginService loginService;
 	@Inject
-	private NavigationService navigationService;
+	private IsNavigationService navigationService;
 
 	public String login() {
 		if (loginService.login(user, password)) {
@@ -64,11 +64,11 @@ public class LoginForm implements Serializable{
 		this.loginService = activeUserService;
 	}
 
-	public NavigationService getNavigationService() {
+	public IsNavigationService getNavigationService() {
 		return navigationService;
 	}
 
-	public void setNavigationService(NavigationService navigationService) {
+	public void setNavigationService(IsNavigationService navigationService) {
 		this.navigationService = navigationService;
 	}
 }

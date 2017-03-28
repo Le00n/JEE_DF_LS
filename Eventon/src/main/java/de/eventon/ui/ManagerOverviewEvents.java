@@ -14,10 +14,10 @@ import javax.inject.Named;
 
 import de.eventon.core.Event;
 import de.eventon.core.User;
-import de.eventon.services.NavigationService;
 import de.eventon.services.impl.LoginService;
 import de.eventon.services.interfaces.IsEventService;
 import de.eventon.services.interfaces.IsLoginService;
+import de.eventon.services.interfaces.IsNavigationService;
 import de.eventon.session.SessionContext;
 
 @Named("managerOverviewEvents")
@@ -29,7 +29,7 @@ public class ManagerOverviewEvents implements Serializable{
 	@Inject
 	private SessionContext sessionContext;
 	@Inject
-	private NavigationService navigationService;
+	private IsNavigationService navigationService;
 	@Inject
 	private IsEventService eventService;
 	
@@ -80,11 +80,11 @@ public class ManagerOverviewEvents implements Serializable{
 		this.sessionContext = sessionContext;
 	}
 
-	public NavigationService getNavigationService() {
+	public IsNavigationService getNavigationService() {
 		return navigationService;
 	}
 
-	public void setNavigationService(NavigationService navigationService) {
+	public void setNavigationService(IsNavigationService navigationService) {
 		this.navigationService = navigationService;
 	}
 

@@ -6,8 +6,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import de.eventon.services.NavigationService;
 import de.eventon.services.interfaces.IsLoginService;
+import de.eventon.services.interfaces.IsNavigationService;
 
 @Named("headerForm")
 @RequestScoped
@@ -18,7 +18,7 @@ public class HeaderForm implements Serializable {
 	@Inject
 	private IsLoginService loginService;
 	@Inject
-	private NavigationService navigationService;
+	private IsNavigationService navigationService;
 
 	public String home(){
 		return navigationService.home();
@@ -53,11 +53,11 @@ public class HeaderForm implements Serializable {
 		return navigationService.managerOverviewEventsInProcess();
 	}
 	
-	public NavigationService getNavigationService() {
+	public IsNavigationService getNavigationService() {
 		return navigationService;
 	}
 
-	public void setNavigationService(NavigationService navigationService) {
+	public void setNavigationService(IsNavigationService navigationService) {
 		this.navigationService = navigationService;
 	}
 

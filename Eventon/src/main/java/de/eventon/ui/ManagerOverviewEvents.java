@@ -2,7 +2,11 @@ package de.eventon.ui;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +15,7 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 
 import de.eventon.core.Event;
 import de.eventon.core.User;
@@ -33,6 +38,8 @@ public class ManagerOverviewEvents implements Serializable{
 	@Inject
 	private IsEventService eventService;
 	
+	private HashMap<Event, Boolean> mapEventPublished;
+	
 	public ManagerOverviewEvents(){
 	}
 	
@@ -49,17 +56,6 @@ public class ManagerOverviewEvents implements Serializable{
 		}
 	}
 	
-	public List<Event> getUnpublishedEvents(){
-		if(eventService != null && sessionContext.getActiveUser() != null && sessionContext.getActiveUser().isManager())
-		{
-			User manager = sessionContext.getActiveUser();
-			List<Event> events = eventService.getEvents().stream()
-					.filter(event -> !event.isPublished() && event.getManager().getUserId() == manager.getUserId())
-					.collect(Collectors.toList());
-			return events;
-		}
-		return null;
-	}
 	public List<Event> getPublishedEvents(){
 		if(eventService != null && sessionContext.getActiveUser() != null && sessionContext.getActiveUser().isManager())
 		{
@@ -70,6 +66,15 @@ public class ManagerOverviewEvents implements Serializable{
 			return events;
 		}
 		return null;
+	}
+	
+	public String publishEvents(){
+		for(Entry<Event, Boolean> map : mapEventPublished.entrySet()){
+			if(map.getValue()){
+				eventService.publishEvent(map.getKey().getEventId());
+			}
+		}
+		return navigationService.managerOverviewEventsInProcess();
 	}
 	
 	public SessionContext getSessionContext() {
@@ -94,5 +99,25 @@ public class ManagerOverviewEvents implements Serializable{
 
 	public void setEventService(IsEventService eventService) {
 		this.eventService = eventService;
+	}
+
+	public HashMap<Event, Boolean> getMapEventPublished() {
+		if(eventService != null && sessionContext.getActiveUser() != null && sessionContext.getActiveUser().isManager())
+		{
+			User manager = sessionContext.getActiveUser();
+			List<Event> events = eventService.getEvents().stream()
+					.filter(event -> !event.isPublished() && event.getManager().getUserId() == manager.getUserId())
+					.collect(Collectors.toList());
+			mapEventPublished = new HashMap<>();
+			for (Event event : events) {
+				mapEventPublished.put(event, event.isPublished());
+			}
+			return mapEventPublished;
+		}
+		return null;
+	}
+
+	public void setMapEventPublished(HashMap<Event, Boolean> mapEventPublished) {
+		this.mapEventPublished = mapEventPublished;
 	}
 }

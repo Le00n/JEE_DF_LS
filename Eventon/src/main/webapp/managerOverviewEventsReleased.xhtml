@@ -36,12 +36,12 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 							var="event" class="table table-hover table-bordered">
 							<h:column>
 								<f:facet name="header">Bild</f:facet>
-								<h:graphicImage value="#{event.filename}" class="img-rounded" style="max-width: 50px; max-height: 50px;"/>
+								<h:graphicImage value="#{event.filename}" class="img-rounded smallImg" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">Veranstaltung</f:facet>
 								<h:link outcome="event" value="#{event.name}">
-									<f:param name="id" value="#{event.id}" />
+									<f:param name="id" value="#{event.eventId}" />
 								</h:link>
 							</h:column>
 							<h:column>

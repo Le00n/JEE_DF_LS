@@ -1,0 +1,19 @@
+div.btn{
+	text-align:right;
+}
+
+div.btn input[type=submit]{
+	margin-top:10px; 
+	margin-right:10px; 
+	margin-bottom:10px;
+}
+
+input[type=checkbox].chkbox{
+	height:20px;
+	width:20px;
+	margin-right:10px;
+}
+
+div.chkbox{
+	margin-top: 5px;
+}

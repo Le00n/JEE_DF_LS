@@ -8,11 +8,16 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <ui:composition template="base.xhtml">
 
+	<ui:define name="header">
+		<h:outputStylesheet name="css/user.css" />
+		<h:outputStylesheet name="css/table.css" />
+	</ui:define>
+	
 	<ui:define name="content">
 		<!-- Event-Informationen -->
 		<h:panelGroup layout="block"
 			rendered="#{userProfileForm.user != null}">
-			<h1 style="text-align: center">
+			<h1 class="heading">
 				<h:outputText
 					value="Angemeldet als #{userProfileForm.user.firstname} #{userProfileForm.user.lastname}" />
 			</h1>
@@ -21,9 +26,9 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
+				<div class="col-md-10 col-md-offset-1">
 					<h:panelGroup class="panel panel-primary" layout="block">
-						<div class="panel-heading" style="margin-bottom: 20px;">
+						<div class="panel-heading">
 							<h3 class="panel-title">Benutzerdaten</h3>
 						</div>
 						<div class="panel-body">
@@ -128,9 +133,9 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 										</div>
 									</div>
 
-									<div class="form-group" style="margin-top: 50px;">
-										<div class="col-md-3 col-md-offset-9">
-											<h:commandButton class="btn btn-success btn-lg"
+									<div class="form-group btnSave" >
+										<div class="col-md-2 col-md-offset-10">
+											<h:commandButton class="btn btn-success btn-md"
 												action="#{userProfileForm.save}" value="Speichern"></h:commandButton>
 										</div>
 									</div>
@@ -144,9 +149,9 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
+				<div class="col-md-10 col-md-offset-1">
 					<h:panelGroup class="panel panel-danger panel-table"
-						rendered="#{empty eventSearchForm.searchedEvents}" layout="block">
+						rendered="#{empty userProfileForm.user.bookings}" layout="block">
 						<div class="panel-heading">
 							<h3 class="panel-title">Keine Bestellungen</h3>
 						</div>
@@ -155,10 +160,9 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				</div>
 			</div>
 		</div>
-		<div id="showOrders" class="col-md-8 col-md-offset-2"
-			style="border: 0">
+		<div id="showOrders" class="col-md-10 col-md-offset-1">
 			<h:panelGroup class="panel panel-primary panel-table"
-				rendered="#{not empty eventSearchForm.searchedEvents}"
+				rendered="#{not empty userProfileForm.user.bookings}"
 				layout="block">
 				<div class="panel-heading">
 					<h3 class="panel-title">Ihre Bestellungen</h3>
@@ -168,14 +172,12 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						class="table table-hover table-bordered">
 						<h:column>
 							<c:facet name="header">Bild</c:facet>
-							<img
-								src="http://www.kraftklub.to/randale/images/content/cover_album_in-schwarz.png?v=1"
-								class="img-rounded" style="max-width: 50px; max-height: 50px;" />
+							<h:graphicImage value="#{booking.event.filename}" class="img-rounded smallImg" />
 						</h:column>
 						<h:column>
 							<c:facet name="header">Veranstaltung</c:facet>
 							<h:link outcome="event" value="#{booking.event.name}">
-								<f:param name="id" value="#{booking.event.id}" />
+								<f:param name="id" value="#{booking.event.eventId}" />
 							</h:link>
 						</h:column>
 						<h:column>
@@ -210,6 +212,10 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						<h:column>
 							<c:facet name="header">Preis</c:facet>
 							<h:outputText value="#{booking.price} €" />
+						</h:column>
+						<h:column>
+							<c:facet name="header">Reservierungscode</c:facet>
+							<h:outputText value="#{booking.bookingUUID}" />
 						</h:column>
 					</h:dataTable>
 				</div>

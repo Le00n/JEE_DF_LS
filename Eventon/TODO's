@@ -14,15 +14,15 @@ Datenbank überall einbinden															David & Leon
 
 Ganz am Ende: alle Scopes kontrollieren												Leon
 
-"Als Manager registrieren" und "Direkt veröffentlichen" schön machen				David
+"Als Manager registrieren" und "Direkt veröffentlichen" schön machen				David - DONE
 
-Styles aus xhtml-Dateien extrahieren												David
+Styles aus xhtml-Dateien extrahieren												David - DONE
 
 Aktuelles Bild beim Event bearbeiten anzeigen, falls vorhanden						David
 
 Glyphicons verwenden																David
 
-Rendering Userprofile "keine Bestellungen" funktioniert nicht						David
+Rendering Userprofile "keine Bestellungen" funktioniert nicht						David - DONE
 
 Einrückung und Darstellung Userprofile bei Verkleinerung des Browsers 				David
 	- (bei Buttons vllt. wie bei Login mit bootstrap-Klassen?)
@@ -31,7 +31,11 @@ Login über User statt getPassword? mit Session Context								Leon - DONE
 
 Regex Vorname Nachname ohne Sonderzeichen aber mit "á" und "-" etc. in UserFirstnameValidator David
 
-UUID in UserProfile myBooking-Tabelle												David
+UUID in UserProfile myBooking-Tabelle												David - DONE
+
+Als Manager möchte ich alle Reservierungen eines Events sehen. -> Meine Events		David
+	-> veröffentlichte -> DrillDown auf "Anzahl Reserviert" führt zu neuer Seite
+	mit einer Tabelle "Reservierungen zu Event xy" 
 
 //DOKU
 ER-Modell erstellen in Visio														David

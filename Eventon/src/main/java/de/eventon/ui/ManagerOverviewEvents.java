@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -39,6 +41,7 @@ public class ManagerOverviewEvents implements Serializable{
 	private IsEventService eventService;
 	
 	private HashMap<Event, Boolean> mapEventPublished;
+	private Event event;
 	
 	public ManagerOverviewEvents(){
 	}
@@ -53,6 +56,25 @@ public class ManagerOverviewEvents implements Serializable{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+		
+		Map<String, String> rqParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		String eventId = rqParameter.get("id");
+
+		// Wurde eine gültige ID im Query-Parameter mitgegeben?
+		// Dann Event anzeigen
+		if (eventId != null) {
+			try {
+				int idAsInteger = Integer.parseInt(eventId);
+				Optional<Event> optEvent = eventService.getEventById(idAsInteger);
+				if (optEvent.isPresent()) {
+					setEvent(optEvent.get());
+				}
+			} catch (NumberFormatException e) {
+				setEvent(null);
+			}
+		} else {
+			setEvent(null);
 		}
 	}
 	
@@ -119,5 +141,13 @@ public class ManagerOverviewEvents implements Serializable{
 
 	public void setMapEventPublished(HashMap<Event, Boolean> mapEventPublished) {
 		this.mapEventPublished = mapEventPublished;
+	}
+
+	public Event getEvent() {
+		return event;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 }

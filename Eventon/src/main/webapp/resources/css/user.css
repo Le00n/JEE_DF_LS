@@ -1,0 +1,15 @@
+div.panel-heading{
+	margin-bottom: 20px;
+}
+
+div.btnSave{
+	margin-top: 50px;	
+}
+
+div#showOrders{
+	border: 0;
+}
+
+h1.heading{
+	text-align:center;
+}

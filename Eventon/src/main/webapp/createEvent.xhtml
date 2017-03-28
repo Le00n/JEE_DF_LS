@@ -11,6 +11,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	<ui:define name="header">
 		<h:outputStylesheet name="css/fileinput.css" />
 		<h:outputScript name="js/fileinput.js" />
+		<h:outputStylesheet name="css/event.css" />
 	</ui:define>
 
 	<ui:define name="content">
@@ -62,7 +63,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 					<div class="col-md-12">
 						<h:inputTextarea rows="5" class="form-control"
 							id="eventDescription" value="#{createEventForm.eventDescription}"
-							a:placeholder="Event-Beschreibung" style="resize: none">
+							a:placeholder="Event-Beschreibung">
 							<f:validator validatorId="eventDescriptionValidator" />
 						</h:inputTextarea>
 						<div class="error">
@@ -188,10 +189,11 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 								showDetail="false" class="alert alert-danger error"></h:message>
 						</div>
 					</div>
-					<div class="col-md-12">
-						<h:selectBooleanCheckbox class="checkbox" id="eventPublish"
-							value="#{createEventForm.publish}" />
-						Direkt veröffentlichen
+					<div class="form-group col-md-12">
+						<div class="col-md-1">
+							<h:selectBooleanCheckbox class="chkbox" id="eventPublish" value="#{createEventForm.publish}" />
+						</div>
+						<div class="col-md-11 chkbox"><h:outputLabel>Direkt veröffentlichen</h:outputLabel></div>
 					</div>
 				</div>
 				<div class="form-group">

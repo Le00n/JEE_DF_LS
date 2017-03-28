@@ -7,12 +7,17 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <ui:composition template="base.xhtml">
+
+	<ui:define name="header">
+		<h:outputStylesheet name="css/managerEvents.css" />
+	</ui:define>
+	
 	<ui:define name="content">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<h:panelGroup class="panel panel-danger panel-table"
-						rendered="#{empty managerOverviewEvents.unpublishedEvents}"
+						rendered="#{empty managerOverviewEvents.mapEventPublished}"
 						layout="block">
 						<div class="panel-heading">
 							<h3 class="panel-title">Sie haben derzeit keine
@@ -23,9 +28,9 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				</div>
 			</div>
 		</div>
-		<div id="showEvents" class="col-md-10 col-md-offset-1" style="border: 0">
+		<div id="showEvents" class="col-md-10 col-md-offset-1">
 			<h:panelGroup class="panel panel-primary panel-table"
-				rendered="#{not empty managerOverviewEvents.unpublishedEvents}"
+				rendered="#{not empty managerOverviewEvents.mapEventPublished}"
 				layout="block">
 				<div class="panel-heading">
 					<h3 class="panel-title">Unveröffentlichte Events</h3>
@@ -89,8 +94,8 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 								<h:selectBooleanCheckbox class="mycheckbox" id="mycheckbox#{event.key.eventId}" value="#{managerOverviewEvents.mapEventPublished[event.key]}"/>
 							</h:column>
 						</h:dataTable>
-						<div style="text-align:right">
-							<h:commandButton class="btn btn-success btn-md" style="margin-top:10px; margin-right:10px; margin-bottom:10px;"
+						<div class="col-md-12 btn">
+							<h:commandButton class="btn btn-success btn-md"
 								action="#{managerOverviewEvents.publishEvents}" value="Veröffentlichen"/>
 						</div>
 					</h:form>

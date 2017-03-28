@@ -32,65 +32,67 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				</div>
 				<div class="panel-body">
 					<h:form>
-						<h:dataTable value="#{managerOverviewEvents.unpublishedEvents}"
+						<h:dataTable value="#{managerOverviewEvents.mapEventPublished.entrySet()}"
 							var="event" class="table table-hover table-bordered">
 							<h:column>
 								<f:facet name="header">Bild</f:facet>
-								<h:graphicImage value="#{event.filename}" class="img-rounded" style="max-width: 50px; max-height: 50px;"/>
+								<h:graphicImage value="#{event.key.filename}" class="img-rounded smallImg"/>
 							</h:column>
 							<h:column>
 								<f:facet name="header">Veranstaltung</f:facet>
-								<h:link outcome="createEvent" value="#{event.name}">
-									<f:param name="id" value="#{event.id}" />
+								<h:link outcome="createEvent" value="#{event.key.name}">
+									<f:param name="id" value="#{event.key.eventId}" />
 								</h:link>
 							</h:column>
 							<h:column>
 								<f:facet name="header">Datum</f:facet>
-								<h:outputText pattern="dd.MM.YYYY" value="#{event.datetime}">
+								<h:outputText pattern="dd.MM.YYYY" value="#{event.key.datetime}">
 									<f:converter converterId="LocalDateConverterID" />
 								</h:outputText>
 							</h:column>
 							<h:column>
 								<f:facet name="header">Uhrzeit</f:facet>
-								<h:outputText pattern="HH:mm" value="#{event.datetime}">
+								<h:outputText pattern="HH:mm" value="#{event.key.datetime}">
 									<f:converter converterId="LocalDateConverterID" />
 								</h:outputText>
 							</h:column>
 							<h:column>
 								<f:facet name="header">Location</f:facet>
-								<h:outputText value="#{event.address.locationName}" />
+								<h:outputText value="#{event.key.address.locationName}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">Ort</f:facet>
-								<h:outputText value="#{event.address.city}" />
+								<h:outputText value="#{event.key.address.city}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">Plätze Parkett</f:facet>
-								<h:outputText value="#{event.amountTicketsNormal}" />
+								<h:outputText value="#{event.key.amountTicketsNormal}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">Preis Parkett</f:facet>
-								<h:outputText value="#{event.priceTicketsNormal}" >
+								<h:outputText value="#{event.key.priceTicketsNormal}" >
 									<f:converter converterId="moneyConverter" />
 								</h:outputText>
 							</h:column>
 							<h:column>
 								<f:facet name="header">Plätze Loge</f:facet>
-								<h:outputText value="#{event.amountTicketsPremium}" />
+								<h:outputText value="#{event.key.amountTicketsPremium}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">Preis Loge</f:facet>
-								<h:outputText value="#{event.priceTicketsPremium}" >
+								<h:outputText value="#{event.key.priceTicketsPremium}" >
 									<f:converter converterId="moneyConverter" />
 								</h:outputText>
 							</h:column>
 							<h:column>
 								<f:facet name="header">Veröffentlichen</f:facet>
-								<h:selectBooleanCheckbox class="mycheckbox" id="mycheckbox#{event.id}" value="#{event.published}">
-									<f:ajax />
-								</h:selectBooleanCheckbox>
+								<h:selectBooleanCheckbox class="mycheckbox" id="mycheckbox#{event.key.eventId}" value="#{managerOverviewEvents.mapEventPublished[event.key]}"/>
 							</h:column>
 						</h:dataTable>
+						<div style="text-align:right">
+							<h:commandButton class="btn btn-success btn-md" style="margin-top:10px; margin-right:10px; margin-bottom:10px;"
+								action="#{managerOverviewEvents.publishEvents}" value="Veröffentlichen"/>
+						</div>
 					</h:form>
 				</div>
 			</h:panelGroup>

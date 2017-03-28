@@ -35,6 +35,8 @@ public class EventService implements Serializable, IsEventService {
 
 //	@Inject
 //	private EntityManager entityManager;
+	@Inject
+	private UserService userService;
 	
 	public EventService() {
 		events = new ArrayList<Event>();
@@ -42,7 +44,7 @@ public class EventService implements Serializable, IsEventService {
 
 	@PostConstruct
 	private void init() {
-		User manager = new UserService().getUserByEmail("david.feldhoff@web.de").get();
+		User manager = userService.getUserByEmail("david.feldhoff@web.de").get();
 		//entityManager.getTransaction().begin();
 		//entityManager.persist(manager);
 		//entityManager.persist(manager.getAddress());

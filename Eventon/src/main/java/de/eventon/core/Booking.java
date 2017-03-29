@@ -6,22 +6,25 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
 public class Booking {
 
-	@Id @Column(columnDefinition="varchar2(36)")
+	@Id @Column(columnDefinition="varchar2(36)", nullable=false)
 	private UUID bookingUUID;
 	@OneToOne
+	@JoinColumn(name="userId", nullable=false)
 	private User user;
-	@Column
+	@Column(nullable=false)
 	private LocalDateTime bookingDatetime;
 	@OneToOne
+	@JoinColumn(name="eventId", nullable=false)
 	private Event event;
-	@Column
+	@Column(nullable=false)
 	private int amountNormalTickets;
-	@Column
+	@Column(nullable=false)
 	private int amountPremiumTickets;
 
 	public Booking() {

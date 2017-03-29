@@ -8,10 +8,11 @@ import javax.persistence.Id;
 public class BankAccount {
 	
 	@Id
+	@Column(nullable=false)
 	private String iban;
-	@Column
+	@Column(nullable=false)
 	private String accountHolder;
-	@Column
+	@Column(nullable=false)
 	private String bic;
 	
 	public BankAccount() {

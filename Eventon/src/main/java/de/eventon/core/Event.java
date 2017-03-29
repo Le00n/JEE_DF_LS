@@ -15,30 +15,31 @@ import javax.persistence.OneToMany;
 @Entity
 public class Event {
 
-	@Id @GeneratedValue
+	@Id @GeneratedValue @Column(nullable=false)
 	private int eventId;
-	@Column
+	@Column(nullable=false)
 	private String name;
-	@Column
+	@Column(nullable=false)
 	private LocalDateTime datetime;
-	@Column
+	@Column(nullable=false)
 	private String description;
-	@Column
+	@Column(nullable=false)
 	private double priceTicketsPremium;
-	@Column
+	@Column(nullable=false)
 	private double priceTicketsNormal;
-	@Column
+	@Column(nullable=false)
 	private int amountTicketsPremium;
-	@Column
+	@Column(nullable=false)
 	private int amountTicketsNormal;
 	@ManyToOne
+	@JoinColumn(name="addressId", nullable=false)
 	private Address address;
 	@OneToMany(mappedBy="event")
 	private List<Booking> bookings;
 	@ManyToOne
-	@JoinColumn(name="userId")
+	@JoinColumn(name="userId", nullable=false)
 	private User manager;
-	@Column
+	@Column(nullable=false)
 	private boolean published;
 	@Column
 	private String filename;

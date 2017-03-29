@@ -10,16 +10,17 @@ public class Address {
 
 	@Id 
 	@GeneratedValue
+	@Column(nullable=false)
 	private int id;
 	@Column
 	private String locationName;
-	@Column
+	@Column(nullable=false)
 	private String zip;
-	@Column
+	@Column(nullable=false)
 	private String city;
-	@Column
+	@Column(nullable=false)
 	private String street;
-	@Column
+	@Column(nullable=false)
 	private String streetnumber;
 	
 	public Address() {

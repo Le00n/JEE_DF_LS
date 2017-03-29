@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -15,23 +16,25 @@ public class User {
 
 	@Id
 	@GeneratedValue
-	@Column(name="USERID")
+	@Column(name="USERID", nullable=false)
 	private int userId;
-	@Column
+	@Column(nullable=false)
 	private String email;
-	@Column
+	@Column(nullable=false)
 	private String hashedPassword;
-	@Column
+	@Column(nullable=false)
 	private String firstname;
-	@Column
+	@Column(nullable=false)
 	private String lastname;
 	@ManyToOne
+	@JoinColumn(name="addressId", nullable=false)
 	private Address address;
 	@ManyToOne
+	@JoinColumn(name="iban", nullable=false)
 	private BankAccount bankAccount;
 	@OneToMany(mappedBy="user")
 	private List<Booking> bookings;
-	@Column
+	@Column(nullable=false)
 	private boolean manager;
 
 	public User() {

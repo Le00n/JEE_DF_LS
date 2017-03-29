@@ -90,11 +90,12 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 											<h:inputText id="inputZIP" class="form-control" value="#{userProfileForm.zip}" >
 												<f:validator validatorId="zipValidator" />
 											</h:inputText>
+											<div class="error">
+												<h:message for="inputZIP" class="alert alert-danger error"
+													showDetail="false" showSummary="true" />
+											</div>
 										</div>
-										<div class="error">
-											<h:message for="inputZIP" class="alert alert-danger error"
-												showDetail="false" showSummary="true" />
-										</div>
+										
 										<div class="col-md-5">
 											<h:inputText id="inputCity" class="form-control" value="#{userProfileForm.city}" >
 												<f:validator validatorId="cityValidator" />

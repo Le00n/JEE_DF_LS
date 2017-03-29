@@ -14,7 +14,7 @@ import de.eventon.services.interfaces.IsEventService;
 import de.eventon.services.interfaces.IsNavigationService;
 
 @Named("eventSearchForm")
-@SessionScoped
+@SessionScoped //SessionScoped, damit die Suchergebnisse langfristig verfügbar bleiben
 public class EventSearchForm implements Serializable {
 
 	private static final long serialVersionUID = 549403592893015555L;

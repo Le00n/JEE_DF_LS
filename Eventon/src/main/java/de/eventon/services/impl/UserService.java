@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import de.eventon.core.Address;
 import de.eventon.core.BankAccount;
 import de.eventon.core.User;
 import de.eventon.services.interfaces.IsUserService;
@@ -35,18 +36,19 @@ public class UserService implements Serializable, IsUserService {
 
 	public UserService() {
 	}
-
+	
 	@PostConstruct
-	private void init() {
-//		User user = new User("leonstapper@gmx.de", "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "Leon", "Stapper",
-//				new Address("Buchdahlstraße", "6", "48429", "Rheine"),
+	public void init(){
+//		User leonNutzer = new User("leonstapper@gmx.de", "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+//				"Leon", "Stapper", new Address("Buchdahlstraße", "6", "48429", "Rheine"),
 //				new BankAccount("Leon Stapper", "DE83403500050000123456", "WELADED1RHN"), false);
-//		addUser(user);
+////		userService.addUser(leonNutzer);
 
-//		User user2 = new User("david.feldhoff@web.de", "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "David", "Feldhoff",
+//		User davidManager = new User("david.feldhoff@web.de",
+//				"03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "David", "Feldhoff",
 //				new Address("Moorstraße", "88a", "48432", "Rheine"),
 //				new BankAccount("David Feldhoff", "DE83403500050000123457", "WELADED1RHN"), true);
-//		addUser(user2);
+////		userService.addUser(davidManager);
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public class EventService implements Serializable, IsEventService {
 
 	@PostConstruct
 	private void init() {
-
+		
 	}
 
 	@Override

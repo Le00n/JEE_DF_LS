@@ -8,7 +8,6 @@ import javax.inject.Named;
 
 import de.eventon.core.User;
 import de.eventon.services.interfaces.IsLoginService;
-import de.eventon.services.interfaces.IsUserService;
 import de.eventon.session.SessionContext;
 
 @Named("loginService")

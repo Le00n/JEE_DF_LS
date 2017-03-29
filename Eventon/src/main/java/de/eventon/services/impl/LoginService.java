@@ -24,8 +24,6 @@ public class LoginService implements Serializable, IsLoginService {
 	private static final long serialVersionUID = 5883775157529075980L;
 
 	@Inject
-	private IsUserService userService;
-	@Inject
 	private SessionContext sessionContext;
 
 	@Override
@@ -45,13 +43,5 @@ public class LoginService implements Serializable, IsLoginService {
 	@Override
 	public void logout() {
 		sessionContext.setActiveUser(null);
-	}
-
-	public IsUserService getUserService() {
-		return userService;
-	}
-
-	public void setUserService(IsUserService userService) {
-		this.userService = userService;
 	}
 }

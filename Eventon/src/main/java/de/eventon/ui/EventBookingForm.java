@@ -2,6 +2,8 @@ package de.eventon.ui;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -86,48 +88,50 @@ public class EventBookingForm implements Serializable {
 		int intAmountTicketsNormal = (amountTicketsNormal == null) ? 0 : amountTicketsNormal.intValue();
 		int intAmountTicketsPremium = (amountTicketsPremium == null) ? 0 : amountTicketsPremium.intValue();
 
-		if (sessionContext.getActiveUser() != null) {
-			// Mindestens 1 Ticket muss gebucht werden
-			if (intAmountTicketsNormal != 0 || intAmountTicketsPremium != 0) {
-				
-				// Steht die gewünschte Anzahl noch zur Verfügung?
-				boolean normalAvailable = intAmountTicketsNormal <= event.getAmountFreeNormalTickets();
-				boolean premiumAvailable = intAmountTicketsPremium <= event.getAmountFreePremiumTickets();
-				if (normalAvailable && premiumAvailable) {
-					// Alle Bedingung erfüllt --> Buchen
-					Optional<UUID> optBookingUUID = eventBookingService.bookEvent(event, intAmountTicketsNormal,
-							intAmountTicketsPremium);
-					if (optBookingUUID.isPresent()) {
-						bookingUUID = optBookingUUID.get();
-						setBookingConfirmed(true);
-						return navigationService.book();
+		if(isBookingPossible()){
+			if (sessionContext.getActiveUser() != null) {
+				// Mindestens 1 Ticket muss gebucht werden
+				if (intAmountTicketsNormal != 0 || intAmountTicketsPremium != 0) {
+					
+					// Steht die gewünschte Anzahl noch zur Verfügung?
+					boolean normalAvailable = intAmountTicketsNormal <= event.getAmountFreeNormalTickets();
+					boolean premiumAvailable = intAmountTicketsPremium <= event.getAmountFreePremiumTickets();
+					if (normalAvailable && premiumAvailable) {
+						// Alle Bedingung erfüllt --> Buchen
+						Optional<UUID> optBookingUUID = eventBookingService.bookEvent(event, intAmountTicketsNormal,
+								intAmountTicketsPremium);
+						if (optBookingUUID.isPresent()) {
+							bookingUUID = optBookingUUID.get();
+							setBookingConfirmed(true);
+							return navigationService.book();
+						}
+					} else {
+						if (!premiumAvailable) {
+							FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+									"Es stehen keine " + intAmountTicketsPremium + " Logen-Tickets zur Verfügung.",
+									"Es stehen keine " + intAmountTicketsPremium + " Logen-Tickets zur Verfügung.");
+							FacesContext.getCurrentInstance().addMessage("eventBookingForm:inputPremium", msg);
+						}
+						if (!normalAvailable) {
+							FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+									"Es stehen keine " + intAmountTicketsNormal + " Parkett-Tickets zur Verfügung.",
+									"Es stehen keine " + intAmountTicketsNormal + " Parkett-Tickets zur Verfügung.");
+							FacesContext.getCurrentInstance().addMessage("eventBookingForm:inputNormal", msg);
+						}
 					}
 				} else {
-					if (!premiumAvailable) {
-						FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-								"Es stehen keine " + intAmountTicketsPremium + " Logen-Tickets zur Verfügung.",
-								"Es stehen keine " + intAmountTicketsPremium + " Logen-Tickets zur Verfügung.");
-						FacesContext.getCurrentInstance().addMessage("eventBookingForm:inputPremium", msg);
-					}
-					if (!normalAvailable) {
-						FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-								"Es stehen keine " + intAmountTicketsNormal + " Parkett-Tickets zur Verfügung.",
-								"Es stehen keine " + intAmountTicketsNormal + " Parkett-Tickets zur Verfügung.");
-						FacesContext.getCurrentInstance().addMessage("eventBookingForm:inputNormal", msg);
-					}
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Es muss mindestens ein Ticket gebucht werden.",
+							"Es muss mindestens ein Ticket gebucht werden.");
+					FacesContext.getCurrentInstance().addMessage("eventBookingForm:inputNormal", msg);
+					FacesContext.getCurrentInstance().addMessage("eventBookingForm:inputPremium", msg);
 				}
 			} else {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						"Es muss mindestens ein Ticket gebucht werden.",
-						"Es muss mindestens ein Ticket gebucht werden.");
-				FacesContext.getCurrentInstance().addMessage("eventBookingForm:inputNormal", msg);
-				FacesContext.getCurrentInstance().addMessage("eventBookingForm:inputPremium", msg);
+				return navigationService.bookWithoutLogin(event.getEventId());
 			}
-		} else {
-			return navigationService.bookWithoutLogin(event.getEventId());
+	
+			setBookingConfirmed(false);
 		}
-
-		setBookingConfirmed(false);
 		return navigationService.bookingFailed();
 	}
 
@@ -201,5 +205,11 @@ public class EventBookingForm implements Serializable {
 
 	public void setBookingConfirmed(boolean bookingConfirmed) {
 		this.bookingConfirmed = bookingConfirmed;
+	}
+
+	public boolean isBookingPossible() {
+		System.out.println("Event.getDatetime(): " + event.getDatetime());
+		System.out.println("LocalDateTime.now():" + LocalDateTime.now());
+		return event.getDatetime().compareTo(LocalDateTime.now()) > 0;
 	}
 }

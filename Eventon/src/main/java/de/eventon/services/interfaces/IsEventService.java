@@ -47,10 +47,6 @@ public interface IsEventService {
 	
 	void publishEvent(Event event);
 
-	List<Event> getEvents();
-
-	void setEvents(List<Event> events);
-
-	Optional<List<Event>> getPublishedManagerEvents(User manager, boolean published);
+	Optional<List<Event>> getManagerEvents(User manager, boolean published);
 
 }

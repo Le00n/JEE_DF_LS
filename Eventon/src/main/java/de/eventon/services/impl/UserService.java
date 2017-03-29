@@ -1,8 +1,6 @@
 package de.eventon.services.impl;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
@@ -14,8 +12,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import de.eventon.core.Address;
-import de.eventon.core.BankAccount;
 import de.eventon.core.User;
 import de.eventon.services.interfaces.IsUserService;
 

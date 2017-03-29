@@ -2,8 +2,6 @@ package de.eventon.services.interfaces;
 
 import java.util.Optional;
 
-import de.eventon.core.Address;
-import de.eventon.core.BankAccount;
 import de.eventon.core.User;
 
 public interface IsUserService {

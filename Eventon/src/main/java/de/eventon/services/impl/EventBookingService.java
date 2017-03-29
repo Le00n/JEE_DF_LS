@@ -7,12 +7,12 @@ import java.util.UUID;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 
 import de.eventon.core.Booking;
 import de.eventon.core.Event;
 import de.eventon.core.User;
 import de.eventon.services.interfaces.IsEventBookingService;
-import de.eventon.services.interfaces.IsLoginService;
 import de.eventon.session.SessionContext;
 
 @Named("eventBookingService")
@@ -29,6 +29,8 @@ public class EventBookingService implements Serializable, IsEventBookingService 
 
 	@Inject
 	private SessionContext sessionContext;
+	@Inject
+	private EntityManager entityManager;
 
 	public EventBookingService() {
 	}
@@ -38,9 +40,12 @@ public class EventBookingService implements Serializable, IsEventBookingService 
 		User user = sessionContext.getActiveUser();
 		if (user != null && amountTicketsNormal <= event.getAmountFreeNormalTickets()
 				&& amountTicketsPremium <= event.getAmountFreePremiumTickets()) {
-			Booking booking = new Booking(event, amountTicketsNormal, amountTicketsPremium);
+			Booking booking = new Booking(event, user, amountTicketsNormal, amountTicketsPremium);
 			user.addBooking(booking);
-			event.addBooking(booking);
+			
+			entityManager.getTransaction().begin();
+			entityManager.persist(booking);
+			entityManager.getTransaction().commit();
 			return Optional.of(booking.getBookingUUID());
 		}
 		return Optional.empty();

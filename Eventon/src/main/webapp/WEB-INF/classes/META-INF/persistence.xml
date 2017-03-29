@@ -32,6 +32,10 @@
         
 		<properties>	
 			<property name="eclipselink.ddl-generation.output-mode" value="both"/>
+			<property name="eclipselink.cache.shared.default" value="false"/>
+			<property name="eclipselink.query-results-cache" value="false"/>
+			<property name="eclipselink.refresh" value="true"/>
+			<property name="toplink.cache.shared.default" value="false"/>
 			<!--
 			eclipselink.ddl-generation 
 				Der Parameter bestimmt, ob bei Start der Anwendung die Datenbanktabellen neu erstellt werden oder nicht.

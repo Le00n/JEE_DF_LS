@@ -1,13 +1,10 @@
 package de.eventon.converter;
 
-import java.io.Serializable;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import de.eventon.core.User;
 import de.eventon.services.interfaces.IsUserService;

@@ -14,7 +14,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import de.eventon.core.Event;
-import de.eventon.services.impl.LoginService;
 import de.eventon.services.interfaces.IsEventBookingService;
 import de.eventon.services.interfaces.IsEventService;
 import de.eventon.services.interfaces.IsNavigationService;

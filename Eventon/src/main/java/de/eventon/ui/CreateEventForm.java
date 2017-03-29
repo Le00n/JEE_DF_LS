@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -25,9 +24,7 @@ import javax.servlet.http.Part;
 import de.eventon.core.Address;
 import de.eventon.core.Event;
 import de.eventon.core.User;
-import de.eventon.services.impl.LoginService;
 import de.eventon.services.interfaces.IsEventService;
-import de.eventon.services.interfaces.IsLoginService;
 import de.eventon.services.interfaces.IsNavigationService;
 import de.eventon.session.SessionContext;
 

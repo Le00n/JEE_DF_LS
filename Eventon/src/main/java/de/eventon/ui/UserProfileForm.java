@@ -3,12 +3,10 @@ package de.eventon.ui;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,8 +14,6 @@ import javax.inject.Named;
 import de.eventon.core.Address;
 import de.eventon.core.BankAccount;
 import de.eventon.core.User;
-import de.eventon.services.impl.LoginService;
-import de.eventon.services.interfaces.IsLoginService;
 import de.eventon.services.interfaces.IsNavigationService;
 import de.eventon.services.interfaces.IsUserService;
 import de.eventon.session.SessionContext;
@@ -107,8 +103,6 @@ public class UserProfileForm implements Serializable {
 				return null;
 			}
 		}
-		
-		BankAccount bankAccount = new BankAccount(accountHolder, iban, bic);
 		
 		user.getAddress().setStreet(street);
 		user.getAddress().setStreetnumber(housenumber);

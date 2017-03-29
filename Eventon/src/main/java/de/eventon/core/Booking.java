@@ -11,8 +11,10 @@ import javax.persistence.OneToOne;
 @Entity
 public class Booking {
 
-	@Id
+	@Id @Column(columnDefinition="varchar2(36)")
 	private UUID bookingUUID;
+	@OneToOne
+	private User user;
 	@Column
 	private LocalDateTime bookingDatetime;
 	@OneToOne
@@ -26,8 +28,9 @@ public class Booking {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Booking(Event event, int amountNormalTickets, int amountPremiumTickets) {
+	public Booking(Event event, User user, int amountNormalTickets, int amountPremiumTickets) {
 		setBookingUUID(UUID.randomUUID());
+		setUser(user);
 		setBookingDatetime(LocalDateTime.now());
 		setEvent(event);
 		setAmountNormalTickets(amountNormalTickets);
@@ -48,6 +51,14 @@ public class Booking {
 
 	public void setEvent(Event event) {
 		this.event = event;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public int getAmountNormalTickets() {

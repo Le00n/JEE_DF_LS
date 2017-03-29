@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import de.eventon.core.Event;
-import de.eventon.services.impl.LoginService;
 
 public interface IsEventBookingService {
 

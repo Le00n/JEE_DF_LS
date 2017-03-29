@@ -6,24 +6,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.transaction.Transactional;
 
 import de.eventon.core.Event;
 import de.eventon.core.User;
-import de.eventon.services.impl.LoginService;
 import de.eventon.services.interfaces.IsEventService;
-import de.eventon.services.interfaces.IsLoginService;
 import de.eventon.services.interfaces.IsNavigationService;
 import de.eventon.session.SessionContext;
 
@@ -82,7 +76,7 @@ public class ManagerOverviewEvents implements Serializable {
 
 	public List<Event> getPublishedEvents() {
 		User manager = sessionContext.getActiveUser();
-		Optional<List<Event>> events = eventService.getPublishedManagerEvents(manager, true);
+		Optional<List<Event>> events = eventService.getManagerEvents(manager, true);
 		if(!events.isPresent())
 			return new ArrayList<Event>();
 		else
@@ -124,7 +118,7 @@ public class ManagerOverviewEvents implements Serializable {
 
 	public HashMap<Event, Boolean> getMapEventPublished() {
 		User manager = sessionContext.getActiveUser();
-		Optional<List<Event>> events = eventService.getPublishedManagerEvents(manager, false);
+		Optional<List<Event>> events = eventService.getManagerEvents(manager, false);
 		mapEventPublished = new HashMap<>();
 		if(events.isPresent())
 		{

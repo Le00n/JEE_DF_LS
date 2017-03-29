@@ -32,7 +32,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				rendered="#{not empty managerOverviewEvents.event.bookings}"
 				layout="block">
 				<div class="panel-heading">
-					<h3 class="panel-title">Reservierungen des Events</h3>
+					<h3 class="panel-title">Reservierungen des Events "<h:outputText value="#{managerOverviewEvents.event.name}" />"</h3>
 				</div>
 				<div class="panel-body">
 					<h:form>

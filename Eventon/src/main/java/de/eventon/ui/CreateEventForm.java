@@ -183,6 +183,8 @@ public class CreateEventForm implements Serializable {
 					eventToEdit.setPublished(publish);
 					if(filename != null)
 						eventToEdit.setFilename(filename);
+					
+					eventService.updateEvent(eventToEdit);
 					return navigationService.editEventSuccessful();
 				}
 			} else {

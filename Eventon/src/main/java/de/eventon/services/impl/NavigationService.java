@@ -36,33 +36,21 @@ public class NavigationService implements Serializable, IsNavigationService {
 	public NavigationService() {
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#home()
-	 */
 	@Override
 	public String home() {
 		return Pages.HOME.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#searchEvents()
-	 */
 	@Override
 	public String searchEvents() {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#login()
-	 */
 	@Override
 	public String login() {
 		return Pages.LOGIN.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#loginSuccessful()
-	 */
 	@Override
 	public String loginSuccessful() {
 		if (lastSignificantPage == null) {
@@ -79,25 +67,17 @@ public class NavigationService implements Serializable, IsNavigationService {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#loginFailed()
-	 */
 	@Override
 	public String loginFailed() {
 		return Pages.LOGIN.toString();
 	}
-
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#cancelLogin()
-	 */
+	
 	@Override
 	public String cancelLogin() {
 		return Pages.HOME.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#logout()
-	 */
+
 	@Override
 	public String logout() {
 		// Wenn die derzeitige Seite eine Manager-Seite ist
@@ -115,172 +95,109 @@ public class NavigationService implements Serializable, IsNavigationService {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#register()
-	 */
 	@Override
 	public String register() {
 		return Pages.REGISTER.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#registrationSuccessful()
-	 */
 	@Override
 	public String registrationSuccessful() {
 		return Pages.LOGIN.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#registrationFailed()
-	 */
 	@Override
 	public String registrationFailed() {
 		return Pages.LOGIN.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#registrationCancelled()
-	 */
 	@Override
 	public String registrationCancelled() {
 		return Pages.HOME.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#userProfile()
-	 */
 	@Override
 	public String userProfile() {
 		return Pages.USERPROFILE.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#userDoesNotExist()
-	 */
 	@Override
 	public String userDoesNotExist() {
 		return Pages.ERROR_404.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#managerOverviewEventsReleased()
-	 */
 	@Override
 	public String managerOverviewEventsReleased() {
 		return Pages.MANAGER_OVERVIEW_EVENTS_RELEASED.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#managerOverviewEventsInProcess()
-	 */
 	@Override
 	public String managerOverviewEventsInProcess() {
 		return Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#notAuthorizedViewingManagerSites()
-	 */
 	@Override
 	public String notAuthorizedViewingManagerSites() {
 		return Pages.ERROR_404.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#eventDoesNotExist()
-	 */
 	@Override
 	public String eventDoesNotExist() {
 		return Pages.ERROR_404.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#book()
-	 */
 	@Override
 	public String book() {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#bookWithoutLogin(int)
-	 */
 	@Override
 	public String bookWithoutLogin(int eventId) {
 		lastSignificantPage = Pages.EVENT;
 		lastSignificantQuery = "?id=" + eventId;
 		return login();
 	}
-	
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#bookingFailed()
-	 */
+
 	@Override
 	public String bookingFailed() {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#cancelBooking()
-	 */
 	@Override
 	public String cancelBooking() {
 		return Pages.HOME.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#bookingCodeSeen()
-	 */
 	@Override
 	public String bookingCodeSeen() {
 		return Pages.HOME.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#createEvent()
-	 */
 	@Override
 	public String createEvent() {
 		return Pages.CREATE_EVENT.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#createEventSuccessful(boolean)
-	 */
 	@Override
 	public String createEventSuccessful(boolean directPublished) {
 		return directPublished ? Pages.MANAGER_OVERVIEW_EVENTS_RELEASED.toString()
 				: Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#createEventFailed()
-	 */
 	@Override
 	public String createEventFailed() {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#cancelCreateEvent()
-	 */
 	@Override
 	public String cancelCreateEvent() {
 		return Pages.HOME.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#editEventSuccessful()
-	 */
 	@Override
 	public String editEventSuccessful() {
 		return Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see de.eventon.services.IsNavigationService#userIsNotManager()
-	 */
 	@Override
 	public String userIsNotManager() {
 		return Pages.HOME.toString();

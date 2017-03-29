@@ -155,37 +155,43 @@ public class CreateEventForm implements Serializable {
 			// Event muss nach dem jetzigen Termin liegen
 			LocalDateTime now = LocalDateTime.now();
 			if (now.compareTo(dateTime) < 0) {
-				
-				String filename = doFileUpload();
-				
-				// Neuerstellen oder Bearbeiten?
-				if (eventToEdit == null) {
-					Address eventAddress = new Address(location, street, housenumber, zip, city);
-					Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal,
-							priceTicketsNormal, amountTicketsPremium, priceTicketsPremium, eventAddress, eventCreator,
-							publish, filename);
-							
-					eventService.createEvent(event);
-					return navigationService.createEventSuccessful(publish);
-				} else {
-					eventToEdit.setName(eventName);
-					eventToEdit.setDatetime(dateTime);
-					eventToEdit.setDescription(eventDescription);
-					eventToEdit.setAmountTicketsNormal(amountTicketsNormal);
-					eventToEdit.setAmountTicketsPremium(amountTicketsPremium);
-					eventToEdit.setPriceTicketsNormal(priceTicketsNormal);
-					eventToEdit.setPriceTicketsPremium(priceTicketsPremium);
-					eventToEdit.getAddress().setStreet(street);
-					eventToEdit.getAddress().setStreetnumber(housenumber);
-					eventToEdit.getAddress().setZip(zip);
-					eventToEdit.getAddress().setCity(city);
-					eventToEdit.getAddress().setLocationName(location);
-					eventToEdit.setPublished(publish);
-					if(filename != null)
-						eventToEdit.setFilename(filename);
+				//Parkett muss günstiger oder gleich dem Logen-Ticket sein
+				if(priceTicketsNormal <= priceTicketsPremium){
+					String filename = doFileUpload();
 					
-					eventService.updateEvent(eventToEdit);
-					return navigationService.editEventSuccessful();
+					// Neuerstellen oder Bearbeiten?
+					if (eventToEdit == null) {
+						Address eventAddress = new Address(location, street, housenumber, zip, city);
+						Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal,
+								priceTicketsNormal, amountTicketsPremium, priceTicketsPremium, eventAddress, eventCreator,
+								publish, filename);
+								
+						eventService.createEvent(event);
+						return navigationService.createEventSuccessful(publish);
+					} else {
+						eventToEdit.setName(eventName);
+						eventToEdit.setDatetime(dateTime);
+						eventToEdit.setDescription(eventDescription);
+						eventToEdit.setAmountTicketsNormal(amountTicketsNormal);
+						eventToEdit.setAmountTicketsPremium(amountTicketsPremium);
+						eventToEdit.setPriceTicketsNormal(priceTicketsNormal);
+						eventToEdit.setPriceTicketsPremium(priceTicketsPremium);
+						eventToEdit.getAddress().setStreet(street);
+						eventToEdit.getAddress().setStreetnumber(housenumber);
+						eventToEdit.getAddress().setZip(zip);
+						eventToEdit.getAddress().setCity(city);
+						eventToEdit.getAddress().setLocationName(location);
+						eventToEdit.setPublished(publish);
+						if(filename != null)
+							eventToEdit.setFilename(filename);
+						
+						eventService.updateEvent(eventToEdit);
+						return navigationService.editEventSuccessful();
+					} 
+				} else {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Parkettpreis teurer als Logenpreis", "Der Parkettpreis muss günstiger oder gleich dem Logenpreis sein.");
+					FacesContext.getCurrentInstance().addMessage("createEventForm:eventPriceNormal", msg);
+					FacesContext.getCurrentInstance().addMessage("createEventForm:eventPricePremium", msg);
 				}
 			} else {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Starttermin liegt in der Vergangenheit", "Der Starttermin des Events muss in der Zukunft liegen.");

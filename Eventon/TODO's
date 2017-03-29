@@ -1,43 +1,23 @@
 //PROGRAMMIERUNG
-Event kann direkt veröffentlicht werden, allerdings merkt der User es erst beim Neuladen der Page
-- Buttons zum Absenden einbauen
-
-Bilder-Upload																		David - DONE
-
-Upload-Methode für User besprechen
-
-Triple Navigation (bzw. wie besprochen Bootstrap Login-Dropdown)					Leon - DONE
-
-Extract Interfaces																	Leon - DONE
-
-Datenbank überall einbinden															David & Leon
-
-Bankaccount Datenbank
-
 Ganz am Ende: alle Scopes kontrollieren												Leon
-
-"Als Manager registrieren" und "Direkt veröffentlichen" schön machen				David - DONE
-
-Styles aus xhtml-Dateien extrahieren												David - DONE
 
 Aktuelles Bild beim Event bearbeiten anzeigen, falls vorhanden						David
 
 Glyphicons verwenden																David
 
-Rendering Userprofile "keine Bestellungen" funktioniert nicht						David - DONE
-
 Einrückung und Darstellung Userprofile bei Verkleinerung des Browsers 				David
 	- (bei Buttons vllt. wie bei Login mit bootstrap-Klassen?)
-	
-Login über User statt getPassword? mit Session Context								Leon - DONE
-
-Regex Vorname Nachname ohne Sonderzeichen aber mit "á" und "-" etc. in UserFirstnameValidator David
-
-UUID in UserProfile myBooking-Tabelle												David - DONE
 
 Als Manager möchte ich alle Reservierungen eines Events sehen. -> Meine Events		David
 	-> veröffentlichte -> DrillDown auf "Anzahl Reserviert" führt zu neuer Seite
 	mit einer Tabelle "Reservierungen zu Event xy" 
+
+//BUUUUGS
+Buchungen an nicht mehr aktuellen (bereits vergangenen) Events verhindern - sind erreichbar über ID und Link beim User
+
+Anzeige von verfügbaren Tickets?
+
+Kommentare an wichtige Methoden in Forms und Services								David & Leon
 
 //DOKU
 ER-Modell erstellen in Visio														David

@@ -42,8 +42,8 @@ public class ManagerOverviewEvents implements Serializable {
 
 	@PostConstruct
 	private void init() {
-		// Ansonsten (wenn keine gültige ID mitgegeben wurde): Redirect auf
-		// ErrorPage, da das Event nicht gefunden werden kann
+		//Falls der Manager nicht eingeloggt ist
+		//ErrorPage
 		if (sessionContext.getActiveUser() == null || !sessionContext.getActiveUser().isManager()) {
 			try {
 				FacesContext.getCurrentInstance().getExternalContext()
@@ -86,7 +86,8 @@ public class ManagerOverviewEvents implements Serializable {
 	public String publishEvents() {
 		for (Entry<Event, Boolean> map : mapEventPublished.entrySet()) {
 			if (map.getValue()) {
-				eventService.publishEvent(map.getKey());
+				map.getKey().setPublished(true);
+				eventService.updateEvent(map.getKey());
 			}
 		}
 		return navigationService.managerOverviewEventsInProcess();

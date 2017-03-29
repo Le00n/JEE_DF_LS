@@ -43,6 +43,10 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 								<h:outputText value="#{booking.bookingUUID}"/>
 							</h:column>
 							<h:column>
+								<f:facet name="header">Benutzer</f:facet>
+								<h:outputText value="#{booking.user.email}"/>
+							</h:column>
+							<h:column>
 								<f:facet name="header">Datum</f:facet>
 								<h:outputText pattern="dd.MM.YYYY" value="#{booking.bookingDatetime}">
 									<f:converter converterId="LocalDateConverterID" />	

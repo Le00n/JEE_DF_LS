@@ -40,13 +40,33 @@ public interface IsEventService {
 	 * @return Liste von zutreffenden Events, falls es Treffer gibt
 	 */
 	Optional<List<Event>> searchEvents(String searchTerm);
-	
-	void updateEvent(Event event);
-	
-	void deleteEvent(Event event);
-	
-	void publishEvent(Event event);
 
+	/**
+	 * Updated das übergebene Event.
+	 * 
+	 * @param event
+	 *            Event mit überarbeiteten Werten
+	 */
+	void updateEvent(Event event);
+
+	/**
+	 * Löscht das übergebene Event
+	 * 
+	 * @param event
+	 *            Event, welches gelöscht werden soll
+	 */
+	void deleteEvent(Event event);
+
+	/**
+	 * Gibt eine Liste aller Events zu einem Manager zurück
+	 * 
+	 * @param manager
+	 *            Manager der Events
+	 * @param published
+	 *            Nur die veröffentlichten oder nur die unveröffentlichten?
+	 * @return Liste aller veröffentlichter/nicht veröffentlichter Events zum
+	 *         Manager
+	 */
 	Optional<List<Event>> getManagerEvents(User manager, boolean published);
 
 }

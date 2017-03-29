@@ -119,14 +119,5 @@ public class EventService implements Serializable, IsEventService {
 			e.printStackTrace();
 			return Optional.empty();
 		}
-	}
-
-	@Override
-	public void publishEvent(Event event) {
-		if(event != null)
-		{
-			event.setPublished(true);
-			updateEvent(event);
-		}
 	}	
 }

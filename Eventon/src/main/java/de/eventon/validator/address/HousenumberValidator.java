@@ -16,7 +16,7 @@ public class HousenumberValidator implements Validator {
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		if(value instanceof String){
 			if(!((String) value).matches(HOUSENUMBER_PATTERN)){
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ungültige Hausnummer", "Dies ist keine gültige Hausnummer");
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ungültige Hausnr.", "Dies ist keine gültige Hausnummer");
 				throw new ValidatorException(msg);
 			}
 		} else {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -14,7 +14,7 @@ import de.eventon.services.interfaces.IsEventService;
 import de.eventon.services.interfaces.IsNavigationService;
 
 @Named("eventSearchForm")
-@RequestScoped
+@SessionScoped
 public class EventSearchForm implements Serializable {
 
 	private static final long serialVersionUID = 549403592893015555L;

@@ -41,12 +41,13 @@ public class EventBookingService implements Serializable, IsEventBookingService 
 		if (user != null && amountTicketsNormal <= event.getAmountFreeNormalTickets()
 				&& amountTicketsPremium <= event.getAmountFreePremiumTickets()) {
 			Booking booking = new Booking(event, user, amountTicketsNormal, amountTicketsPremium);
-			user.addBooking(booking);
-			event.addBooking(booking);
 			
 			entityManager.getTransaction().begin();
 			entityManager.persist(booking);
 			entityManager.getTransaction().commit();
+			entityManager.refresh(event);
+			entityManager.refresh(user);
+			entityManager.refresh(booking);
 			return Optional.of(booking.getBookingUUID());
 		}
 		return Optional.empty();

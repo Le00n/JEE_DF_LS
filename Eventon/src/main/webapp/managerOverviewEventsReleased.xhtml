@@ -17,7 +17,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<h:panelGroup class="panel panel-danger panel-table"
-						rendered="#{empty managerOverviewEvents.publishedEvents}"
+						rendered="#{empty managerOverviewEventsForm.publishedEvents}"
 						layout="block">
 						<div class="panel-heading">
 							<h3 class="panel-title">Sie haben derzeit keine
@@ -30,14 +30,14 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		</div>
 		<div id="showEvents" class="col-md-10 col-md-offset-1">
 			<h:panelGroup class="panel panel-primary panel-table"
-				rendered="#{not empty managerOverviewEvents.publishedEvents}"
+				rendered="#{not empty managerOverviewEventsForm.publishedEvents}"
 				layout="block">
 				<div class="panel-heading">
 					<h3 class="panel-title">Veröffentlichte Events</h3>
 				</div>
 				<div class="panel-body">
 					<h:form>
-						<h:dataTable value="#{managerOverviewEvents.publishedEvents}"
+						<h:dataTable value="#{managerOverviewEventsForm.publishedEvents}"
 							var="event" class="table table-hover table-bordered">
 							<h:column>
 								<f:facet name="header">Bild</f:facet>

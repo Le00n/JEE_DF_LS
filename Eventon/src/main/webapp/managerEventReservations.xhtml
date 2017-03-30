@@ -17,7 +17,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<h:panelGroup class="panel panel-danger panel-table"
-						rendered="#{empty managerOverviewEvents.event.bookings}"
+						rendered="#{empty managerOverviewEventsForm.event.bookings}"
 						layout="block">
 						<div class="panel-heading">
 							<h3 class="panel-title">Dieses Event wurde noch nie gebucht.</h3>
@@ -29,14 +29,14 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		</div>
 		<div id="showEvents" class="col-md-10 col-md-offset-1">
 			<h:panelGroup class="panel panel-primary panel-table"
-				rendered="#{not empty managerOverviewEvents.event.bookings}"
+				rendered="#{not empty managerOverviewEventsForm.event.bookings}"
 				layout="block">
 				<div class="panel-heading">
-					<h3 class="panel-title">Reservierungen des Events "<h:outputText value="#{managerOverviewEvents.event.name}" />"</h3>
+					<h3 class="panel-title">Reservierungen des Events "<h:outputText value="#{managerOverviewEventsForm.event.name}" />"</h3>
 				</div>
 				<div class="panel-body">
 					<h:form>
-						<h:dataTable value="#{managerOverviewEvents.event.bookings}"
+						<h:dataTable value="#{managerOverviewEventsForm.event.bookings}"
 							var="booking" class="table table-hover table-bordered">
 							<h:column>
 								<f:facet name="header">Reservierungscode</f:facet>

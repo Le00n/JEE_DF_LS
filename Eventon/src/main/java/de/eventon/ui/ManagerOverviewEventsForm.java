@@ -15,6 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import de.eventon.core.Booking;
 import de.eventon.core.Event;
 import de.eventon.core.User;
 import de.eventon.services.interfaces.IsEventService;
@@ -23,7 +24,7 @@ import de.eventon.session.SessionContext;
 
 @Named("managerOverviewEvents")
 @RequestScoped
-public class ManagerOverviewEvents implements Serializable {
+public class ManagerOverviewEventsForm implements Serializable {
 
 	private static final long serialVersionUID = -936830754297682305L;
 
@@ -37,7 +38,7 @@ public class ManagerOverviewEvents implements Serializable {
 	private HashMap<Event, Boolean> mapEventPublished;
 	private Event event;
 
-	public ManagerOverviewEvents() {
+	public ManagerOverviewEventsForm() {
 	}
 
 	@PostConstruct
@@ -83,6 +84,10 @@ public class ManagerOverviewEvents implements Serializable {
 			return events.get();
 	}
 
+	/**
+	 * published die Events, die in der Map übergeben wurden.
+	 * Durch das Map-Konstrukt können zeitgleich mehrere Events gepublished werden.
+	 */
 	public String publishEvents() {
 		for (Entry<Event, Boolean> map : mapEventPublished.entrySet()) {
 			if (map.getValue()) {
@@ -117,6 +122,10 @@ public class ManagerOverviewEvents implements Serializable {
 		this.eventService = eventService;
 	}
 
+	/**
+	 * Lädt die unpublishedEvents und fügt sie einer Map hinzu. Somit ändert die xhtml-Seite den 
+	 * Value des Key-Value Pairs und greift nicht direkt auf die event-Eigenschaft zu.
+	 */
 	public HashMap<Event, Boolean> getMapEventPublished() {
 		User manager = sessionContext.getActiveUser();
 		Optional<List<Event>> events = eventService.getManagerEvents(manager, false);
@@ -128,6 +137,10 @@ public class ManagerOverviewEvents implements Serializable {
 			}
 		}
 		return mapEventPublished;
+	}
+	
+	public List<Booking> getReservations(Event event){
+		return event.getBookings();
 	}
 
 	public void setMapEventPublished(HashMap<Event, Boolean> mapEventPublished) {

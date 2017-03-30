@@ -27,3 +27,5 @@ User Stories dokumentieren
 Quellcode dokumentieren
 Date Time - kein Converter, weil beides zusammengehört (Begründung in Doku)
 Installationsanleitung
+Schichtenarchitektur Interfaces vor Schichten einbauen
+Installationsanleitung kontrollieren

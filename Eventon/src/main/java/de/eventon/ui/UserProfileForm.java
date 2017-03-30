@@ -87,6 +87,9 @@ public class UserProfileForm implements Serializable {
 		}
 	}
 
+	/**
+	 * Prüft, ob die Änderung der E-Mail Adresse gültig ist oder ob diese schon von einem anderen User verwendet wird.
+	 */
 	public String save() {
 		if(getUserService().getUserByEmail(email).isPresent())
 		{

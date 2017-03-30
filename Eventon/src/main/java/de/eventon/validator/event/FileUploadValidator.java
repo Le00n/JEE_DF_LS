@@ -18,12 +18,6 @@ public class FileUploadValidator implements Validator {
         FacesMessage message=null;
  
         try {
-        	System.out.println("Im Validator");
-			System.out.println(file.getContentType());
-			System.out.println(file.toString());
-			if(file.getSize() <= 0) System.out.println("file ist kleiner 0");
-			if(file.getContentType().isEmpty()) System.out.println("contenttype ist leer");
-			System.out.println("Hallo Validator");
             if (file==null || file.getSize()<=0 || file.getContentType().isEmpty() )
                 message=new FacesMessage("Wählen Sie eine gültige Datei");
             else if (!file.getContentType().endsWith("jpeg"))

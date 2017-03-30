@@ -133,6 +133,9 @@ public class RegisterForm implements Serializable {
 		this.manager = manager;
 	}
 
+	/**
+	 * Überprüft, ob die E-Mail Adresse noch nicht registriert ist und die Passwörter übereinstimmten
+	 */
 	public String register() {
 		if (userService.getUserByEmail(email).isPresent()) {
 			FacesContext.getCurrentInstance().addMessage("registerForm:inputEmail",

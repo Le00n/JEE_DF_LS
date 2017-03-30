@@ -36,20 +36,6 @@ public class UserService implements Serializable, IsUserService {
 
 	public UserService() {
 	}
-	
-	@PostConstruct
-	public void init(){
-//		User leonNutzer = new User("leonstapper@gmx.de", "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-//				"Leon", "Stapper", new Address("Buchdahlstraße", "6", "48429", "Rheine"),
-//				new BankAccount("Leon Stapper", "DE83403500050000123456", "WELADED1RHN"), false);
-////		userService.addUser(leonNutzer);
-
-//		User davidManager = new User("david.feldhoff@web.de",
-//				"03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "David", "Feldhoff",
-//				new Address("Moorstraße", "88a", "48432", "Rheine"),
-//				new BankAccount("David Feldhoff", "DE83403500050000123457", "WELADED1RHN"), true);
-////		userService.addUser(davidManager);
-	}
 
 	@Override
 	public Optional<User> getUserByEmail(String email) {
@@ -96,9 +82,9 @@ public class UserService implements Serializable, IsUserService {
 								//Der entityManager soll aber den letzten aus der Datenbank ziehen.
 		entityManager.getTransaction().begin();
 
-		//Hole alten user und seine alte Banknummer. Nachher muss geprüft werden, ob diese noch verwendet wird
+		//Hole alten User und seine alte Banknummer. Nachher muss geprüft werden, ob diese noch verwendet wird
 		//Der BankAccount kann aber nicht jetzt schon gelöscht werden, da er ja derzeit noch vom User verwendet wird
-		//und somit gegen den Foreign-Key Constraint verstoßen würde.
+		//und somit eine Löschung gegen den Foreign-Key Constraint verstoßen würde.
 		User oldUser = entityManager.find(User.class, user.getUserId());
 		BankAccount oldBankAccount = entityManager.find(BankAccount.class, oldUser.getBankAccount().getIban());
 		

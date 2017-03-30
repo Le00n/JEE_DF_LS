@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
 import de.eventon.core.Event;
 import de.eventon.core.User;
@@ -43,26 +44,29 @@ public class EventService implements Serializable, IsEventService {
 	}
 
 	@Override
+	@Transactional
 	public void createEvent(Event event) {
-		entityManager.getTransaction().begin();
+//		entityManager.getTransaction().begin();
 		entityManager.persist(event);
 		entityManager.persist(event.getAddress());
-		entityManager.getTransaction().commit();
+//		entityManager.getTransaction().commit();
 	}
 	
 	@Override
+	@Transactional
 	public void updateEvent(Event event){
-		entityManager.getTransaction().begin();
+//		entityManager.getTransaction().begin();
 		entityManager.merge(event);
 		entityManager.merge(event.getAddress());
-		entityManager.getTransaction().commit();
+//		entityManager.getTransaction().commit();
 	}
 	
 	@Override
+	@Transactional
 	public void deleteEvent(Event event){
-		entityManager.getTransaction().begin();
+//		entityManager.getTransaction().begin();
 		entityManager.remove(event);
-		entityManager.getTransaction().commit();
+//		entityManager.getTransaction().commit();
 	}
 
 	@Override

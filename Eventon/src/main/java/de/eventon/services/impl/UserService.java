@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
 import de.eventon.core.Address;
 import de.eventon.core.BankAccount;
@@ -62,14 +63,15 @@ public class UserService implements Serializable, IsUserService {
 	}
 
 	@Override
+	@Transactional
 	public boolean addUser(User user) {
 		if (getUserByEmail(user.getEmail()).isPresent() == false) {
-			entityManager.getTransaction().begin();
+//			entityManager.getTransaction().begin();
 			entityManager.persist(user);
 			entityManager.persist(user.getAddress());
 			if(entityManager.find(BankAccount.class, user.getBankAccount().getIban()) == null)
 				entityManager.persist(user.getBankAccount());
-			entityManager.getTransaction().commit();
+//			entityManager.getTransaction().commit();
 
 			return true;
 		}
@@ -77,10 +79,11 @@ public class UserService implements Serializable, IsUserService {
 	}
 
 	@Override
+	@Transactional
 	public boolean updateUser(User user) {
-		entityManager.clear();	//Ansonsten wird mit find der User auch dem entityManagerContext gezogen. 
+//		entityManager.clear();	//Ansonsten wird mit find der User auch dem entityManagerContext gezogen. 
 								//Der entityManager soll aber den letzten aus der Datenbank ziehen.
-		entityManager.getTransaction().begin();
+//		entityManager.getTransaction().begin();
 
 		//Hole alten User und seine alte Banknummer. Nachher muss geprüft werden, ob diese noch verwendet wird
 		//Der BankAccount kann aber nicht jetzt schon gelöscht werden, da er ja derzeit noch vom User verwendet wird
@@ -111,7 +114,7 @@ public class UserService implements Serializable, IsUserService {
 			if(userList.isEmpty())
 				entityManager.remove(oldBankAccount);
 		}
-		entityManager.getTransaction().commit();
+//		entityManager.getTransaction().commit();
 		return true;
 	}
 }

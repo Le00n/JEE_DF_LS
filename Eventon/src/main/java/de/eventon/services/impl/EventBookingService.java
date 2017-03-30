@@ -8,6 +8,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import de.eventon.core.Booking;
 import de.eventon.core.Event;
@@ -36,18 +37,16 @@ public class EventBookingService implements Serializable, IsEventBookingService 
 	}
 
 	@Override
+	@Transactional
 	public Optional<UUID> bookEvent(Event event, int amountTicketsNormal, int amountTicketsPremium) {
 		User user = sessionContext.getActiveUser();
 		if (user != null && amountTicketsNormal <= event.getAmountFreeNormalTickets()
 				&& amountTicketsPremium <= event.getAmountFreePremiumTickets()) {
 			Booking booking = new Booking(event, user, amountTicketsNormal, amountTicketsPremium);
 			
-			entityManager.getTransaction().begin();
 			entityManager.persist(booking);
-			entityManager.getTransaction().commit();
-			entityManager.refresh(event);
-			entityManager.refresh(user);
-			entityManager.refresh(booking);
+			event.addBooking(booking);
+			user.addBooking(booking);
 			return Optional.of(booking.getBookingUUID());
 		}
 		return Optional.empty();

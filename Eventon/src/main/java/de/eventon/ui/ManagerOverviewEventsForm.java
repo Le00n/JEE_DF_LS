@@ -22,7 +22,7 @@ import de.eventon.services.interfaces.IsEventService;
 import de.eventon.services.interfaces.IsNavigationService;
 import de.eventon.session.SessionContext;
 
-@Named("managerOverviewEvents")
+@Named("managerOverviewEventsForm")
 @RequestScoped
 public class ManagerOverviewEventsForm implements Serializable {
 

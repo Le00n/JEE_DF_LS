@@ -2,6 +2,7 @@
 
 .event-description{
 	margin-top: 3%;
+	white-space: pre-wrap;
 }
 
 img{

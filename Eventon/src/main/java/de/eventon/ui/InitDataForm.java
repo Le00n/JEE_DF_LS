@@ -20,9 +20,7 @@ public class InitDataForm {
 	NavigationService navigationService;
 	
 	public void init(){
-		System.out.println("Bin im PostConstruct von InitDataForm");
 		dbInitService.init();
-		System.out.println("Habe Daten angelegt");
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect(navigationService.home());
 		} catch (IOException e) {

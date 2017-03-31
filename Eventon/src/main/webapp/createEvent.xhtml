@@ -7,14 +7,14 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
-<ui:composition template="base.xhtml">
+<ui:composition template="needsLoginBase.xhtml">
 	<ui:define name="header">
 		<h:outputStylesheet name="css/fileinput.css" />
 		<h:outputScript name="js/fileinput.js" />
 		<h:outputStylesheet name="css/event.css" />
 	</ui:define>
 
-	<ui:define name="content">
+	<ui:define name="needsLoginContent">
 		<h:panelGroup layout="block"
 			rendered="#{sessionContext.activeUser != null and sessionContext.activeUser.manager}"
 			id="register" class="panel panel-default col-md-5 col-md-offset-3">

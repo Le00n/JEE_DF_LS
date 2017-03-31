@@ -27,18 +27,20 @@ public class NavigationService implements Serializable, IsNavigationService {
 
 	private static final long serialVersionUID = -173122607581315417L;
 
+	private static final String REDIRECT = "?faces-redirect=true";
+
 	@Inject
 	private SessionContext sessionContext;
 
 	private Pages lastSignificantPage;
 	private String lastSignificantQuery;
-	
+
 	public NavigationService() {
 	}
 
 	@Override
 	public String home() {
-		return Pages.HOME.toString();
+		return Pages.HOME.toString() + REDIRECT;
 	}
 
 	@Override
@@ -48,35 +50,35 @@ public class NavigationService implements Serializable, IsNavigationService {
 
 	@Override
 	public String login() {
-		return Pages.LOGIN.toString();
+		return Pages.LOGIN.toString() + REDIRECT;
 	}
 
 	@Override
 	public String loginSuccessful() {
 		if (lastSignificantPage == null) {
-			return Pages.HOME.toString();
+			return Pages.HOME.toString() + REDIRECT;
 		} else {
 			try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect(lastSignificantPage + lastSignificantQuery);
+				FacesContext.getCurrentInstance().getExternalContext()
+						.redirect(lastSignificantPage + lastSignificantQuery);
 			} catch (IOException e) {
 			} finally {
 				lastSignificantPage = null;
 				lastSignificantQuery = "";
 			}
-			return Pages.ERROR_404.toString();
+			return Pages.ERROR_404.toString() + REDIRECT;
 		}
 	}
 
 	@Override
 	public String loginFailed() {
-		return Pages.LOGIN.toString();
-	}
-	
-	@Override
-	public String cancelLogin() {
-		return Pages.HOME.toString();
+		return Pages.LOGIN.toString() + REDIRECT;
 	}
 
+	@Override
+	public String cancelLogin() {
+		return Pages.HOME.toString() + REDIRECT;
+	}
 
 	@Override
 	public String logout() {
@@ -87,9 +89,10 @@ public class NavigationService implements Serializable, IsNavigationService {
 		if (optPages.isPresent()) {
 			if (optPages.get().equals(Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS) //
 					|| optPages.get().equals(Pages.MANAGER_OVERVIEW_EVENTS_RELEASED) //
+					|| optPages.get().equals(Pages.MANAGER_EVENT_RESERVATIONS) //
 					|| optPages.get().equals(Pages.CREATE_EVENT) //
 					|| optPages.get().equals(Pages.USERPROFILE)) { //
-				return Pages.HOME.toString();
+				return Pages.HOME.toString() + REDIRECT;
 			}
 		}
 		return null;
@@ -97,52 +100,52 @@ public class NavigationService implements Serializable, IsNavigationService {
 
 	@Override
 	public String register() {
-		return Pages.REGISTER.toString();
+		return Pages.REGISTER.toString() + REDIRECT;
 	}
 
 	@Override
 	public String registrationSuccessful() {
-		return Pages.LOGIN.toString();
+		return Pages.LOGIN.toString() + REDIRECT;
 	}
 
 	@Override
 	public String registrationFailed() {
-		return Pages.LOGIN.toString();
+		return Pages.LOGIN.toString() + REDIRECT;
 	}
 
 	@Override
 	public String registrationCancelled() {
-		return Pages.HOME.toString();
+		return Pages.HOME.toString() + REDIRECT;
 	}
 
 	@Override
 	public String userProfile() {
-		return Pages.USERPROFILE.toString();
+		return Pages.USERPROFILE.toString() + REDIRECT;
 	}
 
 	@Override
 	public String userDoesNotExist() {
-		return Pages.ERROR_404.toString();
+		return Pages.ERROR_404.toString() + REDIRECT;
 	}
 
 	@Override
 	public String managerOverviewEventsReleased() {
-		return Pages.MANAGER_OVERVIEW_EVENTS_RELEASED.toString();
+		return Pages.MANAGER_OVERVIEW_EVENTS_RELEASED.toString() + REDIRECT;
 	}
 
 	@Override
 	public String managerOverviewEventsInProcess() {
-		return Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString();
+		return Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString() + REDIRECT;
 	}
 
 	@Override
 	public String notAuthorizedViewingManagerSites() {
-		return Pages.ERROR_404.toString();
+		return Pages.ERROR_404.toString() + REDIRECT;
 	}
 
 	@Override
 	public String eventDoesNotExist() {
-		return Pages.ERROR_404.toString();
+		return Pages.ERROR_404.toString() + REDIRECT;
 	}
 
 	@Override
@@ -164,23 +167,23 @@ public class NavigationService implements Serializable, IsNavigationService {
 
 	@Override
 	public String cancelBooking() {
-		return Pages.HOME.toString();
+		return Pages.HOME.toString() + REDIRECT;
 	}
 
 	@Override
 	public String bookingCodeSeen() {
-		return Pages.HOME.toString();
+		return Pages.HOME.toString() + REDIRECT;
 	}
 
 	@Override
 	public String createEvent() {
-		return Pages.CREATE_EVENT.toString();
+		return Pages.CREATE_EVENT.toString() + REDIRECT;
 	}
 
 	@Override
 	public String createEventSuccessful(boolean directPublished) {
-		return directPublished ? Pages.MANAGER_OVERVIEW_EVENTS_RELEASED.toString()
-				: Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString();
+		return directPublished ? Pages.MANAGER_OVERVIEW_EVENTS_RELEASED.toString() + REDIRECT
+				: Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString() + REDIRECT;
 	}
 
 	@Override
@@ -190,19 +193,19 @@ public class NavigationService implements Serializable, IsNavigationService {
 
 	@Override
 	public String cancelCreateEvent() {
-		return Pages.HOME.toString();
+		return Pages.HOME.toString() + REDIRECT;
 	}
 
 	@Override
 	public String editEventSuccessful() {
-		return Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString();
+		return Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString() + REDIRECT;
 	}
 
 	@Override
 	public String userIsNotManager() {
-		return Pages.HOME.toString();
+		return Pages.HOME.toString() + REDIRECT;
 	}
-	
+
 	public SessionContext getSessionContext() {
 		return sessionContext;
 	}
@@ -225,11 +228,18 @@ public class NavigationService implements Serializable, IsNavigationService {
 	 * @author Leon Stapper
 	 */
 	public enum Pages {
-		LOGIN("login.xhtml"), REGISTER("register.xhtml"), HOME("index.xhtml"), USERPROFILE(
-				"user.xhtml"), MANAGER_OVERVIEW_EVENTS_RELEASED(
-						"managerOverviewEventsReleased.xhtml"), MANAGER_OVERVIEW_EVENTS_IN_PROCESS(
-								"managerOverviewEventsInProcess.xhtml"), EVENT(
-										"event.xhtml"), CREATE_EVENT("createEvent.xhtml"), ERROR_404("404.xhtml");
+		ERROR_404("404.xhtml"), //
+		CREATE_EVENT("createEvent.xhtml"), //
+		ERROR("error.xhtml"), //
+		EVENT("event.xhtml"), //
+		HOME("index.xhtml"), //
+		INIT_DATA("initData.xhmtl"), //
+		LOGIN("login.xhtml"), //
+		MANAGER_EVENT_RESERVATIONS("managerEventReservations.xhtml"), //
+		MANAGER_OVERVIEW_EVENTS_IN_PROCESS("managerOverviewEventsInProcess.xhtml"), //
+		MANAGER_OVERVIEW_EVENTS_RELEASED("managerOverviewEventsReleased.xhtml"), //
+		REGISTER("register.xhtml"), //
+		USERPROFILE("user.xhtml"); //
 
 		private String value;
 

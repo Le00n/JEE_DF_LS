@@ -75,7 +75,6 @@ public class CreateEventForm implements Serializable {
 	private SessionContext sessionContext;
 
 	public CreateEventForm() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@PostConstruct
@@ -84,13 +83,7 @@ public class CreateEventForm implements Serializable {
 		// Redirect auf ErrorPage, da nur Manager ein Event erstellen/bearbeiten
 		// dürfen
 		User activeUser = sessionContext.getActiveUser();
-		if (activeUser == null || !activeUser.isManager()) {
-			try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect(navigationService.userIsNotManager());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} else {
+		if (activeUser != null && activeUser.isManager()) {
 			// Event erstellen oder bearbeiten?
 			// Wenn ID im Query-Parameter: Bearbeiten
 			// Bearbeitung nur wenn die ID gültig und das dazugehörige Event
@@ -155,17 +148,17 @@ public class CreateEventForm implements Serializable {
 			// Event muss nach dem jetzigen Termin liegen
 			LocalDateTime now = LocalDateTime.now();
 			if (now.compareTo(dateTime) < 0) {
-				//Parkett muss günstiger oder gleich dem Logen-Ticket sein
-				if(priceTicketsNormal <= priceTicketsPremium){
+				// Parkett muss günstiger oder gleich dem Logen-Ticket sein
+				if (priceTicketsNormal <= priceTicketsPremium) {
 					String filename = doFileUpload();
-					
+
 					// Neuerstellen oder Bearbeiten?
 					if (eventToEdit == null) {
 						Address eventAddress = new Address(location, street, housenumber, zip, city);
 						Event event = new Event(eventName, dateTime, eventDescription, amountTicketsNormal,
-								priceTicketsNormal, amountTicketsPremium, priceTicketsPremium, eventAddress, eventCreator,
-								publish, filename);
-								
+								priceTicketsNormal, amountTicketsPremium, priceTicketsPremium, eventAddress,
+								eventCreator, publish, filename);
+
 						eventService.createEvent(event);
 						return navigationService.createEventSuccessful(publish);
 					} else {
@@ -182,19 +175,23 @@ public class CreateEventForm implements Serializable {
 						eventToEdit.getAddress().setCity(city);
 						eventToEdit.getAddress().setLocationName(location);
 						eventToEdit.setPublished(publish);
-						if(filename != null)
+						if (filename != null)
 							eventToEdit.setFilename(filename);
-						
+
 						eventService.updateEvent(eventToEdit);
 						return navigationService.editEventSuccessful();
-					} 
+					}
 				} else {
-					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Parkettpreis teurer als Logenpreis", "Der Parkettpreis muss günstiger oder gleich dem Logenpreis sein.");
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Parkettpreis teurer als Logenpreis",
+							"Der Parkettpreis muss günstiger oder gleich dem Logenpreis sein.");
 					FacesContext.getCurrentInstance().addMessage("createEventForm:eventPriceNormal", msg);
 					FacesContext.getCurrentInstance().addMessage("createEventForm:eventPricePremium", msg);
 				}
 			} else {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Starttermin liegt in der Vergangenheit", "Der Starttermin des Events muss in der Zukunft liegen.");
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Starttermin liegt in der Vergangenheit",
+						"Der Starttermin des Events muss in der Zukunft liegen.");
 				FacesContext.getCurrentInstance().addMessage("createEventForm:eventDate", msg);
 				FacesContext.getCurrentInstance().addMessage("createEventForm:eventTime", msg);
 			}
@@ -369,40 +366,41 @@ public class CreateEventForm implements Serializable {
 
 	private String doFileUpload() {
 		String filename = getFilename(getFile());
-		if(filename == null)
+		if (filename == null)
 			return null;
-		
+
 		Path destination = null;
-		try{
+		try {
 			String filenameWithoutEnding = filename.substring(0, filename.lastIndexOf("."));
 			String fileEnding = filename.substring(filename.lastIndexOf("."));
 			destination = Files.createTempFile(Paths.get("/var/webapp/images"), filenameWithoutEnding, fileEnding);
 			filename = destination.getFileName().toString();
-		}catch(Exception ex){ ex.printStackTrace(); }
-		
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
 		InputStream bytes = null;
-		if(getFile() != null)
-		{
-			try{
-			bytes = getFile().getInputStream();
-			Files.copy(bytes, destination, StandardCopyOption.REPLACE_EXISTING);
-			}catch(Exception e)
-			{
+		if (getFile() != null) {
+			try {
+				bytes = getFile().getInputStream();
+				Files.copy(bytes, destination, StandardCopyOption.REPLACE_EXISTING);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		return filename;
 	}
+
 	private static String getFilename(Part part) {
-		if(part != null)
-		{
-	        for (String cd : part.getHeader("content-disposition").split(";")) {
-	            if (cd.trim().startsWith("filename")) {
-	                String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-	                return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
-	            }
-	        }
+		if (part != null) {
+			for (String cd : part.getHeader("content-disposition").split(";")) {
+				if (cd.trim().startsWith("filename")) {
+					String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+					return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE
+																														// fix.
+				}
+			}
 		}
-        return null;
+		return null;
 	}
 }

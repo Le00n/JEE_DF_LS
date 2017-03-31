@@ -43,50 +43,43 @@ public class ManagerOverviewEventsForm implements Serializable {
 
 	@PostConstruct
 	private void init() {
-		//Falls der Manager nicht eingeloggt ist
-		//ErrorPage
-		if (sessionContext.getActiveUser() == null || !sessionContext.getActiveUser().isManager()) {
-			try {
-				FacesContext.getCurrentInstance().getExternalContext()
-						.redirect(navigationService.notAuthorizedViewingManagerSites());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		// Funktioniert nur, falls der Manager eingeloggt ist
+		if (sessionContext.getActiveUser() != null && sessionContext.getActiveUser().isManager()) {
 
-		Map<String, String> rqParameter = FacesContext.getCurrentInstance().getExternalContext()
-				.getRequestParameterMap();
-		String eventId = rqParameter.get("id");
+			Map<String, String> rqParameter = FacesContext.getCurrentInstance().getExternalContext()
+					.getRequestParameterMap();
+			String eventId = rqParameter.get("id");
 
-		// Wurde eine gültige ID im Query-Parameter mitgegeben?
-		// Dann Event anzeigen
-		if (eventId != null) {
-			try {
-				int idAsInteger = Integer.parseInt(eventId);
-				Optional<Event> optEvent = eventService.getEventById(idAsInteger);
-				if (optEvent.isPresent()) {
-					setEvent(optEvent.get());
+			// Wurde eine gültige ID im Query-Parameter mitgegeben?
+			// Dann Event anzeigen
+			if (eventId != null) {
+				try {
+					int idAsInteger = Integer.parseInt(eventId);
+					Optional<Event> optEvent = eventService.getEventById(idAsInteger);
+					if (optEvent.isPresent()) {
+						setEvent(optEvent.get());
+					}
+				} catch (NumberFormatException e) {
+					setEvent(null);
 				}
-			} catch (NumberFormatException e) {
+			} else {
 				setEvent(null);
 			}
-		} else {
-			setEvent(null);
 		}
 	}
 
 	public List<Event> getPublishedEvents() {
 		User manager = sessionContext.getActiveUser();
 		Optional<List<Event>> events = eventService.getManagerEvents(manager, true);
-		if(!events.isPresent())
+		if (!events.isPresent())
 			return new ArrayList<Event>();
 		else
 			return events.get();
 	}
 
 	/**
-	 * published die Events, die in der Map übergeben wurden.
-	 * Durch das Map-Konstrukt können zeitgleich mehrere Events gepublished werden.
+	 * published die Events, die in der Map übergeben wurden. Durch das
+	 * Map-Konstrukt können zeitgleich mehrere Events gepublished werden.
 	 */
 	public String publishEvents() {
 		for (Entry<Event, Boolean> map : mapEventPublished.entrySet()) {
@@ -123,23 +116,23 @@ public class ManagerOverviewEventsForm implements Serializable {
 	}
 
 	/**
-	 * Lädt die unpublishedEvents und fügt sie einer Map hinzu. Somit ändert die xhtml-Seite den 
-	 * Value des Key-Value Pairs und greift nicht direkt auf die event-Eigenschaft zu.
+	 * Lädt die unpublishedEvents und fügt sie einer Map hinzu. Somit ändert die
+	 * xhtml-Seite den Value des Key-Value Pairs und greift nicht direkt auf die
+	 * event-Eigenschaft zu.
 	 */
 	public HashMap<Event, Boolean> getMapEventPublished() {
 		User manager = sessionContext.getActiveUser();
 		Optional<List<Event>> events = eventService.getManagerEvents(manager, false);
 		mapEventPublished = new HashMap<>();
-		if(events.isPresent())
-		{
-			for (Event event : events.get()) {			
+		if (events.isPresent()) {
+			for (Event event : events.get()) {
 				mapEventPublished.put(event, event.isPublished());
 			}
 		}
 		return mapEventPublished;
 	}
-	
-	public List<Booking> getReservations(Event event){
+
+	public List<Booking> getReservations(Event event) {
 		return event.getBookings();
 	}
 

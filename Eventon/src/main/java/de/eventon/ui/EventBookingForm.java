@@ -208,8 +208,6 @@ public class EventBookingForm implements Serializable {
 	}
 
 	public boolean isBookingPossible() {
-		System.out.println("Event.getDatetime(): " + event.getDatetime());
-		System.out.println("LocalDateTime.now():" + LocalDateTime.now());
 		return event.getDatetime().compareTo(LocalDateTime.now()) > 0;
 	}
 }

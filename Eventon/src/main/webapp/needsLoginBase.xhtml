@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 
+Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<h:outputScript name="js/jquery.min.js" />
+	<h:outputStylesheet name="bootstrap/3.2.0/css/bootstrap.css" />
+	<h:outputScript name="bootstrap/3.2.0/js/bootstrap.min.js" />
+	<h:outputStylesheet name="css/validatorError.css" />
+	<h:outputStylesheet name="css/table.css" />
+	<h:outputStylesheet name="css/button.css" />
+	<ui:insert name="header" />
+</h:head>
+
+<ui:composition template="base.xhtml">
+	<ui:define name="content">
+		<!-- Rendering des Inhaltes mit aktivem User -->
+		<h:panelGroup layout="block"
+			rendered="#{sessionContext.activeUser != null}">
+			<ui:insert name="needsLoginContent" />
+		</h:panelGroup>
+
+		<!-- Rendering der Fehlerseite -->
+		<h:panelGroup layout="block"
+			rendered="#{sessionContext.activeUser == null}">
+			<h:form>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<h:panelGroup class="panel panel-danger panel-table"
+								layout="block">
+								<div class="panel-heading">
+									<h3 class="panel-title">Für diese Seite ist ein Login
+										erforderlich.</h3>
+								</div>
+								<div class="panel-body"></div>
+							</h:panelGroup>
+							<h:commandButton action="#{needsLoginForm.login}"
+										value="Zum Login" class="btn btn-large btn-info" />
+						</div>
+					</div>
+				</div>
+			</h:form>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>
+</html>

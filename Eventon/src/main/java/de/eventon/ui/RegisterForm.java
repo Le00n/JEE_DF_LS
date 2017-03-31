@@ -147,7 +147,6 @@ public class RegisterForm implements Serializable {
 				User user = new User(email, password, firstname, lastname, new Address(street, streetnumber, zip, city),
 						new BankAccount(accountHolder, iban, bic), manager);
 				if (userService.addUser(user)) {
-					System.out.println("User.isManager: " + user.isManager());
 					return navigationService.registrationSuccessful();
 				}
 			} else {

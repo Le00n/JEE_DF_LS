@@ -87,7 +87,7 @@ public class ManagerOverviewEventsForm implements Serializable {
 				eventService.updateEvent(map.getKey());
 			}
 		}
-		return navigationService.managerOverviewEventsInProcess();
+		return null;
 	}
 
 	public SessionContext getSessionContext() {

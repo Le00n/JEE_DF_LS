@@ -40,38 +40,25 @@ public class UserProfileForm implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		Map<String, String> rqParameter = FacesContext.getCurrentInstance().getExternalContext()
-				.getRequestParameterMap();
-		String id = rqParameter.get("id");
+		// Nutzer muss eingeloggt sein
+		// Man kann natürlich nur sein eigenes Profil einsehen und bearbeiten
+		User activeUser = sessionContext.getActiveUser();
+		if (activeUser != null) {
+			user = activeUser;
+			firstname = user.getFirstname();
+			lastname = user.getLastname();
+			email = user.getEmail();
 
-		// Wurde eine gültige ID im Query-Parameter mitgegeben?
-		// Ist der gesuchte Nutzer auch der eigene/der eingeloggte Nutzer?
-		// Dann User anzeigen
-		if (id != null) {
-			try {
-				int idAsInteger = Integer.parseInt(id);
+			Address address = user.getAddress();
+			street = address.getStreet();
+			housenumber = address.getStreetnumber();
+			zip = address.getZip();
+			city = address.getCity();
 
-				User activeUser = sessionContext.getActiveUser();
-				if (activeUser != null && activeUser.getUserId() == idAsInteger) {
-					user = activeUser;
-					firstname = user.getFirstname();
-					lastname = user.getLastname();
-					email = user.getEmail();
-
-					Address address = user.getAddress();
-					street = address.getStreet();
-					housenumber = address.getStreetnumber();
-					zip = address.getZip();
-					city = address.getCity();
-					
-					BankAccount bankAccount = user.getBankAccount();
-					accountHolder = bankAccount.getAccountHolder();
-					iban = bankAccount.getIban();
-					bic = bankAccount.getBic();
-				}
-			} catch (NumberFormatException e) {
-				user = null;
-			}
+			BankAccount bankAccount = user.getBankAccount();
+			accountHolder = bankAccount.getAccountHolder();
+			iban = bankAccount.getIban();
+			bic = bankAccount.getBic();
 		} else {
 			user = null;
 		}
@@ -88,39 +75,39 @@ public class UserProfileForm implements Serializable {
 	}
 
 	/**
-	 * Prüft, ob die Änderung der E-Mail Adresse gültig ist oder ob diese schon von einem anderen User verwendet wird.
+	 * Prüft, ob die Änderung der E-Mail Adresse gültig ist oder ob diese schon
+	 * von einem anderen User verwendet wird.
 	 */
 	public String save() {
-		if(getUserService().getUserByEmail(email).isPresent())
-		{
+		if (getUserService().getUserByEmail(email).isPresent()) {
 			boolean isError = true;
 			User activeUser = getSessionContext().getActiveUser();
-			if(activeUser != null)
-			{
-				if(activeUser.getUserId() == getUserService().getUserByEmail(email).get().getUserId())
+			if (activeUser != null) {
+				if (activeUser.getUserId() == getUserService().getUserByEmail(email).get().getUserId())
 					isError = false;
 			}
-			if(isError)
-			{
-				FacesContext.getCurrentInstance().addMessage("userForm:inputEmail", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Die E-Mail-Adresse wird bereits verwendet.", "Die E-Mail-Adresse wird bereits verwendet."));
+			if (isError) {
+				FacesContext.getCurrentInstance().addMessage("userForm:inputEmail",
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Die E-Mail-Adresse wird bereits verwendet.",
+								"Die E-Mail-Adresse wird bereits verwendet."));
 				return null;
 			}
 		}
-		
+
 		user.getAddress().setStreet(street);
 		user.getAddress().setStreetnumber(housenumber);
 		user.getAddress().setZip(zip);
 		user.getAddress().setCity(city);
-		
+
 		user.getBankAccount().setAccountHolder(accountHolder);
 		user.getBankAccount().setIban(iban);
 		user.getBankAccount().setBic(bic);
-		
+
 		user.setFirstname(firstname);
 		user.setLastname(lastname);
-		
+
 		user.setEmail(email);
-		
+
 		userService.updateUser(user);
 		return navigationService.home();
 	}

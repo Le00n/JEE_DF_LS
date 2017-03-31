@@ -59,21 +59,17 @@ public class NavigationService implements Serializable, IsNavigationService {
 		if (lastSignificantPage == null) {
 			return Pages.HOME.toString() + REDIRECT;
 		} else {
-			try {
-				FacesContext.getCurrentInstance().getExternalContext()
-						.redirect(lastSignificantPage + lastSignificantQuery);
-			} catch (IOException e) {
-			} finally {
-				lastSignificantPage = null;
-				lastSignificantQuery = "";
-			}
-			return Pages.ERROR_404.toString() + REDIRECT;
+			Pages tmp = lastSignificantPage;
+			String tmp2 = lastSignificantQuery;
+			lastSignificantPage = null;
+			lastSignificantQuery = "";
+			return tmp.toString() + tmp2 + "&faces-redirect=true";
 		}
 	}
 
 	@Override
 	public String loginFailed() {
-		return Pages.LOGIN.toString() + REDIRECT;
+		return null;
 	}
 
 	@Override
@@ -121,7 +117,7 @@ public class NavigationService implements Serializable, IsNavigationService {
 
 	@Override
 	public String userProfile() {
-		return Pages.USERPROFILE.toString() + REDIRECT + "&id=" + sessionContext.getActiveUser().getUserId();
+		return Pages.USERPROFILE.toString() + REDIRECT;
 	}
 
 	@Override
@@ -168,7 +164,7 @@ public class NavigationService implements Serializable, IsNavigationService {
 
 	@Override
 	public String bookingCodeSeen() {
-		return Pages.HOME.toString() + REDIRECT;
+		return Pages.HOME.toString();
 	}
 
 	@Override

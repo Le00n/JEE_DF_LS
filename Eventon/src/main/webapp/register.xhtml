@@ -19,19 +19,6 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 			<h1>Registrieren</h1>
 			<h:form class="form-horizontal" id="registerForm">
 				<div class="form-group">
-					<h:outputLabel class="col-md-4 control-label">Anrede</h:outputLabel>
-					<div class="col-md-8">
-						<h:outputLabel class="col-md-4 control-label">
-							<input type="radio" name="optionTitle" id="optionTitleMr"
-								value="optionTitleMr" checked="true"></input> Herr
-							</h:outputLabel>
-						<h:outputLabel class="col-md-4 control-label">
-							<input type="radio" name="optionTitle" id="optionTitleMs"
-								value="optionTitleMs"></input> Frau
-							</h:outputLabel>
-					</div>
-				</div>
-				<div class="form-group">
 					<div class="col-md-12">
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1">@</span>
@@ -117,8 +104,12 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 					<div class="col-md-12">
 						<h:inputSecret class="form-control" id="inputPassword1"
 							value="#{registerForm.password}" a:placeholder="Passwort">
+							<f:validator validatorId="userPasswordValidator" />
 							<f:converter converterId="passwordConverter" />
 						</h:inputSecret>
+						<div class="error">
+							<h:message for="inputPassword1" class="alert alert-danger error" />
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
@@ -126,6 +117,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						<h:inputSecret class="form-control" id="inputPassword2"
 							value="#{registerForm.passwordConfirm}"
 							a:placeholder="Passwort wiederholen">
+							<f:validator validatorId="userPasswordValidator" />
 							<f:converter converterId="passwordConverter" />
 						</h:inputSecret>
 						<div class="error">

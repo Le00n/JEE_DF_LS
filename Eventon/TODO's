@@ -8,22 +8,9 @@ Glyphicons verwenden																David
 Einrückung und Darstellung Userprofile bei Verkleinerung des Browsers 				David
 	- (bei Buttons vllt. wie bei Login mit bootstrap-Klassen?)
 
-Als Manager möchte ich alle Reservierungen eines Events sehen. -> Meine Events		David - DONE
-	-> veröffentlichte -> DrillDown auf "Anzahl Reserviert" führt zu neuer Seite
-	mit einer Tabelle "Reservierungen zu Event xy" 
-
-//BUUUUGS
-Buchungen an nicht mehr aktuellen (bereits vergangenen) Events verhindern - sind erreichbar über ID und Link beim User David - DONE
-
-Anzeige von verfügbaren Tickets														David - DONE
-
 Kommentare an wichtige Methoden in Forms und Services								David & Leon
 
-//DOKU
-ER-Modell erstellen in Visio														David - DONE
-Klassenmodell erstellen																David - DONE
-Architektur dokumentieren															Leon
-User Stories dokumentieren															
+//DOKU														
 Quellcode dokumentieren
 Date Time - kein Converter, weil beides zusammengehört (Begründung in Doku)
 Installationsanleitung

@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,7 +23,7 @@ import de.eventon.services.interfaces.IsNavigationService;
 import de.eventon.session.SessionContext;
 
 @Named("managerOverviewEventsForm")
-@javax.faces.view.ViewScoped
+@RequestScoped
 public class ManagerOverviewEventsForm implements Serializable {
 
 	private static final long serialVersionUID = -936830754297682305L;

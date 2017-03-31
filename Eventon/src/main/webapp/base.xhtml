@@ -45,10 +45,10 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						</h:panelGroup>
 						<!-- Rendering, falls der Nutzer eingelogged ist -->
 						<h:panelGroup rendered="#{sessionContext.activeUser != null}">
-							<li class="active"><h:link outcome="user"
-									value="#{sessionContext.activeUser.firstname} #{sessionContext.activeUser.lastname}">
-									<f:param name="id" value="#{sessionContext.activeUser.userId}" />
-								</h:link></li>
+								<li class="active"><h:commandLink action="#{headerForm.userProfile}"
+										value="#{sessionContext.activeUser.firstname} #{sessionContext.activeUser.lastname}">
+<!-- 										<f:param name="id" value="#{sessionContext.activeUser.userId}" /> -->
+									</h:commandLink></li>
 							<!-- Rendering, falls der Nutzer eingelogged und Manager ist -->
 							<h:panelGroup rendered="#{sessionContext.activeUser.manager}">
 								<li role="presentation" class="dropdown"><a

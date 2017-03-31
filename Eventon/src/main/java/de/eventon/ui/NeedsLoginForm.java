@@ -6,6 +6,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import de.eventon.services.impl.LoginService;
 import de.eventon.services.interfaces.IsNavigationService;
 
 @Named("needsLoginForm")
@@ -16,8 +17,15 @@ public class NeedsLoginForm implements Serializable{
 	
 	@Inject
 	private IsNavigationService navigationService;
+	@Inject
+	private LoginService loginService;
 
 	public String login(){
+		return navigationService.login();
+	}
+	
+	public String loginAsManager(){
+		loginService.logout();
 		return navigationService.login();
 	}
 }

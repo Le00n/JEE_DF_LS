@@ -143,17 +143,16 @@ public class RegisterForm implements Serializable {
 							"Die angegebene EMail Adresse ist bereits im System registriert."));
 			return null;
 		} else {
-			if (password.equals(passwordConfirm)) {
+			if(!password.equals(passwordConfirm)){
+				FacesContext.getCurrentInstance().addMessage("registerForm:inputPassword2",
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwörter stimmen nicht überein","Die Passwörter stimmen nicht überein."));
+				return null;
+			} else {
 				User user = new User(email, password, firstname, lastname, new Address(street, streetnumber, zip, city),
 						new BankAccount(accountHolder, iban, bic), manager);
 				if (userService.addUser(user)) {
 					return navigationService.registrationSuccessful();
 				}
-			} else {
-				FacesContext.getCurrentInstance().addMessage("registerForm:inputPassword2",
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwörter stimmen nicht überein",
-								"Die Passwörter stimmen nicht überein."));
-				return null;
 			}
 		}
 		return navigationService.registrationFailed();

@@ -133,6 +133,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						<h:inputText class="form-control" id="eventTicketsNormal"
 							value="#{createEventForm.amountTicketsNormal}"
 							a:placeholder="Anzahl Parkett-Plätze">
+							<f:converter converterId="amountTicketConverter"/>
 							<f:validator validatorId="amountTicketsValidator" />
 						</h:inputText>
 						<div class="error">
@@ -158,6 +159,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						<h:inputText class="form-control" id="eventTicketsPremium"
 							value="#{createEventForm.amountTicketsPremium}"
 							a:placeholder="Anzahl Loge-Plätze">
+							<f:converter converterId="amountTicketConverter"/>
 							<f:validator validatorId="amountTicketsValidator" />
 						</h:inputText>
 						<div class="error">

@@ -1,18 +1,2 @@
-//PROGRAMMIERUNG
-Ganz am Ende: alle Scopes kontrollieren												Leon
-
-Aktuelles Bild beim Event bearbeiten anzeigen, falls vorhanden						David
-
-Glyphicons verwenden																David
-
-Einrückung und Darstellung Userprofile bei Verkleinerung des Browsers 				David
-	- (bei Buttons vllt. wie bei Login mit bootstrap-Klassen?)
-
-Kommentare an wichtige Methoden in Forms und Services								David & Leon
-
-//DOKU														
-Quellcode dokumentieren
-Date Time - kein Converter, weil beides zusammengehört (Begründung in Doku)
-Installationsanleitung
 Schichtenarchitektur Interfaces vor Schichten einbauen
-Installationsanleitung kontrollieren
+Installationsanleitung kontrollieren und Bilderordner ergänzen

@@ -142,6 +142,8 @@ public class CreateEventForm implements Serializable {
 	public String create() {
 		User eventCreator = sessionContext.getActiveUser();
 		if (eventCreator != null && eventCreator.isManager()) {
+			//Kein Dateconverter genutzt, da dann nicht die html type date and time attribute genutzt werden könnten
+			//Gute Darstellung vor allem im Chrome
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN + TIME_PATTERN);
 			LocalDateTime dateTime = LocalDateTime.parse(eventDate + eventTime, formatter);
 

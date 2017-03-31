@@ -134,7 +134,7 @@ public class RegisterForm implements Serializable {
 	}
 
 	/**
-	 * Überprüft, ob die E-Mail Adresse noch nicht registriert ist und die Passwörter übereinstimmten
+	 * Registriert einen Nutzer in der Anwendung
 	 */
 	public String register() {
 		if (userService.getUserByEmail(email).isPresent()) {

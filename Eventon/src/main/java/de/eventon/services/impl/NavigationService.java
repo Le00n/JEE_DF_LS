@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -120,7 +121,7 @@ public class NavigationService implements Serializable, IsNavigationService {
 
 	@Override
 	public String userProfile() {
-		return Pages.USERPROFILE.toString() + REDIRECT;
+		return Pages.USERPROFILE.toString() + REDIRECT + "&id=" + sessionContext.getActiveUser().getUserId();
 	}
 
 	@Override
@@ -223,7 +224,7 @@ public class NavigationService implements Serializable, IsNavigationService {
 		ERROR("error.xhtml"), //
 		EVENT("event.xhtml"), //
 		HOME("index.xhtml"), //
-		INIT_DATA("initData.xhmtl"), //
+		INIT_DATA("initData.xhtml"), //
 		LOGIN("login.xhtml"), //
 		MANAGER_EVENT_RESERVATIONS("managerEventReservations.xhtml"), //
 		MANAGER_OVERVIEW_EVENTS_IN_PROCESS("managerOverviewEventsInProcess.xhtml"), //

@@ -11,6 +11,9 @@ import de.eventon.services.interfaces.IsNavigationService;
 
 @Named("headerForm")
 @RequestScoped
+/**
+ * Dient zur Steuerung der Navigationsleiste
+ */
 public class HeaderForm implements Serializable {
 
 	private static final long serialVersionUID = 5659453191787053884L;

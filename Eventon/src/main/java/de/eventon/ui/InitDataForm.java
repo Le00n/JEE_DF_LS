@@ -12,6 +12,9 @@ import de.eventon.services.impl.NavigationService;
 
 @RequestScoped
 @Named("initDataForm")
+/**
+ * Dient zur Initialisierung von Testdaten
+ */
 public class InitDataForm {
 	@Inject
 	DatabaseInitializierService dbInitService;

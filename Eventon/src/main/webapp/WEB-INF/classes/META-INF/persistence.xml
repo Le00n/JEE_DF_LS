@@ -15,7 +15,7 @@
 		JTA: 			Container- oder Bean-Managed-Transaktion.
 						Die Transaktion wird über die UserTransacation oder @Transactional gesteuert.
  	-->
-	<persistence-unit name="h2"	transaction-type="JTA">
+	<persistence-unit name="h2"	transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
 	<!-- Wenn der Transaktions-Typ = JTA und die Verbindung als DataSource konfiguriert 
@@ -26,7 +26,7 @@
        	Wenn der Transaktions-Typ = RESOURCE_LOCAL und die Verbindung als DataSource konfiguriert ist,
        	kann hier der JNDI Name der Datasource angegeben werden
 		-->
-       	<jta-data-source>java:app/jdbc/h2</jta-data-source>
+       	<non-jta-data-source>java:app/jdbc/h2</non-jta-data-source>
        	        
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         
@@ -42,6 +42,7 @@
 				<property name="eclipselink.ddl-generation" value="create-tables" />
 			-->
 			<property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+			
 	     	<!--
 				Zugangsdaten für die Datenbank-Verbindung ohne JTA-Datascource
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>

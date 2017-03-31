@@ -24,7 +24,6 @@ public class Address {
 	private String streetnumber;
 	
 	public Address() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Address(String street, String streetnumber, String zip, String city) {

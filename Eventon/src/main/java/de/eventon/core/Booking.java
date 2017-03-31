@@ -28,7 +28,6 @@ public class Booking {
 	private int amountPremiumTickets;
 
 	public Booking() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Booking(Event event, User user, int amountNormalTickets, int amountPremiumTickets) {

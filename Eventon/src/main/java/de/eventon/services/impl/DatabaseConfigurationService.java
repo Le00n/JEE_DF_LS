@@ -5,8 +5,6 @@ import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 @ApplicationScoped
@@ -20,8 +18,6 @@ public class DatabaseConfigurationService implements Serializable{
 	@Produces
 	@ApplicationScoped
 	EntityManager createEntityManager() {
-//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("h2");
-//		return emf.createEntityManager();
 		return this.entityManager;
 	}
 }

@@ -33,7 +33,6 @@ public interface IsLoginService {
 		private String detailMessage;
 
 		public LoginException() {
-			// TODO Auto-generated constructor stub
 		}
 
 		public LoginException(String message, String detailMessage) {

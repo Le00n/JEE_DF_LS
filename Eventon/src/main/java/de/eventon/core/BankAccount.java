@@ -16,7 +16,6 @@ public class BankAccount {
 	private String bic;
 	
 	public BankAccount() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public BankAccount(String accountHolder, String iban, String bic) {

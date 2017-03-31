@@ -2,7 +2,6 @@ package de.eventon.ui;
 
 import java.io.IOException;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -24,7 +23,6 @@ public class InitDataForm {
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect(navigationService.home());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

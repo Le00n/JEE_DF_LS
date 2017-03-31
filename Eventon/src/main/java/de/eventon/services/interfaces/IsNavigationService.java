@@ -32,8 +32,6 @@ public interface IsNavigationService {
 
 	String managerOverviewEventsInProcess();
 
-	String notAuthorizedViewingManagerSites();
-
 	String eventDoesNotExist();
 
 	String book();
@@ -55,7 +53,5 @@ public interface IsNavigationService {
 	String cancelCreateEvent();
 
 	String editEventSuccessful();
-
-	String userIsNotManager();
 
 }

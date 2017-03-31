@@ -139,11 +139,6 @@ public class NavigationService implements Serializable, IsNavigationService {
 	}
 
 	@Override
-	public String notAuthorizedViewingManagerSites() {
-		return Pages.ERROR_404.toString() + REDIRECT;
-	}
-
-	@Override
 	public String eventDoesNotExist() {
 		return Pages.ERROR_404.toString() + REDIRECT;
 	}
@@ -199,11 +194,6 @@ public class NavigationService implements Serializable, IsNavigationService {
 	@Override
 	public String editEventSuccessful() {
 		return Pages.MANAGER_OVERVIEW_EVENTS_IN_PROCESS.toString() + REDIRECT;
-	}
-
-	@Override
-	public String userIsNotManager() {
-		return Pages.HOME.toString() + REDIRECT;
 	}
 
 	public SessionContext getSessionContext() {
